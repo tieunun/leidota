@@ -19,3 +19,15 @@
 *.exe
 *.out
 *.app
+/cocos2d
+/proj.linux
+/proj.android
+/proj.wp8-xaml
+/proj.win32/Debug.win32/*.pdb
+/proj.ios_mac/ios
+/proj.win32/Debug.win32
+/proj.win32/*.rc
+/proj.ios_mac/mac/*.pch
+/proj.ios_mac/mac
+/proj.ios_mac/Swordsman.xcodeproj
+/proj.win32/*.sdf

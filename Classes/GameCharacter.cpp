@@ -83,7 +83,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(120, 15, 10, 80);
+            tmpRet->m_attribute     =   GameCharacterAttribute(90, 10, 10, 80);
 
             // 野猪怪：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -240,7 +240,7 @@ void GameCharacter::onLongAttLaunch(string evt)
     if (EntityMgr->getEntityFromID(m_normatAttTargetId) != nullptr)
     {
         auto tmpSnowBall    =   OneToOneArmatureFlightProps::create(this->getId(), m_normatAttTargetId, 1);
-        tmpSnowBall->setPosition(this->getShape()->getPosition());
+        tmpSnowBall->setPosition(this->getShape()->getCenterPos());
         this->getShape()->getParent()->addChild(tmpSnowBall);
     }
 }

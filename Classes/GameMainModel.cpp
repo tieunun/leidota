@@ -1,6 +1,7 @@
 #include "GameMainModel.h"
 #include "EntityManager.h"
 #include "FlightPropsMgr.h"
+#include "TeamManager.h"
 
 GameMainModel::GameMainModel()
 {
@@ -58,6 +59,8 @@ void GameMainModel::update(float dm)
     EntityMgr->executeUpdate(dm);
 
     FliProMgr->update(dm);
+
+    TeamMgr->update(dm);
 }
 
 void GameMainModel::setMainGameCharacter(GameCharacter* character)

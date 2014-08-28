@@ -9,16 +9,7 @@
 */
 class GameCharacterIdleState : public State<GameCharacter>
 {
-protected:
-    GameCharacterIdleState():enterToAutoFrame(10)
-    {
-        _frameCount =   0;
-    }
-    int _frameCount;                        // 计算帧数的
-
 public:
-    const int enterToAutoFrame;             // 进入idle后，在多少帧后进入自动状态
-
     virtual void onEnter(GameCharacter* owner) override;
     virtual void update(GameCharacter* owner, float dm) override;
     virtual void onExit(GameCharacter* owner) override;

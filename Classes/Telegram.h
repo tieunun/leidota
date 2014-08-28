@@ -22,14 +22,21 @@ enum TelegramEnum
     /**
     	 游戏角色之间的消息
     */
-    TELEGRAM_ENUM_NORMAL_ATTACK                     // 普通攻击
+    TELEGRAM_ENUM_NORMAL_ATTACK,                     // 普通攻击
+
+    /**
+    	 队伍与队伍中的角色之间的消息
+    */
+    TELEGRAM_ENUM_TEAM_IDLE,                        // 队伍通知角色等待
+    TELEGRAM_ENUM_TEAM_FREE_COMBAT,                 // 队伍通知角色自由战斗
+    TELEGRAM_ENUM_TEAM_CELEBRATE                    // 队伍通知角色庆祝一下胜利
 };
 
 /**
 	 消息结构，在这个系统中用户与实体、实体与实体的交互都是通过消息，而不是直接的函数调用，该消息类
      是一个通用的消息，当然可以自定义消息结构，但是必须从这里继承
 */
-class Telegram : public cocos2d::Ref
+class Telegram : public Ref
 {
 protected:
     Telegram() 

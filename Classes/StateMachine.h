@@ -32,6 +32,11 @@ protected:
     }
 
 public:
+    State<entity_type>* getCurrentState()
+    {
+        return _currentState;
+    }
+
     /**
     	 ¸üĞÂ
     */

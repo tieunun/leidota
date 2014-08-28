@@ -5,22 +5,17 @@
 
 void GameCharacterIdleState::onEnter(GameCharacter* owner)
 {
-    _frameCount =   0;
     owner->getShape()->playAction(IDLE_ACTION);
 }
 
 void GameCharacterIdleState::update(GameCharacter* owner, float dm)
 {
-    _frameCount++;
-    if (_frameCount >= enterToAutoFrame)
-    {
-        owner->getFSM()->changeState(GameCharacterAutoState::create());
-    }
+
 }
 
 void GameCharacterIdleState::onExit(GameCharacter* owner)
 {
-    _frameCount =   0;
+    
 }
 
 bool GameCharacterIdleState::onMessage(GameCharacter* owner, Telegram &msg)
@@ -155,12 +150,6 @@ void GameCharacterAutoState::update(GameCharacter* owner, float dm)
     {
         // 进入Idle状态一下
         owner->getFSM()->changeState(GameCharacterIdleState::create());
-    }
-    else
-    {
-        // 发现如果敌人都被消灭了，就进入欢呼胜利状态
-        // 已经结束
-        owner->getFSM()->changeState(GameCharacterWinState::create());
     }
 }
 
@@ -322,8 +311,34 @@ bool GameCharacterGlobalState::onMessage(GameCharacter* owner, Telegram &msg)
             auto tmpState   =   GameCharacterPursueState::create();
             // 找一个敌人
             auto tmpTaget   =   EntityMgr->getOneEntity(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-            tmpState->targetId  =   tmpTaget->getId();
-            owner->getFSM()->changeState(tmpState);
+            if (tmpTaget != nullptr)
+            {
+                tmpState->targetId  =   tmpTaget->getId();
+                owner->getFSM()->changeState(tmpState); 
+            }
+            else
+            {
+                owner->getFSM()->changeState(GameCharacterAutoState::create());
+            }
+            
+            return true;
+        }
+
+    case TELEGRAM_ENUM_TEAM_IDLE:                       // 队伍通知手下暂停行动
+        {
+            owner->getFSM()->changeState(GameCharacterIdleState::create());
+            return true;
+        }
+
+    case TELEGRAM_ENUM_TEAM_FREE_COMBAT:                // 队伍通知手下自由战斗
+        {
+            owner->getFSM()->changeState(GameCharacterAutoState::create());
+            return true;
+        }
+
+    case TELEGRAM_ENUM_TEAM_CELEBRATE:                  // 队伍通知手下庆祝
+        {
+            owner->getFSM()->changeState(GameCharacterWinState::create());
             return true;
         }
 

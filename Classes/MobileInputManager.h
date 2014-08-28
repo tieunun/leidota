@@ -9,7 +9,7 @@ using namespace cocos2d;
 /**
 	 作为手机端的输入管理，手机端就是靠触屏来指挥的
 */
-class MobileInputManager : public InputManager
+class MobileInputManager : public InputManager, public Layer
 {
 public:
     MobileInputManager();
@@ -28,6 +28,7 @@ private:
     };
 
     EventListenerTouchOneByOne* m_touchListener;            // 触屏监听
+    Node*                       m_button;                   // 切换的按钮
     Point                       m_lastTouchPoint;           // 上一次触屏的屏幕坐标
     ControlDirection            m_controlDirection;         // 当前的控制方向
 
@@ -37,6 +38,9 @@ private:
     // 监听触屏事件的
     bool onTouchBegin(Touch* pTouch, Event* pEvent);
     void onTouchEnd(Touch* pTouch, Event* pEvent);
+
+    // 点击按钮
+    bool onTouchButtonBegan(Touch* pTouch, Event* pEvent);
 };
 
 #endif

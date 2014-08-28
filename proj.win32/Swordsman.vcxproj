@@ -152,6 +152,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MobileInputManager.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
     <ClCompile Include="..\Classes\GameTeamState.cpp" />
+    <ClCompile Include="..\Classes\TeamManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +186,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\State.h" />
     <ClInclude Include="..\Classes\StateMachine.h" />
     <ClInclude Include="..\Classes\GameTeamState.h" />
+    <ClInclude Include="..\Classes\TeamManager.h" />
     <ClInclude Include="..\Classes\Telegram.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

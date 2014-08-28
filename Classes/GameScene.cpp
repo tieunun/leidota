@@ -1,5 +1,11 @@
 #include "GameScene.h"
 #include "GameCharacter.h"
+#include "TeamManager.h"
+#include "GameTeamState.h"
+
+#ifndef PCINPUT
+    #define MOBILDINPUT
+#endif
 
 bool GameScene::init()
 {
@@ -30,10 +36,24 @@ bool GameScene::init()
     tmpRole3->retain();
     m_map->placeCharacter3(tmpRole3);
 
+    // @_@ 创建为一个队伍
+    auto tmpTeam1   =   GameTeam::create();
+    tmpTeam1->setLeaderId(tmpRole2->getId());
+    tmpTeam1->addMercenaryIds(tmpRole1->getId());
+    tmpTeam1->addMercenaryIds(tmpRole3->getId());
+    TeamMgr->registerTeam(tmpTeam1);
+
     m_mainModel     =   new GameMainModel();
     m_mainModel->setMainGameCharacter(tmpRole2);
-    //m_inputManager  =   new PCInputManager();
+    
+#ifdef PCINPUT
+    m_inputManager  =   new PCInputManager();
+#endif
+    
+#ifdef MOBILDINPUT
     m_inputManager  =   new MobileInputManager();
+#endif
+    
     m_inputManager->setDelegate(m_mainModel);
 
     /**
@@ -57,7 +77,41 @@ bool GameScene::init()
     tmpRole6->getShape()->faceToLeft();
     m_map->placeEnemyCharacter3(tmpRole6);
 
+    // 敌人也加为一对
+    auto tmpTeam2   =   GameTeam::create();
+    tmpTeam2->addMercenaryIds(tmpRole4->getId());
+    tmpTeam2->addMercenaryIds(tmpRole5->getId());
+    tmpTeam2->addMercenaryIds(tmpRole6->getId());
+    TeamMgr->registerTeam(tmpTeam2);
+
     m_inputManager->init();
 
+#ifdef MOBILDINPUT
+    this->addChild(dynamic_cast<Layer*>(m_inputManager));
+#endif
+
+    // 启动调用update
+    this->getScheduler()->schedule(CC_CALLBACK_1(GameScene::updateScene, this), 
+        this, 0, false, "GameScene");
+    //this->scheduleUpdate();
+
     return true;
+}
+
+void GameScene::updateScene(float delta)
+{
+    auto tmpTeam    =   TeamMgr->getTeamFromId(0);
+    if (tmpTeam != nullptr)
+    {
+        auto tmpState   =   dynamic_cast<GameTeamCelebrateState*>(tmpTeam->getFSM()->getCurrentState());
+        if (tmpState != nullptr)
+        {
+            // 说明胜利了，此时开始计数
+            m_celebrateFrameCount++;
+            if (m_celebrateFrameCount >= m_celebrateFrame)
+            {
+                // 告诉队伍向后推进
+            }
+        }
+    }
 }

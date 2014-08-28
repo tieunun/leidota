@@ -36,3 +36,4 @@
 /proj.android/bin
 /proj.android/assets
 /bin/debug/android/*.apk
+/proj.win32/*.opensdf

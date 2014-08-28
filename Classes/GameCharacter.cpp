@@ -83,7 +83,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(300, 15, 10, 80);
+            tmpRet->m_attribute     =   GameCharacterAttribute(120, 15, 10, 80);
 
             // 野猪怪：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -150,6 +150,12 @@ ObjectOnMapGrid* GameCharacter::getObjectOnGrid()
 
 void GameCharacter::moveToGridIndex(int nodeIndex, float rate)
 {
+    // 如果移动目标是无效的格子索引
+    if (nodeIndex == INVALID_NODE_INDEX)
+    {
+        return;
+    }
+
     auto tmpResourceGrid    =   m_graph->getNodeByIndex(m_objectOnGrid.nodeIndex);
     auto tmpTargetGird      =   m_graph->getNodeByIndex(nodeIndex);
 

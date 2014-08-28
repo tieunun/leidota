@@ -145,10 +145,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameMainModel.cpp" />
     <ClCompile Include="..\Classes\GameMap.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
+    <ClCompile Include="..\Classes\GameTeam.cpp" />
     <ClCompile Include="..\Classes\GraphSearchStaticMember.cpp" />
     <ClCompile Include="..\Classes\MapGrid.cpp" />
     <ClCompile Include="..\Classes\MessageDispatcher.cpp" />
+    <ClCompile Include="..\Classes\MobileInputManager.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
+    <ClCompile Include="..\Classes\GameTeamState.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +167,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameMainModel.h" />
     <ClInclude Include="..\Classes\GameMap.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
+    <ClInclude Include="..\Classes\GameTeam.h" />
     <ClInclude Include="..\Classes\GraphSearchAStar.h" />
     <ClInclude Include="..\Classes\GraphSearchBFS.h" />
     <ClInclude Include="..\Classes\GraphSearchDFS.h" />
@@ -172,6 +176,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\InputManager.h" />
     <ClInclude Include="..\Classes\MapGrid.h" />
     <ClInclude Include="..\Classes\MessageDispatcher.h" />
+    <ClInclude Include="..\Classes\MobileInputManager.h" />
     <ClInclude Include="..\Classes\NavGraphEdge.h" />
     <ClInclude Include="..\Classes\NavGraphNode.h" />
     <ClInclude Include="..\Classes\PCInputManager.h" />
@@ -179,6 +184,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\SparseGraph.h" />
     <ClInclude Include="..\Classes\State.h" />
     <ClInclude Include="..\Classes\StateMachine.h" />
+    <ClInclude Include="..\Classes\GameTeamState.h" />
     <ClInclude Include="..\Classes\Telegram.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

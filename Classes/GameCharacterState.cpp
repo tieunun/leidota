@@ -196,6 +196,12 @@ void GameCharacterNormalAttack::onEnter(GameCharacter* owner)
 {
     // 调整方向
     GameCharacter* target   =   (GameCharacter*)EntityMgr->getEntityFromID(targetId);
+    if (target == nullptr)
+    {
+        owner->getFSM()->changeState(GameCharacterAutoState::create());
+        return;
+    }
+
     if (owner->getMapGrid()->testIsAtLeft(owner->getObjectOnGrid()->nodeIndex, target->getObjectOnGrid()->nodeIndex))
     {
         owner->getShape()->faceToRight();
@@ -214,7 +220,7 @@ void GameCharacterNormalAttack::update(GameCharacter* owner, float dm)
     if (owner->isNormalAttackFinish())
     {
         // 如果攻击结束，就切换到Auto状态
-        // owner->getFSM()->changeState(GameCharacterAutoState::create());
+        //owner->getFSM()->changeState(GameCharacterAutoState::create());
         owner->getFSM()->reverseState();
     }
 }

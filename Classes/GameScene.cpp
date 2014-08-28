@@ -32,7 +32,8 @@ bool GameScene::init()
 
     m_mainModel     =   new GameMainModel();
     m_mainModel->setMainGameCharacter(tmpRole2);
-    m_inputManager  =   new PCInputManager();
+    //m_inputManager  =   new PCInputManager();
+    m_inputManager  =   new MobileInputManager();
     m_inputManager->setDelegate(m_mainModel);
 
     /**

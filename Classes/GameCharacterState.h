@@ -10,7 +10,7 @@
 class GameCharacterIdleState : public State<GameCharacter>
 {
 protected:
-    GameCharacterIdleState():enterToAutoFrame(30)
+    GameCharacterIdleState():enterToAutoFrame(10)
     {
         _frameCount =   0;
     }

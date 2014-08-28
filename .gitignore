@@ -21,7 +21,6 @@
 *.app
 /cocos2d
 /proj.linux
-/proj.android
 /proj.wp8-xaml
 /proj.win32/Debug.win32/*.pdb
 /proj.ios_mac/ios
@@ -31,3 +30,9 @@
 /proj.ios_mac/mac
 /proj.ios_mac/Swordsman.xcodeproj
 /proj.win32/*.sdf
+/proj.android/obj/local/armeabi/objs-debug/box2d_static/Collision/Shapes/*.d
+/proj.android/obj/local/armeabi/objs-debug/box2d_static/Collision/*.d
+*.d
+/proj.android/bin
+/proj.android/assets
+/bin/debug/android/*.apk

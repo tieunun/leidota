@@ -19,7 +19,6 @@
 *.exe
 *.out
 *.app
-/cocos2d
 /proj.linux
 /proj.wp8-xaml
 /proj.win32/Debug.win32/*.pdb

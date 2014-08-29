@@ -1,0 +1,181 @@
+﻿生成启动时间为 2014/8/29 16:24:11。
+     1>项目“E:\leidota\cocos2d\cocos\editor-support\cocostudio\proj.win32\libCocosStudio.vcxproj”在节点 3 上(Rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug.win32\libCocosStudio.lastbuildstate”。
+       InitializeBuildStatus:
+         正在创建“Debug.win32\libCocosStudio.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         D:\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IE:\leidota\cocos2d\cocos\2d\..\..\ /IE:\leidota\cocos2d\cocos\2d\..\..\cocos /IE:\leidota\cocos2d\cocos\2d\..\..\cocos\audio\include /I"E:\leidota\cocos2d\cocos\2d\..\..\cocos\editor-support" /IE:\leidota\cocos2d\cocos\2d\..\..\external /IE:\leidota\cocos2d\cocos\2d\..\..\external\tinyxml2 /IE:\leidota\cocos2d\cocos\2d\..\..\external\chipmunk\include\chipmunk /IE:\leidota\cocos2d\cocos\2d\..\..\extensions /I"E:\leidota\cocos2d\cocos\2d\..\..\external\win32-specific\zlib\include" /IE:\leidota\cocos2d\cocos\2d\..\..\cocos /IE:\leidota\cocos2d\cocos\2d\..\..\cocos\platform\win32 /IE:\leidota\cocos2d\cocos\2d\..\..\cocos\platform\desktop /IE:\leidota\cocos2d\cocos\2d\..\..\external\glfw3\include\win32 /I"E:\leidota\cocos2d\cocos\2d\..\..\external\win32-specific\gles\include\OGLES" /Z7 /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _LIB /D COCOS2DXWIN32_EXPORTS /D GL_GLEXT_PROTOTYPES /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _VARIADIC_MAX=10 /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\ActionTimeline\CCActionTimeline.cpp ..\ActionTimeline\CCFrame.cpp ..\ActionTimeline\CCNodeReader.cpp ..\ActionTimeline\CCActionTimelineCache.cpp ..\ActionTimeline\CCTimeLine.cpp ..\CCActionFrame.cpp ..\CCActionFrameEasing.cpp ..\CCActionManagerEx.cpp ..\CCActionNode.cpp ..\CCActionObject.cpp ..\CCArmature.cpp ..\CCArmatureAnimation.cpp ..\CCArmatureDataManager.cpp ..\CCArmatureDefine.cpp ..\CCBatchNode.cpp ..\CCBone.cpp ..\CCColliderDetector.cpp ..\CCComAttribute.cpp ..\CCComAudio.cpp ..\CCComController.cpp ..\CCComRender.cpp ..\CCDataReaderHelper.cpp ..\CCDatas.cpp ..\CCDecorativeDisplay.cpp ..\CCDisplayFactory.cpp ..\CCDisplayManager.cpp ..\CCInputDelegate.cpp ..\CCProcessBase.cpp ..\CCSGUIReader.cpp ..\CCSkin.cpp ..\CCSpriteFrameCacheHelper.cpp ..\CCSSceneReader.cpp ..\CCTransformHelp.cpp ..\CCTween.cpp ..\CCUtilMath.cpp ..\CocoLoader.cpp ..\DictionaryHelper.cpp ..\TriggerBase.cpp ..\TriggerMng.cpp ..\TriggerObj.cpp ..\WidgetReader\ButtonReader\ButtonReader.cpp ..\WidgetReader\CheckBoxReader\CheckBoxReader.cpp ..\WidgetReader\ImageViewReader\ImageViewReader.cpp ..\WidgetReader\LayoutReader\LayoutReader.cpp ..\WidgetReader\ListViewReader\ListViewReader.cpp ..\WidgetReader\LoadingBarReader\LoadingBarReader.cpp ..\WidgetReader\PageViewReader\PageViewReader.cpp ..\WidgetReader\ScrollViewReader\ScrollViewReader.cpp ..\WidgetReader\SliderReader\SliderReader.cpp ..\WidgetReader\TextAtlasReader\TextAtlasReader.cpp ..\WidgetReader\TextBMFontReader\TextBMFontReader.cpp ..\WidgetReader\TextFieldReader\TextFieldReader.cpp ..\WidgetReader\TextReader\TextReader.cpp ..\WidgetReader\WidgetReader.cpp
+         CCActionTimeline.cpp
+         CCFrame.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\ActionTimeline\CCFrame.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\ActionTimeline\CCActionTimeline.cpp)
+         CCNodeReader.cpp
+         CCActionTimelineCache.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\ActionTimeline\CCNodeReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\ActionTimeline\CCActionTimelineCache.cpp)
+         CCTimeLine.cpp
+         CCActionFrame.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\ActionTimeline\CCTimeLine.cpp)
+         CCActionFrameEasing.cpp
+         CCActionManagerEx.cpp
+     1>..\ActionTimeline\CCTimeLine.cpp(142): warning C4018: “<”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(144): warning C4018: “>=”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(152): warning C4018: “>=”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(164): warning C4018: “>=”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(164): warning C4018: “<”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(169): warning C4018: “>”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(178): warning C4018: “<”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(204): warning C4018: “<”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(211): warning C4018: “>=”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(238): warning C4018: “<”: 有符号/无符号不匹配
+     1>..\ActionTimeline\CCTimeLine.cpp(238): warning C4018: “>=”: 有符号/无符号不匹配
+         CCActionNode.cpp
+         CCActionObject.cpp
+     1>E:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\CCActionNode.cpp)
+         CCArmature.cpp
+     1>E:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\CCActionObject.cpp)
+         CCArmatureAnimation.cpp
+         CCArmatureDataManager.cpp
+         CCArmatureDefine.cpp
+         CCBatchNode.cpp
+         CCBone.cpp
+         CCColliderDetector.cpp
+         CCComAttribute.cpp
+         CCComAudio.cpp
+         CCComController.cpp
+         CCComRender.cpp
+         CCDataReaderHelper.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\CCComRender.cpp)
+     1>E:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\CCDataReaderHelper.cpp)
+     1>..\CCDataReaderHelper.cpp(312): warning C4996: 'cocos2d::FileUtils::getFileData': 被声明为已否决
+                 E:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+                 E:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+     1>..\CCDataReaderHelper.cpp(426): warning C4996: 'cocos2d::FileUtils::getFileData': 被声明为已否决
+                 E:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+                 E:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+         CCDatas.cpp
+     1>..\CCComRender.cpp(216): warning C4996: 'cocos2d::FileUtils::getFileData': 被声明为已否决
+                 e:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+                 e:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+         CCDecorativeDisplay.cpp
+         CCDisplayFactory.cpp
+         CCDisplayManager.cpp
+         CCInputDelegate.cpp
+         CCProcessBase.cpp
+         CCSGUIReader.cpp
+         CCSkin.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\CCSGUIReader.cpp)
+         CCSpriteFrameCacheHelper.cpp
+     1>..\CCSGUIReader.cpp(349): warning C4996: 'cocos2d::FileUtils::getFileData': 被声明为已否决
+                 e:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+                 e:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+         CCSSceneReader.cpp
+         CCTransformHelp.cpp
+         CCTween.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\CCSSceneReader.cpp)
+         CCUtilMath.cpp
+     1>..\CCSSceneReader.cpp(85): warning C4996: 'cocos2d::FileUtils::getFileData': 被声明为已否决
+                 e:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+                 e:\leidota\cocos2d\cocos\platform/CCFileUtils.h(101) : 参见“cocos2d::FileUtils::getFileData”的声明
+     1>..\CCSSceneReader.cpp(523): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
+         CocoLoader.cpp
+         DictionaryHelper.cpp
+         TriggerBase.cpp
+         TriggerMng.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\TriggerBase.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\TriggerMng.cpp)
+         TriggerObj.cpp
+         ButtonReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\TriggerObj.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\ButtonReader\ButtonReader.cpp)
+         CheckBoxReader.cpp
+         ImageViewReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\CheckBoxReader\CheckBoxReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\ImageViewReader\ImageViewReader.cpp)
+         LayoutReader.cpp
+         ListViewReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\LayoutReader\LayoutReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\ListViewReader\ListViewReader.cpp)
+         LoadingBarReader.cpp
+         PageViewReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\LoadingBarReader\LoadingBarReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\PageViewReader\PageViewReader.cpp)
+         ScrollViewReader.cpp
+         SliderReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\ScrollViewReader\ScrollViewReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\SliderReader\SliderReader.cpp)
+         TextAtlasReader.cpp
+         TextBMFontReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\TextAtlasReader\TextAtlasReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\TextBMFontReader\TextBMFontReader.cpp)
+         TextFieldReader.cpp
+         TextReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\TextFieldReader\TextFieldReader.cpp)
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\TextReader\TextReader.cpp)
+         WidgetReader.cpp
+     1>e:\leidota\cocos2d\cocos\base/ccUtils.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (..\WidgetReader\WidgetReader.cpp)
+       Lib:
+         D:\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"E:\leidota\proj.win32\Debug.win32\libCocosStudio.lib" /NOLOGO Debug.win32\CCActionTimeline.obj
+         Debug.win32\CCFrame.obj
+         Debug.win32\CCNodeReader.obj
+         Debug.win32\CCActionTimelineCache.obj
+         Debug.win32\CCTimeLine.obj
+         Debug.win32\CCActionFrame.obj
+         Debug.win32\CCActionFrameEasing.obj
+         Debug.win32\CCActionManagerEx.obj
+         Debug.win32\CCActionNode.obj
+         Debug.win32\CCActionObject.obj
+         Debug.win32\CCArmature.obj
+         Debug.win32\CCArmatureAnimation.obj
+         Debug.win32\CCArmatureDataManager.obj
+         Debug.win32\CCArmatureDefine.obj
+         Debug.win32\CCBatchNode.obj
+         Debug.win32\CCBone.obj
+         Debug.win32\CCColliderDetector.obj
+         Debug.win32\CCComAttribute.obj
+         Debug.win32\CCComAudio.obj
+         Debug.win32\CCComController.obj
+         Debug.win32\CCComRender.obj
+         Debug.win32\CCDataReaderHelper.obj
+         Debug.win32\CCDatas.obj
+         Debug.win32\CCDecorativeDisplay.obj
+         Debug.win32\CCDisplayFactory.obj
+         Debug.win32\CCDisplayManager.obj
+         Debug.win32\CCInputDelegate.obj
+         Debug.win32\CCProcessBase.obj
+         Debug.win32\CCSGUIReader.obj
+         Debug.win32\CCSkin.obj
+         Debug.win32\CCSpriteFrameCacheHelper.obj
+         Debug.win32\CCSSceneReader.obj
+         Debug.win32\CCTransformHelp.obj
+         Debug.win32\CCTween.obj
+         Debug.win32\CCUtilMath.obj
+         Debug.win32\CocoLoader.obj
+         Debug.win32\DictionaryHelper.obj
+         Debug.win32\TriggerBase.obj
+         Debug.win32\TriggerMng.obj
+         Debug.win32\TriggerObj.obj
+         Debug.win32\ButtonReader.obj
+         Debug.win32\CheckBoxReader.obj
+         Debug.win32\ImageViewReader.obj
+         Debug.win32\LayoutReader.obj
+         Debug.win32\ListViewReader.obj
+         Debug.win32\LoadingBarReader.obj
+         Debug.win32\PageViewReader.obj
+         Debug.win32\ScrollViewReader.obj
+         Debug.win32\SliderReader.obj
+         Debug.win32\TextAtlasReader.obj
+         Debug.win32\TextBMFontReader.obj
+         Debug.win32\TextFieldReader.obj
+         Debug.win32\TextReader.obj
+         Debug.win32\WidgetReader.obj
+         libCocosStudio.vcxproj -> E:\leidota\proj.win32\Debug.win32\libCocosStudio.lib
+       FinalizeBuildStatus:
+         正在删除文件“Debug.win32\libCocosStudio.unsuccessfulbuild”。
+         正在对“Debug.win32\libCocosStudio.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\leidota\cocos2d\cocos\editor-support\cocostudio\proj.win32\libCocosStudio.vcxproj”(Rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:06:04.92

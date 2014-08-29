@@ -15,6 +15,7 @@ bool GameMap::init()
     // 网格，所有的角色都是添加到这个上面
     m_mapGrid   =   MapGrid::create(GRIDW, GRIDH, XNUM, YNUM);
     this->addChild(m_mapGrid);
+    this->setContentSize(m_mapGrid->getContentSize());
 
     return true;
 }
@@ -57,4 +58,9 @@ void GameMap::placeEnemyCharacter2(GameCharacter* character)
 void GameMap::placeEnemyCharacter3(GameCharacter* character)
 {
     placeOneCharacterToIndex(character, 5 * XNUM - 1);
+}
+
+GameMap::~GameMap()
+{
+
 }

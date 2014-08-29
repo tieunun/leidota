@@ -2,7 +2,9 @@
 #include "GameCharacter.h"
 #include "TeamManager.h"
 #include "GameTeamState.h"
+#include "EntityManager.h"
 
+//#define PCINPUT
 #ifndef PCINPUT
     #define MOBILDINPUT
 #endif
@@ -14,6 +16,7 @@ bool GameScene::init()
         return false;
     }
 
+    m_celebrateFrameCount   =   0;
     m_map   =   GameMap::create();
     this->addChild(m_map);
 
@@ -111,7 +114,53 @@ void GameScene::updateScene(float delta)
             if (m_celebrateFrameCount >= m_celebrateFrame)
             {
                 // 告诉队伍向后推进
+                tmpTeam->getFSM()->changeState(GameTeamAdvanceToEndState::create());
             }
         }
+
+        auto tmpState2  =   dynamic_cast<GameTeamAdvanceToEndState*>(tmpTeam->getFSM()->getCurrentState());
+        if (tmpState2 != nullptr && !tmpTeam->isMoving())
+        {
+            // 所有人员退出，开始进入下一场比赛
+            startNextBattle();
+        }
     }
+}
+
+void GameScene::startNextBattle()
+{
+    // @_@ 这里感触重新创建地图
+    m_map->removeAllChildren();
+    this->removeChild(m_map);
+    m_map   =   GameMap::create();
+    this->addChild(m_map);
+
+    // 将当前的角色加入地图
+    auto tmpCharacter   =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(0));
+    m_map->placeCharacter1(tmpCharacter);
+    tmpCharacter        =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(1));
+    m_map->placeCharacter2(tmpCharacter);
+    tmpCharacter        =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(2));
+    m_map->placeCharacter3(tmpCharacter);
+    auto tmpMyTeam      =   TeamMgr->getTeamFromId(0);
+    tmpMyTeam->getFSM()->changeState(GameTeamWaitState::create());
+
+    // 构造敌人
+    auto tmpTeam        =   GameTeam::create();
+    tmpCharacter        =   GameCharacter::create(4);
+    tmpCharacter->retain();
+    tmpCharacter->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
+    tmpTeam->addMercenaryIds(tmpCharacter->getId());
+    m_map->placeEnemyCharacter1(tmpCharacter);
+    tmpCharacter        =   GameCharacter::create(4);
+    tmpCharacter->retain();
+    tmpCharacter->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
+    tmpTeam->addMercenaryIds(tmpCharacter->getId());
+    m_map->placeEnemyCharacter2(tmpCharacter);
+    tmpCharacter        =   GameCharacter::create(4);
+    tmpCharacter->retain();
+    tmpCharacter->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
+    tmpTeam->addMercenaryIds(tmpCharacter->getId());
+    m_map->placeEnemyCharacter3(tmpCharacter);
+    TeamMgr->registerTeam(tmpTeam);
 }

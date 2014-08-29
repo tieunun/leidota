@@ -3,6 +3,7 @@
 #include "GameTeamState.h"
 #include "EntityManager.h"
 #include "TeamManager.h"
+#include "GameCharacter.h"
 
 int GameTeam::m_nextValidId =   0;
 
@@ -14,6 +15,7 @@ GameTeam::GameTeam()
     m_stateMachine->retain();
     m_stateMachine->changeState(GameTeamWaitState::create());
     m_stateMachine->setGlobalState(GameTeamGlobalState::create());
+    m_mercenaryIdList.clear();
 }
 
 GameTeam::~GameTeam()
@@ -75,4 +77,54 @@ bool GameTeam::init()
 GameTeam::TeamStateMachine* GameTeam::getFSM()
 {
     return m_stateMachine;
+}
+
+void GameTeam::moveToEnd()
+{
+    // 先假设目前一个队伍最多3个人
+    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getEntityFromID(m_leaderId);
+    if (tmpCharacter != nullptr)
+    {
+        tmpCharacter->walkOff();
+    }
+
+    auto tmpIterator    =   m_mercenaryIdList.begin();
+    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
+    if (tmpCharacter != nullptr)
+    {
+        tmpCharacter->walkOff();
+    }
+
+    tmpIterator++;
+    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
+    if (tmpCharacter != nullptr)
+    {
+        tmpCharacter->walkOff();
+    }
+}
+
+bool GameTeam::isMoving()
+{
+    // 先假设目前一个队伍最多3个人
+    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getEntityFromID(m_leaderId);
+    if (tmpCharacter != nullptr && tmpCharacter->isMoving())
+    {
+        return true;
+    }
+
+    auto tmpIterator    =   m_mercenaryIdList.begin();
+    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
+    if (tmpCharacter != nullptr && tmpCharacter->isMoving())
+    {
+        return true;
+    }
+
+    tmpIterator++;
+    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
+    if (tmpCharacter != nullptr && tmpCharacter->isMoving())
+    {
+        return true;
+    }
+
+    return false;
 }

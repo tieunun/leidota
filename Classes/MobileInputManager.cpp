@@ -45,7 +45,7 @@ void MobileInputManager::update(float dm)
     {
     case MobileInputManager::INVALID_CONTROL_DIRECTION:
         {
-            _delegate->idle();
+            //_delegate->idle();
             break;
         }
         

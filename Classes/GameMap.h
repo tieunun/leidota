@@ -35,6 +35,7 @@ public:
 protected:
 
     GameMap():GRIDW(64),GRIDH(60),XNUM(20),YNUM(5){}
+    ~GameMap();
 
     /**
     	 用来方便将某个人物安置到某个网格上的

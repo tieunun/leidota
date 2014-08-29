@@ -56,7 +56,7 @@ void PCInputManager::update(float dm)
         break;
 
     case EventKeyboard::KeyCode::KEY_NONE:
-        _delegate->idle();
+        //_delegate->idle();
         break;
 
     case EventKeyboard::KeyCode::KEY_SPACE:

@@ -10,12 +10,16 @@ void GameCharacterIdleState::onEnter(GameCharacter* owner)
 
 void GameCharacterIdleState::update(GameCharacter* owner, float dm)
 {
-
+    m_reverseStateFrameCount--;
+    if (m_reverseStateFrameCount == 0)
+    {
+        owner->getFSM()->reverseState();
+    }
 }
 
 void GameCharacterIdleState::onExit(GameCharacter* owner)
 {
-    
+    m_reverseStateFrameCount    =   -1;
 }
 
 bool GameCharacterIdleState::onMessage(GameCharacter* owner, Telegram &msg)
@@ -216,7 +220,7 @@ void GameCharacterNormalAttack::update(GameCharacter* owner, float dm)
 
 void GameCharacterNormalAttack::onExit(GameCharacter* owner)
 {
-
+    owner->exitNormalAttack();
 }
 
 bool GameCharacterNormalAttack::onMessage(GameCharacter* owner, Telegram &msg)
@@ -436,7 +440,8 @@ void GameCharacterWinState::onExit(GameCharacter* owner)
 
 bool GameCharacterWinState::onMessage(GameCharacter* owner, Telegram &msg)
 {
-    return true;
+    // 对于在胜利状态的时候对于用户操作的消息不作处理
+    return msg.type >= TELEGRAM_ENUM_USER_MOVE_RIGHT && msg.type <= TELEGRAM_ENUM_USER_CHANGE_TARGET;
 }
 
 void GameCharacterDieState::onEnter(GameCharacter* owner)

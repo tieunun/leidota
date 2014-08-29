@@ -17,7 +17,7 @@ class GameScene : public Scene
 private:
     GameScene():m_celebrateFrame(60)
     {
-        m_celebrateFrameCount   =   0;
+        
     }
 
 public:
@@ -27,6 +27,11 @@ public:
     	 这里暂时放置游戏级别的逻辑
     */
     void updateScene(float delta);
+
+    /**
+    * 开始下一场战斗 
+    */
+    void startNextBattle();
 
     CREATE_FUNC(GameScene);
 

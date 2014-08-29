@@ -49,6 +49,16 @@ public:
     TeamStateMachine* getFSM();
 
     /**
+    * 指挥所有的手下移动到右侧屏幕的外面，这里没必要再巡线了，大家都向右平移就OK了
+    */
+    void moveToEnd();
+
+    /**
+    * 该队伍是否有球员正在移动中 
+    */
+    bool isMoving();
+
+    /**
     	 队伍id，用来全局唯一标示一个队伍
     */
     CC_SYNTHESIZE(int, m_teamId, TeamId);

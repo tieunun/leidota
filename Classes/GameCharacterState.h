@@ -5,15 +5,24 @@
 #include "GameCharacter.h"
 
 /**
-	 处于idle状态，这个状态存在于刚开始的时候，以及玩家停止操作若干帧之内
+	 处于idle状态
 */
 class GameCharacterIdleState : public State<GameCharacter>
 {
+protected:
+    GameCharacterIdleState()
+    {
+        m_reverseStateFrameCount    =   -1;
+    }
+
 public:
     virtual void onEnter(GameCharacter* owner) override;
     virtual void update(GameCharacter* owner, float dm) override;
     virtual void onExit(GameCharacter* owner) override;
     virtual bool onMessage(GameCharacter* owner, Telegram &msg) override;
+
+    // 在每一帧的update会调用，当为0的时候就会reverseState
+    CC_SYNTHESIZE(int, m_reverseStateFrameCount, ReverseStateFrameCount);
 
     CREATE_FUNC(GameCharacterIdleState);
 };

@@ -89,9 +89,24 @@ public:
     GameCharacterTypeEnum getCharacterType();
 
     /**
+    * 当前是否可以普通攻击，因为存在所谓的最短间隔 
+    */
+    bool canNormalAttack();
+
+    /**
     	 普通攻击，当可以切换状态的时候回调callBack
     */
     void normalAttack(int id);
+
+    /**
+    * 每次脱离普通攻击的时候被调用 
+    */
+    void exitNormalAttack();
+
+    /**
+    * 返回距离下一次可以攻击的数 
+    */
+    int getNextNormatAttackLeftCount();
 
     /**
     	 当进行普通攻击后，我们需要知道什么时候结束，可以在逻辑帧中判断
@@ -102,6 +117,11 @@ public:
     	 判断另一个人物是否在该角色的攻击范围内
     */
     bool isInAttackDistance(GameCharacter* other);
+
+    /**
+    * 人物从右面退场
+    */
+    void walkOff();
 
 protected:
     GameCharacter();
@@ -131,7 +151,12 @@ protected:
 
     MoveTo*    m_moveAction;                                    // 用来移动的
 
+    /**
+    * @_@ 保存的一些临时数据 
+    */
     int m_normatAttTargetId;                                    // 临时保存的攻击目标id
+    int m_frameCount;                                           // 每一帧累加
+    int m_lastExitNormalAttackFrame;                            // 保存上一次离开普通攻击状态的帧数
 };
 
 #endif

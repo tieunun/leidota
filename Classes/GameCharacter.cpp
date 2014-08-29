@@ -83,7 +83,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(90, 10, 10, 80);
+            tmpRet->m_attribute     =   GameCharacterAttribute(10, 10, 10, 80);
 
             // 野猪怪：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -101,10 +101,12 @@ GameCharacter* GameCharacter::create(int id)
 
 GameCharacter::GameCharacter()
 {
-    m_stateMachine  =   nullptr;
-    m_shape         =   nullptr;
-    m_graph         =   nullptr;
-    m_moveAction    =   nullptr;
+    m_stateMachine                  =   nullptr;
+    m_shape                         =   nullptr;
+    m_graph                         =   nullptr;
+    m_moveAction                    =   nullptr;
+    m_frameCount                    =   0;
+    m_lastExitNormalAttackFrame     =   0;
 }
 
 GameCharacter::~GameCharacter()
@@ -121,6 +123,7 @@ GameCharacter::~GameCharacter()
 void GameCharacter::update(float dm)
 {
     m_stateMachine->update(dm);
+    m_frameCount++;
 }
 
 bool GameCharacter::handleMessage(Telegram& msg)
@@ -284,4 +287,39 @@ bool GameCharacter::isInAttackDistance(GameCharacter* other)
     }
 
     return false;
+}
+
+void GameCharacter::walkOff()
+{
+    // 切换动画
+    this->getShape()->playAction(RUN_ACTION);
+    this->getShape()->faceToRight();
+
+    // 缓动
+    Vec2 tmpStartPos    =   this->getShape()->getPosition();
+    Vec2 tmpTargetPos   =   tmpStartPos;
+    tmpTargetPos.x      =   m_graph->getContentSize().width + 200;
+    auto tmpDirection   =   tmpTargetPos.x - tmpStartPos.x;
+    if (m_moveAction != nullptr)
+    {
+        m_shape->stopAction(m_moveAction);
+    }
+    m_moveAction        =   MoveTo::create(tmpDirection / this->m_attribute.getRate(), tmpTargetPos);
+    m_shape->runAction(Sequence::create(m_moveAction, 
+        CallFuncN::create(std::bind(&GameCharacter::onMoveOver, this, std::placeholders::_1)), nullptr));
+}
+
+void GameCharacter::exitNormalAttack()
+{
+    m_lastExitNormalAttackFrame =   m_frameCount;
+}
+
+bool GameCharacter::canNormalAttack()
+{
+    return (m_frameCount - m_lastExitNormalAttackFrame) > m_attribute.getAttInterval();
+}
+
+int GameCharacter::getNextNormatAttackLeftCount()
+{
+    return m_attribute.getAttInterval() - (m_frameCount - m_lastExitNormalAttackFrame) + 1;
 }

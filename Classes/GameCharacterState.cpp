@@ -108,6 +108,15 @@ void GameCharacterAutoState::update(GameCharacter* owner, float dm)
     auto tmpInAttackDistanceCharacter = getCharacterInAttackDistance(owner, tmpTargetCharacters);
     if (tmpInAttackDistanceCharacter != nullptr)
     {
+        if (!owner->canNormalAttack())
+        {
+            // 需要等待若干帧
+            auto tmpState   =   GameCharacterIdleState::create();
+            tmpState->setReverseStateFrameCount(owner->getNextNormatAttackLeftCount());
+            owner->getFSM()->changeState(tmpState);
+            return;
+        }
+
         // 切换到攻击状态
         auto tmpState       =   GameCharacterNormalAttack::create();
         tmpState->targetId  =   tmpInAttackDistanceCharacter->getId();
@@ -153,7 +162,9 @@ void GameCharacterAutoState::update(GameCharacter* owner, float dm)
     else if (tmpTargetCharacters.size() > 0)
     {
         // 进入Idle状态一下
-        owner->getFSM()->changeState(GameCharacterIdleState::create());
+        auto tmpState   =   GameCharacterIdleState::create();
+        tmpState->setReverseStateFrameCount(20);
+        owner->getFSM()->changeState(tmpState);
     }
 }
 
@@ -371,6 +382,16 @@ void GameCharacterPursueState::update(GameCharacter* owner, float dm)
     // 如果在攻击范围内，就直接攻击
     if (owner->isInAttackDistance(tmpTargetCharacter))
     {
+        // 查看现在是否可以攻击
+        if (!owner->canNormalAttack())
+        {
+            // 需要等待若干帧
+            auto tmpState   =   GameCharacterIdleState::create();
+            tmpState->setReverseStateFrameCount(owner->getNextNormatAttackLeftCount());
+            owner->getFSM()->changeState(tmpState);
+            return;
+        }
+
         // 切换到攻击状态
         auto tmpState       =   GameCharacterNormalAttack::create();
         tmpState->targetId  =   targetId;

@@ -122,8 +122,11 @@ GameCharacter::~GameCharacter()
 
 void GameCharacter::update(float dm)
 {
-    m_stateMachine->update(dm);
+    /**
+    * 这里严重注意：在状态机中可能会删除自己，比如调用die的时候 
+    */
     m_frameCount++;
+    m_stateMachine->update(dm);
 }
 
 bool GameCharacter::handleMessage(Telegram& msg)
@@ -288,7 +291,6 @@ bool GameCharacter::isInAttackDistance(GameCharacter* other)
 
     return false;
 }
-
 void GameCharacter::walkOff()
 {
     // 切换动画

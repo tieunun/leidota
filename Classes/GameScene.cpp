@@ -113,6 +113,7 @@ void GameScene::updateScene(float delta)
             m_celebrateFrameCount++;
             if (m_celebrateFrameCount >= m_celebrateFrame)
             {
+                m_celebrateFrameCount   =   0;
                 // 告诉队伍向后推进
                 tmpTeam->getFSM()->changeState(GameTeamAdvanceToEndState::create());
             }

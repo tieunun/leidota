@@ -15,7 +15,7 @@ using namespace cocos2d;
 class GameScene : public Scene
 {
 private:
-    GameScene():m_celebrateFrame(60)
+    GameScene():m_celebrateFrame(90)
     {
         
     }

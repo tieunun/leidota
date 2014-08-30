@@ -83,7 +83,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(10, 10, 10, 80);
+            tmpRet->m_attribute     =   GameCharacterAttribute(10, 1, 10, 60 + CCRANDOM_0_1() * 20);
 
             // 野猪怪：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;

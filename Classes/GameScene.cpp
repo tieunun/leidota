@@ -90,7 +90,7 @@ bool GameScene::init()
     m_inputManager->init();
 
 #ifdef MOBILDINPUT
-    this->addChild(dynamic_cast<Layer*>(m_inputManager));
+    this->addChild(dynamic_cast<Layer*>(m_inputManager), 20);
 #endif
 
     // 启动调用update
@@ -134,6 +134,8 @@ void GameScene::startNextBattle()
     m_map->removeAllChildren();
     this->removeChild(m_map);
     m_map   =   GameMap::create();
+    // 修改背景
+    m_map->setStartBgPos(CCRANDOM_0_1() * 2000);
     this->addChild(m_map);
 
     // 将当前的角色加入地图

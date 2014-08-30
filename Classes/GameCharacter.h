@@ -123,6 +123,11 @@ public:
     */
     void walkOff();
 
+    /**
+    *  在视线范围内的所有角色，这里范围以网格为单位
+    */
+    vector<GameCharacter*> getCharactersInView();
+
 protected:
     GameCharacter();
     ~GameCharacter();

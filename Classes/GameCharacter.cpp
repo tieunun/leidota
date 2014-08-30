@@ -325,3 +325,24 @@ int GameCharacter::getNextNormatAttackLeftCount()
 {
     return m_attribute.getAttInterval() - (m_frameCount - m_lastExitNormalAttackFrame) + 1;
 }
+
+vector<GameCharacter*> GameCharacter::getCharactersInView()
+{
+    vector<GameCharacter*>  pRet;
+    
+    /**
+    *  @_@ 觉得当前在场上的角色的数量肯定是小于探索范围内网格的数量，所以还是遍历所有的
+    *  角色吧，比如范围是15，那么可能的网格数量就有5 * 30 = 150，但是一个地图肯定没有这么多人
+    */
+    auto tmpIterator    =   EntityMgr->getEntityMap()->begin();
+    for (; tmpIterator != EntityMgr->getEntityMap()->end(); )
+    {
+        auto tmpCharacter   =   dynamic_cast<GameCharacter*>(tmpIterator->second);
+        if (m_graph->isInScope(m_objectOnGrid.nodeIndex, tmpCharacter->getObjectOnGrid()->nodeIndex, m_attribute.getViewDistance()))
+        {
+            pRet.push_back(tmpCharacter);
+        }
+    }
+
+    return pRet;
+}

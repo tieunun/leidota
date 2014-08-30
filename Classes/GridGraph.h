@@ -22,39 +22,12 @@ public:
          @xNum          水平网格数量
          @yNum          竖直网格数量
     */
-    GridGraph(int gridW, int gridH, int xNum, int yNum)
-    {
-        _gridW  =   gridW;
-        _gridH  =   gridH;
-        _xNum   =   xNum;
-        _yNum   =   yNum;
+    GridGraph(int gridW, int gridH, int xNum, int yNum);
 
-        // 先添加节点
-        for (int y = 0; y < yNum; y++)
-        {
-            for (int x = 0; x < xNum; x++)
-            {
-                this->addNode(NavGraphNode(y * xNum + x, gridW * x + gridW / 2, gridH * y + gridH / 2));
-            }
-        }
-
-        // 添加边
-        for (int y = 0; y < yNum; y++)
-        {
-            for (int x = 0; x < xNum; x++)
-            {
-                if (x < xNum - 1)
-                {
-                    this->addEdge(NavGraphEdge(y * xNum + x, y * xNum + x + 1));
-                }
-                
-                if (y < yNum - 1)
-                {
-                    this->addEdge(NavGraphEdge(y * xNum + x, (y + 1) * xNum + x));
-                }
-            }
-        }
-    }
+    /**
+    *  判断以center为中心，以distance为范围，target是否在范围内
+    */
+    bool isInScope(int center, int target, int distance);
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include "GameCharacterAttribute.h"
 
-GameCharacterAttribute::GameCharacterAttribute(float hp, float attack, float defense, 
-                                               float rate, float attDistance, int attInterval)
+GameCharacterAttribute::GameCharacterAttribute(float hp, float attack, float defense, float rate, 
+                                               float attDistance, int attInterval, int viewDistance)
 {
     m_hp            =   hp;
     m_attack        =   attack;
@@ -9,6 +9,7 @@ GameCharacterAttribute::GameCharacterAttribute(float hp, float attack, float def
     m_rate          =   rate;
     m_attDistance   =   attDistance;
     m_attInterval   =   attInterval;
+    m_viewDistance  =   viewDistance;
 }
 
 GameCharacterAttribute& GameCharacterAttribute::sufferNormalAttack(GameCharacterAttribute& otherAttr)

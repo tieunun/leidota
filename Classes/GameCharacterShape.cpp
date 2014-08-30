@@ -88,11 +88,10 @@ Rect GameCharacterShape::getCollisionRect()
     Rect tmpRect    =   _armature->getBoundingBox();
     Size tmpSize    =   tmpRect.size;
     tmpSize.width   -=  80;
-    tmpSize.height  -=  80;
     
     // 返回该节点在父节点上的坐标
     auto tmpPoint   =   this->getPosition();
-    tmpRect.setRect(tmpPoint.x - tmpSize.width / 2, tmpPoint.y + 40, tmpSize.width, tmpSize.height);
+    tmpRect.setRect(tmpPoint.x - tmpSize.width / 2, tmpPoint.y, tmpSize.width, tmpSize.height);
     return tmpRect;
 }
 

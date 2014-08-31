@@ -5,15 +5,11 @@
 *.obj
 
 # Compiled Dynamic libraries
-*.so
 *.dylib
-*.dll
 
 # Compiled Static libraries
 *.lai
 *.la
-*.a
-*.lib
 
 # Executables
 *.exe
@@ -24,7 +20,6 @@
 /proj.win32/Debug.win32/*.pdb
 /proj.ios_mac/ios
 /proj.win32/Debug.win32
-/proj.win32/*.rc
 /proj.ios_mac/mac/*.pch
 /proj.ios_mac/mac
 /proj.ios_mac/Swordsman.xcodeproj
@@ -36,3 +31,5 @@
 /proj.android/assets
 /bin/debug/android/*.apk
 /proj.win32/*.opensdf
+*.tlog
+/cocos2d

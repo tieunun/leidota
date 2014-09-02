@@ -67,10 +67,10 @@ public:
     /**
     	 用来获取某个格子的附近的格子序号，如果没有，就返回INVALID_NODE_INDEX
     */
-    int getLeftGridIndex(int nodeIndex);
-    int getTopGridIndex(int nodeIndex);
-    int getRightGridIndex(int nodeIndex);
-    int getBottomGridIndex(int nodeIndex);
+    int getLeftGridIndex(int nodeIndex, int distance = 1);
+    int getTopGridIndex(int nodeIndex, int distance = 1);
+    int getRightGridIndex(int nodeIndex, int distance = 1);
+    int getBottomGridIndex(int nodeIndex, int distance = 1);
 
     int getLeftTopGridIndex(int nodeIndex);
     int getRightTopGridIndex(int nodeIndex);

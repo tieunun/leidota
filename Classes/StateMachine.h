@@ -37,6 +37,11 @@ public:
         return _currentState;
     }
 
+    State<entity_type>* getPreState()
+    {
+        return _previousState;
+    }
+
     /**
     	 ¸üĞÂ
     */

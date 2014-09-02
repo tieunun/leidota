@@ -9,6 +9,8 @@
 using namespace cocos2d;
 using namespace std;
 
+class GameCharacter;
+
 /**
 	 游戏中我方队伍的概念，为了实现队伍级别的组合、AI的概念
      @_@    这里就不考虑敌方队伍这个概念
@@ -24,12 +26,12 @@ public:
     /**
     	 设置主角全局索引id
     */
-    void setLeaderId(int id);
+    void setLeaderId(GameCharacter* player);
 
     /**
     	 添加佣兵
     */
-    void addMercenaryIds(int id);
+    void addMercenaryIds(GameCharacter* player);
 
     /**
     	 每一帧中回调
@@ -44,19 +46,14 @@ public:
     void sendMsgToAll(Telegram& msg);
 
     /**
+    * 为了实现队伍级别的推进，队伍中角色移动的时候会向上级也就是队伍通知 
+    */
+    void playerMoving(GameCharacter* player);
+
+    /**
     	 返回状态机，方便在状态中修改
     */
     TeamStateMachine* getFSM();
-
-    /**
-    * 指挥所有的手下移动到右侧屏幕的外面，这里没必要再巡线了，大家都向右平移就OK了
-    */
-    void moveToEnd();
-
-    /**
-    * 该队伍是否有球员正在移动中 
-    */
-    bool isMoving();
 
     /**
     	 队伍id，用来全局唯一标示一个队伍
@@ -67,6 +64,11 @@ public:
     CREATE_FUNC(GameTeam);
 
 private:
+
+    /**
+    * 向所有的佣兵发送消息 
+    */
+    void sendToMercenaries( Telegram& msg );
 
     static int m_nextValidId;                                   // 下一个有效地队伍id
     /**

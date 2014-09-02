@@ -161,4 +161,20 @@ public:
     CREATE_FUNC(GameCharacterDieState);
 };
 
+/**
+* 跟随（护送）某个指定的id，应该是队伍通知角色跟随（护送）某个指定的角色
+*/
+class GameCharacterFollowOne : public State<GameCharacter>
+{
+public:
+    int followTargetId;                     // 需要跟随的角色的id
+
+    virtual void onEnter(GameCharacter* owner) override;
+    virtual void update(GameCharacter* owner, float dm) override {}
+    virtual void onExit(GameCharacter* owner) override {};
+    virtual bool onMessage(GameCharacter* owner, Telegram &msg) override {return true;}
+
+    CREATE_FUNC(GameCharacterFollowOne);
+};
+
 #endif

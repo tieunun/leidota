@@ -16,11 +16,6 @@ public:
     bool init () override;
 
     /**
-    * 设置初始的背景推进位置，这样在每次战斗前，重新创建就可以背景不同
-    */
-    void setStartBgPos(int x);
-
-    /**
     * 设置摄像机在初始位置移动了多少，这样来调整4个层的移动，每个层相对于此移动不同的距离，其中摄像机
     * 是跟着主角的
     */
@@ -42,31 +37,16 @@ public:
     void placeEnemyCharacter3(GameCharacter* character);
 
     /**
-    * 每一帧的回调 
-    */
-    void update(float);
-
-    CREATE_FUNC(GameMap);
-
-protected:
-
-    GameMap():GRIDW(64),GRIDH(60),XNUM(20),YNUM(5),MOUNTAIN_MOVE_SCALE(0.2f),SKY_MOVE_SCALE(0.1){}
-    ~GameMap();
-
-    /**
     	 用来方便将某个人物安置到某个网格上的
     */
     void placeOneCharacterToIndex(GameCharacter* character, int nodeIndex);
 
     /**
-    * 构成地图的背景有4层 
+    * 每一帧的回调 
     */
-    Node*       m_bg1;               // 前景草地
-    Node*       m_bg2;               // 人物所在的地面
-    Node*       m_bg3;               // 背后的山
-    Node*       m_bg4;               // 最后面的天空
+    void update(float);
 
-    MapGrid*    m_mapGrid;          // 地图上面供人移动的网格
+    CREATE_FUNC(GameMap);
 
     /**
     	 地图网格的一些常量，以后应该在配置表里面
@@ -75,6 +55,20 @@ protected:
     const int GRIDH;
     const int XNUM;
     const int YNUM;
+
+protected:
+
+    GameMap():GRIDW(64),GRIDH(60),XNUM(65),YNUM(5),MOUNTAIN_MOVE_SCALE(0.5f),SKY_MOVE_SCALE(0.2){}
+    ~GameMap();
+
+    /**
+    * 构成地图的背景有4层，现在每一层都是由两幅图片拼成的
+    */
+    Node*       m_bg1;               // 人物所在的地面
+    Node*       m_bg2;               // 背后的山
+    Node*       m_bg3;               // 最后面的天空
+
+    MapGrid*    m_mapGrid;          // 地图上面供人移动的网格
 
     /**
     * 为了形成分层，这里是人物移动的距离和其它层移动距离的比值 

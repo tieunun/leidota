@@ -2,6 +2,13 @@
 #include "GraphSearchAStar.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
+#include "GameTeam.h"
+
+// 一个用来判断当前是否在某个状态的宏
+#define ISINSTATE(state)    dynamic_cast<state*>(owner->getFSM()->getCurrentState()) != nullptr
+
+// 判断之前的状态
+#define ISPREINSTATE(state)     dynamic_cast<state*>(owner->getFSM()->getPreState()) != nullptr
 
 void GameCharacterIdleState::onEnter(GameCharacter* owner)
 {
@@ -10,7 +17,11 @@ void GameCharacterIdleState::onEnter(GameCharacter* owner)
 
 void GameCharacterIdleState::update(GameCharacter* owner, float dm)
 {
-    m_reverseStateFrameCount--;
+    if (m_reverseStateFrameCount > 0)
+    {
+        m_reverseStateFrameCount--;
+    }
+    
     if (m_reverseStateFrameCount == 0)
     {
         owner->getFSM()->reverseState();
@@ -53,6 +64,9 @@ void GameCharacterMovingState::onEnter(GameCharacter* owner)
     }
 
     owner->getShape()->playAction(RUN_ACTION);
+
+    // 同时需要告知队伍自己正在移动
+    owner->getTeam()->playerMoving(owner);
 }
 
 void GameCharacterMovingState::update(GameCharacter* owner, float dm)
@@ -60,7 +74,14 @@ void GameCharacterMovingState::update(GameCharacter* owner, float dm)
     // 当移动到目标的时候，切换到之前的状态
     if (!owner->isMoving())
     {
-        owner->getFSM()->reverseState();
+        if (ISPREINSTATE(GameCharacterIdleState))
+        {
+            owner->getFSM()->changeState(GameCharacterAutoState::create());
+        }
+        else
+        {
+            owner->getFSM()->reverseState();
+        }
     }
 }
 
@@ -86,85 +107,80 @@ void GameCharacterAutoState::onEnter(GameCharacter* owner)
 
 void GameCharacterAutoState::update(GameCharacter* owner, float dm)
 {
-    // 寻找敌人，确定下一个网格的位置，然后切换到移动状态过去
-    // 遍历所有的场上的实体，找到敌人，确定哪个所需路径最近
-    vector<GameCharacter*>  tmpTargetCharacters;
-    // 暂时EntityMgr就是用来放GameCharacter的
-    auto tmpAllCharacters = EntityMgr->getEntityMap();
-    for (auto tmpIterator = tmpAllCharacters->begin(); tmpIterator != tmpAllCharacters->end(); tmpIterator++)
+    vector<GameCharacter*> tmpTargetCharacters = owner->getFoeCharactersInView();   // 范围内的所有敌人
+    
+    if (tmpTargetCharacters.size() == 0)
     {
-        if (owner->getType() == GAME_ENTITY_TYPE_PLAYER_CHARACTER && tmpIterator->second->getType() == GAME_ENTITY_TYPE_ENEMY_CHARACTER)
-        {
-            // 如果该角色是玩家，并且目前是敌人
-            tmpTargetCharacters.push_back((GameCharacter*)tmpIterator->second);
-        }
-        if (owner->getType() == GAME_ENTITY_TYPE_ENEMY_CHARACTER && tmpIterator->second->getType() == GAME_ENTITY_TYPE_PLAYER_CHARACTER)
-        {
-            tmpTargetCharacters.push_back((GameCharacter*)tmpIterator->second);
-        }
+        // 可视范围内没有敌人，进入idle状态，在若干帧之后再回来
+        auto tmpState = GameCharacterIdleState::create();
+        tmpState->setReverseStateFrameCount(20);
+        owner->getFSM()->changeState(tmpState);
     }
-
-    // 判断是否有一个敌人进入攻击范围，如果有的话，就进入攻击状态，并攻击该角色
-    auto tmpInAttackDistanceCharacter = getCharacterInAttackDistance(owner, tmpTargetCharacters);
-    if (tmpInAttackDistanceCharacter != nullptr)
+    else
     {
-        if (!owner->canNormalAttack())
+        // 在可视范围内找到敌人
+        // 判断是否有一个敌人进入攻击范围，如果有的话，就进入攻击状态，并攻击该角色
+        auto tmpInAttackDistanceCharacter = getCharacterInAttackDistance(owner, tmpTargetCharacters);
+        if (tmpInAttackDistanceCharacter != nullptr)
         {
-            // 需要等待若干帧
-            auto tmpState   =   GameCharacterIdleState::create();
-            tmpState->setReverseStateFrameCount(owner->getNextNormatAttackLeftCount());
+            if (!owner->canNormalAttack())
+            {
+                // 需要等待若干帧
+                auto tmpState   =   GameCharacterIdleState::create();
+                tmpState->setReverseStateFrameCount(owner->getNextNormatAttackLeftCount());
+                owner->getFSM()->changeState(tmpState);
+                return;
+            }
+
+            // 切换到攻击状态
+            auto tmpState       =   GameCharacterNormalAttack::create();
+            tmpState->targetId  =   tmpInAttackDistanceCharacter->getId();
             owner->getFSM()->changeState(tmpState);
             return;
         }
 
-        // 切换到攻击状态
-        auto tmpState       =   GameCharacterNormalAttack::create();
-        tmpState->targetId  =   tmpInAttackDistanceCharacter->getId();
-        owner->getFSM()->changeState(tmpState);
-        return;
-    }
+        // 寻找过去的路径，只要找到第一条路线
+        vector<int> tmpTargetRoute;
+        for (int i = 0; i < tmpTargetCharacters.size(); i++)
+        {
+            tmpTargetRoute = owner->getMapGrid()->getRouteToTargetObj(owner->getObjectOnGrid(), tmpTargetCharacters[i]->getObjectOnGrid());
+            if (tmpTargetRoute.size() > 0)
+            {
+                break;
+            }
+        }
 
-    // 寻找过去的路径
-    vector<int> tmpTargetRoute;
-    for (int i = 0; i < tmpTargetCharacters.size(); i++)
-    {
-        auto tmpRoute = owner->getMapGrid()->getRouteToTargetObj(owner->getObjectOnGrid(), tmpTargetCharacters[i]->getObjectOnGrid());
-        if ((tmpRoute.size() > 0) && (tmpTargetRoute.size() == 0 || tmpRoute.size() < tmpTargetRoute.size()))
+        // 根据这个路径选择下一步该如何移动
+        if (tmpTargetRoute.size() > 0)
         {
-            tmpTargetRoute  =   tmpRoute;
-        }
-    }
-
-    // 根据这个路径选择下一步该如何移动
-    if (tmpTargetRoute.size() > 0)
-    {
-        auto tmpTargetGridIndex =   tmpTargetRoute[1];
-        // 切换到移动状态，这里寻找方向
-        auto tmpState = GameCharacterMovingState::create();
-        if (tmpTargetGridIndex == owner->getMapGrid()->getLeftGridIndex(owner->getObjectOnGrid()->nodeIndex))
-        {
-            tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_LEFT;
-        }
-        else if (tmpTargetGridIndex == owner->getMapGrid()->getTopGridIndex(owner->getObjectOnGrid()->nodeIndex))
-        {
-            tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_TOP;
-        }
-        else if (tmpTargetGridIndex == owner->getMapGrid()->getRightGridIndex(owner->getObjectOnGrid()->nodeIndex))
-        {
-            tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_RIGHT;
+            auto tmpTargetGridIndex =   tmpTargetRoute[1];
+            // 切换到移动状态，这里寻找方向
+            auto tmpState = GameCharacterMovingState::create();
+            if (tmpTargetGridIndex == owner->getMapGrid()->getLeftGridIndex(owner->getObjectOnGrid()->nodeIndex))
+            {
+                tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_LEFT;
+            }
+            else if (tmpTargetGridIndex == owner->getMapGrid()->getTopGridIndex(owner->getObjectOnGrid()->nodeIndex))
+            {
+                tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_TOP;
+            }
+            else if (tmpTargetGridIndex == owner->getMapGrid()->getRightGridIndex(owner->getObjectOnGrid()->nodeIndex))
+            {
+                tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_RIGHT;
+            }
+            else
+            {
+                tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_BOTTOM;
+            }
+            owner->getFSM()->changeState(tmpState);
         }
         else
         {
-            tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_BOTTOM;
+            // 进入Idle状态一下
+            auto tmpState   =   GameCharacterIdleState::create();
+            tmpState->setReverseStateFrameCount(20);
+            owner->getFSM()->changeState(tmpState);
         }
-        owner->getFSM()->changeState(tmpState);
-    }
-    else if (tmpTargetCharacters.size() > 0)
-    {
-        // 进入Idle状态一下
-        auto tmpState   =   GameCharacterIdleState::create();
-        tmpState->setReverseStateFrameCount(20);
-        owner->getFSM()->changeState(tmpState);
     }
 }
 
@@ -223,9 +239,14 @@ void GameCharacterNormalAttack::update(GameCharacter* owner, float dm)
 {
     if (owner->isNormalAttackFinish())
     {
-        // 如果攻击结束，就切换到Auto状态
-        //owner->getFSM()->changeState(GameCharacterAutoState::create());
-        owner->getFSM()->reverseState();
+        if (ISPREINSTATE(GameCharacterMovingState))
+        {
+            owner->getFSM()->changeState(GameCharacterAutoState::create());
+        }
+        else
+        {
+            owner->getFSM()->reverseState();
+        }
     }
 }
 
@@ -357,6 +378,18 @@ bool GameCharacterGlobalState::onMessage(GameCharacter* owner, Telegram &msg)
             return true;
         }
 
+    case TELEGRAM_ENUM_TEAM_FOLLOW_SPECIFIED_PLAYER:    // 队伍通知首先去跟随某个角色
+        {
+            auto tmpTarget  =   (GameCharacter*)msg.extraInfo;
+            if (owner != tmpTarget)
+            {
+                auto tmpState   =   GameCharacterFollowOne::create();
+                tmpState->followTargetId    =   tmpTarget->getId();
+                owner->getFSM()->changeState(tmpState);
+            }
+            return true;
+        }
+        
     default:
         break;
     }
@@ -483,4 +516,72 @@ void GameCharacterDieState::onExit(GameCharacter* owner)
 bool GameCharacterDieState::onMessage(GameCharacter* owner, Telegram &msg)
 {
     return true;
+}
+
+void GameCharacterFollowOne::onEnter( GameCharacter* owner )
+{
+    auto tmpMap         =   owner->getMapGrid();
+    auto tmpSourceIndex =   owner->getObjectOnGrid()->nodeIndex;
+
+    // 查找一个到达跟随位置的路径
+    auto tmpTargetCharacter =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(followTargetId));
+    if (tmpTargetCharacter == nullptr)
+    {
+        // 说明跟随目标没有了，进入Auto
+        owner->getFSM()->changeState(GameCharacterAutoState::create());
+        return;
+    }
+
+    // 获取跟随位置
+    auto tmpTargetGrids =   owner->getFollowGridIndex(tmpTargetCharacter);
+    if (tmpTargetGrids.size() == 0)
+    {
+        // 如果没有跟随位置了
+        owner->getFSM()->changeState(GameCharacterAutoState::create());
+        return;
+    }
+    
+    // 如果现在就在跟随位置中，就不用动
+    for (int i = 0; i < tmpTargetGrids.size(); i++)
+    {
+        if (tmpTargetGrids[i] == tmpSourceIndex)
+        {
+            owner->getFSM()->changeState(GameCharacterAutoState::create());
+            return;
+        }
+    }
+
+    // 获取过去的路径
+    vector<int> tmpRoute;
+    for (int i = 0; i < tmpTargetGrids.size(); i++)
+    {
+        // @_@ 必须先把自己占得坑位移除
+        tmpMap->removeObjectFromGrid(owner->getObjectOnGrid());
+        tmpRoute    =   GraphSearchAStar::search(*tmpMap, tmpSourceIndex, tmpTargetGrids[i], MapGrid::calculateH);
+        tmpMap->addObjectToGrid(owner->getObjectOnGrid());
+        if (tmpRoute.size() != 0)
+        {
+            break;
+        }
+    }
+
+    // 尝试移动过去
+    auto tmpState   =   GameCharacterMovingState::create();
+    if (tmpRoute[1] == tmpMap->getLeftGridIndex(tmpSourceIndex))
+    {
+        tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_LEFT;
+    }
+    else if (tmpRoute[1] == tmpMap->getTopGridIndex(tmpSourceIndex))
+    {
+        tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_TOP;
+    }
+    else if (tmpRoute[1] == tmpMap->getRightGridIndex(tmpSourceIndex))
+    {
+        tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_RIGHT;
+    }
+    else
+    {
+        tmpState->movingDirection   =   GameCharacterMovingState::MOVING_DIRECTION_BOTTOM;
+    }
+    owner->getFSM()->changeState(tmpState);
 }

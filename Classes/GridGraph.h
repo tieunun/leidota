@@ -1,7 +1,10 @@
 #ifndef __GRID_GRAPH_H__
 #define __GRID_GRAPH_H__
 
+#include <vector>
 #include "SparseGraph.h"
+
+using namespace std;
 
 /**
 	 很多地方使用网格图，而网格中其中一些格子是障碍无法通行
@@ -28,6 +31,16 @@ public:
     *  判断以center为中心，以distance为范围，target是否在范围内
     */
     bool isInScope(int center, int target, int distance);
+
+    /**
+    *  返回网格中给定两个下标的距离，单位是网格数
+    */
+    int getDistanceInGrid(int index1, int index2);
+
+    /**
+    * 返回以centerIndex为中心，radius格子数为半径的方块内还没有使用的网格索引 
+    */
+    vector<int> getUnusedGridIndex(int centerIndex, int radius);
 };
 
 #endif

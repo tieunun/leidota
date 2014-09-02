@@ -23,16 +23,6 @@ private:
 public:
     bool init() override;
 
-    /**
-    	 这里暂时放置游戏级别的逻辑
-    */
-    void updateScene(float delta);
-
-    /**
-    * 开始下一场战斗 
-    */
-    void startNextBattle();
-
     CREATE_FUNC(GameScene);
 
 protected:

@@ -40,3 +40,13 @@ bool GridGraph::isInScope( int center, int target, int distance )
     return abs(center / _xNum - target / _xNum) <= distance && abs(center % _xNum - target % _xNum) <= distance;
 }
 
+int GridGraph::getDistanceInGrid( int index1, int index2 )
+{
+    return abs(index1 / _xNum - index2 / _xNum) + abs(index1 % _xNum - index2 % _xNum);
+}
+
+vector<int> GridGraph::getUnusedGridIndex( int centerIndex, int radius )
+{
+    // @_@ 暂时先不用
+    return vector<int>();
+}

@@ -3,7 +3,7 @@
 #include "GraphSearchAStar.h"
 #include "EntityManager.h"
 
-//#define DRAW_MAP_GRID
+#define DRAW_MAP_GRID
 
 bool MapGrid::init()
 {
@@ -155,14 +155,6 @@ void MapGrid::addGameCharacter(GameCharacter* character)
     character->setGridGraph(this);
 }
 
-/**
-	 用来对角色外形排序的
-*/
-static bool nodeSortFunc(const Node* node1, const Node* node2)
-{
-    return node1->getPositionY() > node2->getPositionY();
-}
-
 void MapGrid::adjustGameCharacterZOrder()
 {
     // 按照网格序号来排列
@@ -174,44 +166,44 @@ void MapGrid::adjustGameCharacterZOrder()
     }
 }
 
-int MapGrid::getLeftGridIndex(int nodeIndex)
+int MapGrid::getLeftGridIndex(int nodeIndex, int distance)
 {
-    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex % _xNum == 0)
+    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex % _xNum < distance)
     {
         return INVALID_NODE_INDEX;
     }
 
-    return nodeIndex - 1;
+    return nodeIndex - distance;
 }
 
-int MapGrid::getTopGridIndex(int nodeIndex)
+int MapGrid::getTopGridIndex(int nodeIndex, int distance)
 {
-    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex >= _xNum * (_yNum - 1))
+    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex >= _xNum * (_yNum - distance))
     {
         return INVALID_NODE_INDEX;
     }
 
-    return nodeIndex + _xNum;
+    return nodeIndex + _xNum * distance;
 }
 
-int MapGrid::getRightGridIndex(int nodeIndex)
+int MapGrid::getRightGridIndex(int nodeIndex, int distance)
 {
-    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex % _xNum == _xNum - 1)
+    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex % _xNum >= _xNum - distance)
     {
         return INVALID_NODE_INDEX;
     }
 
-    return nodeIndex + 1;
+    return nodeIndex + distance;
 }
 
-int MapGrid::getBottomGridIndex(int nodeIndex)
+int MapGrid::getBottomGridIndex(int nodeIndex, int distance)
 {
-    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex < _xNum)
+    if (nodeIndex == INVALID_NODE_INDEX || nodeIndex < _xNum * distance)
     {
         return INVALID_NODE_INDEX;
     }
 
-    return nodeIndex - _xNum;
+    return nodeIndex - _xNum * distance;
 }
 
 int MapGrid::getLeftTopGridIndex(int nodeIndex)

@@ -9,6 +9,8 @@
 
 using namespace std;
 
+class GameTeam;
+
 /**
 	 游戏角色类型
 */
@@ -119,14 +121,24 @@ public:
     bool isInAttackDistance(GameCharacter* other);
 
     /**
-    * 人物从右面退场
-    */
-    void walkOff();
-
-    /**
     *  在视线范围内的所有角色，这里范围以网格为单位
     */
     vector<GameCharacter*> getCharactersInView();
+
+    /**
+    * 返回在视线范围内的所有敌人（敌人是相对的概念） 
+    */
+    vector<GameCharacter*> getFoeCharactersInView();
+
+    /**
+    * 如果other想跟随该角色，那么应该站在网格的哪些位置呢，这里按照优先级顺序排列
+    */
+    vector<int> getFollowGridIndex(GameCharacter* other);
+
+    /**
+    * 设置和返回该角色所属的队伍 
+    */
+    CC_SYNTHESIZE(GameTeam*, m_team, Team);
 
 protected:
     GameCharacter();
@@ -146,6 +158,19 @@ protected:
     	 当远程攻击单位要丢出飞行道具的时候回调，在此处完成飞行道具的创建
     */
     void onLongAttLaunch(string evt);
+
+    /**
+    *  在返回视野范围内的其他角色的时候按照的排序函数，按照里该角色的距离从
+    *  近到远来排列
+    */
+    typedef std::function<bool (GameCharacter* character1, GameCharacter* character2)> SortFunc;
+    bool charactersInViewSortFunc(GameCharacter* character1, GameCharacter* character2);
+
+    /**
+    * 返回某个角色的跟随地址
+    */
+    typedef std::function<bool (int gridIndex1, int gridIndex2)> FollowGridSortFunc;
+    bool followGridSortFunc(int index1, int index2);
 
     StateMachine<GameCharacter>*    m_stateMachine;             // 该角色的状态机，相当于该角色的AI
     GameCharacterShape*             m_shape;                    // 该角色的外形

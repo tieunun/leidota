@@ -23,15 +23,17 @@ GameTeam::~GameTeam()
     CC_SAFE_RELEASE(m_stateMachine);
 }
 
-void GameTeam::setLeaderId(int id)
+void GameTeam::setLeaderId(GameCharacter* player)
 {
-    m_leaderId  =   id;
+    m_leaderId  =   player->getId();
+    player->setTeam(this);
 }
 
-void GameTeam::addMercenaryIds(int id)
+void GameTeam::addMercenaryIds(GameCharacter* player)
 {
-    m_mercenaryIdList.push_back(id);
-    m_type  =   EntityMgr->getEntityFromID(id)->getType();
+    m_mercenaryIdList.push_back(player->getId());
+    m_type  =   player->getType();
+    player->setTeam(this);
 }
 
 void GameTeam::update(float dm)
@@ -79,52 +81,26 @@ GameTeam::TeamStateMachine* GameTeam::getFSM()
     return m_stateMachine;
 }
 
-void GameTeam::moveToEnd()
+void GameTeam::sendToMercenaries( Telegram& msg )
 {
-    // 先假设目前一个队伍最多3个人
-    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getEntityFromID(m_leaderId);
-    if (tmpCharacter != nullptr)
-    {
-        tmpCharacter->walkOff();
-    }
-
     auto tmpIterator    =   m_mercenaryIdList.begin();
-    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
-    if (tmpCharacter != nullptr)
+    for (; tmpIterator != m_mercenaryIdList.end(); )
     {
-        tmpCharacter->walkOff();
-    }
-
-    tmpIterator++;
-    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
-    if (tmpCharacter != nullptr)
-    {
-        tmpCharacter->walkOff();
+        msg.receiverId  =   *tmpIterator;
+        tmpIterator++;
+        Dispatch->dispatchMessage(msg);
     }
 }
 
-bool GameTeam::isMoving()
+void GameTeam::playerMoving( GameCharacter* player )
 {
-    // 先假设目前一个队伍最多3个人
-    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getEntityFromID(m_leaderId);
-    if (tmpCharacter != nullptr && tmpCharacter->isMoving())
+    // 目前只有移动的人物是老大的时候，才需要通知
+    if (player->getId() != m_leaderId)
     {
-        return true;
+        return;
     }
 
-    auto tmpIterator    =   m_mercenaryIdList.begin();
-    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
-    if (tmpCharacter != nullptr && tmpCharacter->isMoving())
-    {
-        return true;
-    }
-
-    tmpIterator++;
-    tmpCharacter        =   (GameCharacter*)EntityMgr->getEntityFromID(*tmpIterator);
-    if (tmpCharacter != nullptr && tmpCharacter->isMoving())
-    {
-        return true;
-    }
-
-    return false;
+    // 构造消息通知佣兵跟随指定角色
+    auto tmpMsg =   Telegram::create(0, 0, TELEGRAM_ENUM_TEAM_FOLLOW_SPECIFIED_PLAYER, 0, player);
+    sendToMercenaries(*tmpMsg);
 }

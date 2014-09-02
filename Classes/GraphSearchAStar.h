@@ -19,6 +19,7 @@ class GraphSearchAStar
 {
 protected:
     static int m_count;                                 // 统计循环次数
+    static int m_maxLoopNum;                            // 搜索的最大循环次数
     static vector<float> m_GCosts;                      // 到该节点的累计开销
     static vector<float> m_FCosts;                      // 通过计算m_GCosts的每个节点与启发因子相加的结果
     static vector<NavGraphEdge*> m_shortestPathTree;    // 最小路径树
@@ -89,8 +90,6 @@ public:
         m_count =   0;
         while (!prioQ.empty())
         {
-            m_count++;
-
             int tmpNodeIndex    =   prioQ.pop();
 
             // 加入最小路径树中
@@ -138,6 +137,13 @@ public:
                     m_FCosts[tmpEdge->to()]         =   tmpGCost + tmpHCost;
                     prioQ.reOrder();
                 }
+            }
+
+            m_count++;
+            // 如果打到了最大搜索循环就退出
+            if (m_count >= m_maxLoopNum)
+            {
+                break;
             }
         }
 

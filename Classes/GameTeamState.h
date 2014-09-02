@@ -72,18 +72,4 @@ public:
     CREATE_FUNC(GameTeamCelebrateState);
 };
 
-/**
-* 对于处于前进到该战斗结束的位置的过程中 
-*/
-class GameTeamAdvanceToEndState : public State<GameTeam>
-{
-public:
-    virtual void onEnter(GameTeam* owner) override;
-    virtual void update(GameTeam* owner, float dm) override {};
-    virtual void onExit(GameTeam* owner) override {};
-    virtual bool onMessage(GameTeam* owner, Telegram &msg) override {return false;};
-
-    CREATE_FUNC(GameTeamAdvanceToEndState);
-};
-
 #endif

@@ -91,6 +91,22 @@ GameCharacter* GameCharacter::create(int id)
             break;
         }
 
+    case 5:                                                 // 牛人
+        {
+            tmpRet->m_shape         =   GameCharacterShape::create("Niu.ExportJson", "Niu");
+            tmpRet->m_shape->retain();
+
+            tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
+            tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
+
+            tmpRet->m_attribute     =   GameCharacterAttribute(30, 5, 10, 50 + CCRANDOM_0_1() * 20);
+
+            // 牛人：近程攻击单位
+            tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
+
+            break;
+        }
+
     default:
         break;
     }
@@ -105,6 +121,7 @@ GameCharacter::GameCharacter()
     m_shape                         =   nullptr;
     m_graph                         =   nullptr;
     m_moveAction                    =   nullptr;
+    m_team                          =   nullptr;
     m_frameCount                    =   0;
     m_lastExitNormalAttackFrame     =   0;
 }
@@ -291,25 +308,6 @@ bool GameCharacter::isInAttackDistance(GameCharacter* other)
 
     return false;
 }
-void GameCharacter::walkOff()
-{
-    // 切换动画
-    this->getShape()->playAction(RUN_ACTION);
-    this->getShape()->faceToRight();
-
-    // 缓动
-    Vec2 tmpStartPos    =   this->getShape()->getPosition();
-    Vec2 tmpTargetPos   =   tmpStartPos;
-    tmpTargetPos.x      =   m_graph->getContentSize().width + 200;
-    auto tmpDirection   =   tmpTargetPos.x - tmpStartPos.x;
-    if (m_moveAction != nullptr)
-    {
-        m_shape->stopAction(m_moveAction);
-    }
-    m_moveAction        =   MoveTo::create(tmpDirection / this->m_attribute.getRate(), tmpTargetPos);
-    m_shape->runAction(Sequence::create(m_moveAction, 
-        CallFuncN::create(std::bind(&GameCharacter::onMoveOver, this, std::placeholders::_1)), nullptr));
-}
 
 void GameCharacter::exitNormalAttack()
 {
@@ -332,17 +330,121 @@ vector<GameCharacter*> GameCharacter::getCharactersInView()
     
     /**
     *  @_@ 觉得当前在场上的角色的数量肯定是小于探索范围内网格的数量，所以还是遍历所有的
-    *  角色吧，比如范围是15，那么可能的网格数量就有5 * 30 = 150，但是一个地图肯定没有这么多人
+    *  角色吧，比如范围是10，那么可能的网格数量就有5 * 20 = 100，但是一个地图肯定没有这么多人
     */
     auto tmpIterator    =   EntityMgr->getEntityMap()->begin();
     for (; tmpIterator != EntityMgr->getEntityMap()->end(); )
     {
         auto tmpCharacter   =   dynamic_cast<GameCharacter*>(tmpIterator->second);
+        tmpIterator++;
+        
+        // 不包含自己
+        if (tmpCharacter == this)
+        {
+            continue;
+        }
+
         if (m_graph->isInScope(m_objectOnGrid.nodeIndex, tmpCharacter->getObjectOnGrid()->nodeIndex, m_attribute.getViewDistance()))
         {
             pRet.push_back(tmpCharacter);
         }
     }
 
+    /**
+    * 这里按照距离来排序，最近的在前面 
+    */
+    SortFunc tmpSortFunc    =   std::bind(&GameCharacter::charactersInViewSortFunc, 
+        this, std::placeholders::_1, std::placeholders::_2);
+    sort(pRet.begin(), pRet.end(), tmpSortFunc);
+
     return pRet;
+}
+
+bool GameCharacter::charactersInViewSortFunc( GameCharacter* character1, GameCharacter* character2 )
+{
+    auto tmpDistance1   =   
+        m_graph->getDistanceInGrid(m_objectOnGrid.nodeIndex, character1->getObjectOnGrid()->nodeIndex);
+    auto tmpDistance2   =   
+        m_graph->getDistanceInGrid(m_objectOnGrid.nodeIndex, character2->getObjectOnGrid()->nodeIndex);
+    return tmpDistance1 < tmpDistance2;
+}
+
+vector<GameCharacter*> GameCharacter::getFoeCharactersInView()
+{
+    auto pRet   =   getCharactersInView();
+    
+    // 剔除与自己同类型的，也就是去掉自己人，剩下的就是敌人
+    auto tmpIterator    =   pRet.begin();
+    while (tmpIterator != pRet.end())
+    {
+        if ((*tmpIterator)->getType() == this->getType())
+        {
+            tmpIterator =   pRet.erase(tmpIterator);
+        }
+        else
+        {
+            tmpIterator++;
+        }
+    }
+
+    return pRet;
+}
+
+vector<int> GameCharacter::getFollowGridIndex( GameCharacter* other )
+{
+    vector<int> pRet;
+    int tmpOtherGridIndex   =   other->getObjectOnGrid()->nodeIndex;
+
+    // 如果other是近战型的，就优先靠前
+    auto tmpGridIndex   =   m_graph->getRightGridIndex(tmpOtherGridIndex, 2);
+    pRet.push_back(m_graph->getTopGridIndex(tmpGridIndex, 2));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpGridIndex, 2));
+    pRet.push_back(m_graph->getTopGridIndex(tmpGridIndex));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpGridIndex));
+
+    // 前斜角
+    tmpGridIndex    =   m_graph->getRightGridIndex(tmpOtherGridIndex);
+    pRet.push_back(m_graph->getTopGridIndex(tmpGridIndex, 2));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpGridIndex, 2));
+
+    // 并排
+    pRet.push_back(m_graph->getTopGridIndex(tmpOtherGridIndex, 2));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpOtherGridIndex, 2));
+
+    // 后面的
+    tmpGridIndex    =   m_graph->getLeftGridIndex(tmpOtherGridIndex, 2);
+    pRet.push_back(m_graph->getTopGridIndex(tmpGridIndex, 2));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpGridIndex, 2));
+    pRet.push_back(m_graph->getTopGridIndex(tmpGridIndex));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpGridIndex));
+
+    // 后斜角的
+    tmpGridIndex    =   m_graph->getLeftGridIndex(tmpOtherGridIndex);
+    pRet.push_back(m_graph->getTopGridIndex(tmpGridIndex, 2));
+    pRet.push_back(m_graph->getBottomGridIndex(tmpGridIndex, 2));
+
+    // 剔除掉无效的格子序号
+    auto tmpIterator    =   pRet.begin();
+    while (tmpIterator != pRet.end())
+    {
+        if (*tmpIterator == INVALID_NODE_INDEX)
+        {
+            tmpIterator =   pRet.erase(tmpIterator);
+        }
+        else
+        {
+            tmpIterator++;
+        }
+    }
+
+    // 按照离该角色的距离来排列，距离短的在前面
+    FollowGridSortFunc tmpFunc =   std::bind(&GameCharacter::followGridSortFunc, this, std::placeholders::_1, std::placeholders::_2);
+    sort(pRet.begin(), pRet.end(), tmpFunc);
+
+    return pRet;
+}
+
+bool GameCharacter::followGridSortFunc( int index1, int index2 )
+{
+    return m_graph->getDistanceInGrid(m_objectOnGrid.nodeIndex, index1) < m_graph->getDistanceInGrid(m_objectOnGrid.nodeIndex, index2);
 }

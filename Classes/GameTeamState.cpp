@@ -27,12 +27,7 @@ void GameTeamFreeCombatState::onEnter(GameTeam* owner)
 
 void GameTeamFreeCombatState::update(GameTeam* owner, float dm)
 {
-    // 判断是否还有敌人存在，其实也就是遍历所有的队伍，如果大家都是一个类型的队伍，就说明胜利
-    // @_@ 目前就写如果只有一个队伍，并且只有当前不在庆祝状态的时候
-    if (TeamMgr->getTeamMap().size() == 1)
-    {
-        owner->getFSM()->changeState(GameTeamCelebrateState::create());
-    }
+    
 }
 
 void GameTeamFreeCombatState::onExit(GameTeam* owner)
@@ -60,10 +55,4 @@ void GameTeamCelebrateState::onEnter(GameTeam* owner)
     // 通知全队庆祝一下
     auto tmpMsg =   Telegram::create(0, 0, TELEGRAM_ENUM_TEAM_CELEBRATE, 0);
     owner->sendMsgToAll(*tmpMsg);
-}
-
-void GameTeamAdvanceToEndState::onEnter(GameTeam* owner)
-{
-    // 将所有存活的我方角色移动到最右端得格子上
-    owner->moveToEnd();
 }

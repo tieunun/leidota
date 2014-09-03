@@ -93,6 +93,10 @@ void GameCharacterMovingState::onExit(GameCharacter* owner)
 bool GameCharacterMovingState::onMessage(GameCharacter* owner, Telegram &msg)
 {
     // 如果当前在移动中，对于任何消息都不接受
+    if (msg.type == TELEGRAM_ENUM_NORMAL_ATTACK)
+    {
+        return false;
+    }
     return true;
 }
 
@@ -231,7 +235,7 @@ void GameCharacterNormalAttack::onEnter(GameCharacter* owner)
         owner->getShape()->faceToLeft();
     }
 
-    // owner->getShape()->playAction(ATTACK_ACTION, false);
+    // owner->getShape()->playAction(NORMAL_ATTACK_ACTION, false);
     owner->normalAttack(targetId);
 }
 
@@ -332,7 +336,8 @@ bool GameCharacterGlobalState::onMessage(GameCharacter* owner, Telegram &msg)
         {
             // 受到普通攻击，计算一下伤害
             auto tmpAttMsg  =   (TelegramNormalAttack*)&msg;
-            if (owner->getAttribute().sufferNormalAttack(tmpAttMsg->senderAtt).getHp() <= 0)
+            owner->sufferNormalAttack(tmpAttMsg->senderAtt);
+            if (owner->getAttribute().getHp() <= 0)
             {
                 // 该人物死亡
                 owner->getFSM()->changeState(GameCharacterDieState::create());

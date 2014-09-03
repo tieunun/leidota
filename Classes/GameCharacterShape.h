@@ -12,10 +12,10 @@ using namespace std;
 /**
 	 定义的一些动作在动画文件中的名称
 */
-#define IDLE_ACTION     "idle"
-#define RUN_ACTION      "run"
-#define ATTACK_ACTION   "atk1"
-#define WIN_ACTION      "win"
+#define IDLE_ACTION             "idle"
+#define RUN_ACTION              "run"
+#define NORMAL_ATTACK_ACTION    "atk1"
+#define WIN_ACTION              "win"
 
 /**
 	 游戏中的所有角色的外形，这些是添加到显示列表中的
@@ -25,6 +25,16 @@ class GameCharacterShape : public Sprite
 public:
 
     typedef std::function<void (string)> ActionFrameEventCallback;
+
+    /**
+    * 从人物身上浮动的文字的样式的枚举 
+    */
+    enum FloatNumberTypeEnum
+    {
+        FLOAT_NUMBER_GREEN,                     // 绿色
+        FLOAT_NUMBER_RED,                       // 红色
+        FLOAT_NUMBER_YELLOW                     // 黄色
+    };
 
     /**
     	 关于角色外形，都只用对应一个骨骼动画的配置文件
@@ -65,6 +75,11 @@ public:
     */
     Vec2 getCenterPos();
 
+    /**
+    * 当想让该角色身上出现数字飘动的时候调用的接口 
+    */
+    void floatNumber(string numStr, FloatNumberTypeEnum type);
+
 protected:
     GameCharacterShape(const std::string& fileName, const std::string& armatureName);
 
@@ -73,10 +88,21 @@ protected:
     */
     void onFrameEvent(Bone *bone, const string& evt, int originFrameIndex, int currentFrameIndex);
 
+    /**
+    *  当浮动的数字停止动作的时候的回调，这里只用把自己删除就OK了
+    */
+    void onFloatNumberMoveOver(Node* pNode);
+
     Armature* _armature;
     string _currentAnimationName;                   // 当前播放的动画的名称
 
     ActionFrameEventCallback   _frameEventCallBack;    // 当播放动画的时候帧事件的回调函数
+
+    /**
+    * 一些常量@_@比如关于动画时间之类的 
+    */
+    const float FLOATNUMBERDIRATION;                // 浮动文字动画时间
+    const float FLOATNUMBERMOVEBYY;                 // 移动距离
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include "GraphSearchAStar.h"
 #include "EntityManager.h"
 
-#define DRAW_MAP_GRID
+//#define DRAW_MAP_GRID
 
 bool MapGrid::init()
 {

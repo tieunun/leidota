@@ -67,7 +67,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(150, 20, 20, 110);
+            tmpRet->m_attribute     =   GameCharacterAttribute(150, 20, 20, 80);
             
             // 骑士：进程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -83,7 +83,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(10, 1, 10, 60 + CCRANDOM_0_1() * 20);
+            tmpRet->m_attribute     =   GameCharacterAttribute(100, 3, 10, 60 + CCRANDOM_0_1() * 20);
 
             // 野猪怪：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -99,7 +99,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(30, 5, 10, 50 + CCRANDOM_0_1() * 20);
+            tmpRet->m_attribute     =   GameCharacterAttribute(100, 3, 10, 50 + CCRANDOM_0_1() * 20);
 
             // 牛人：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -240,12 +240,12 @@ void GameCharacter::normalAttack(int id)
     if (this->getCharacterType() == GAMECHARACTER_TYPE_ENUM_SHORT_RANGE)
     {
         // 对于近程攻击单位，只用播放动画就OK了
-        this->getShape()->playAction(ATTACK_ACTION, false, std::bind(&GameCharacter::onShortAttEffect, this, std::placeholders::_1));
+        this->getShape()->playAction(NORMAL_ATTACK_ACTION, false, std::bind(&GameCharacter::onShortAttEffect, this, std::placeholders::_1));
     }
     else if (this->getCharacterType() == GAMECHARACTER_TYPE_ENUM_LONG_RANGE)
     {
         // 远程攻击单位，还需要在特定动画的位置丢出大便
-        this->getShape()->playAction(ATTACK_ACTION, false, std::bind(&GameCharacter::onLongAttLaunch, this, std::placeholders::_1));
+        this->getShape()->playAction(NORMAL_ATTACK_ACTION, false, std::bind(&GameCharacter::onLongAttLaunch, this, std::placeholders::_1));
     }
 }
 
@@ -447,4 +447,26 @@ vector<int> GameCharacter::getFollowGridIndex( GameCharacter* other )
 bool GameCharacter::followGridSortFunc( int index1, int index2 )
 {
     return m_graph->getDistanceInGrid(m_objectOnGrid.nodeIndex, index1) < m_graph->getDistanceInGrid(m_objectOnGrid.nodeIndex, index2);
+}
+
+void GameCharacter::sufferNormalAttack( GameCharacterAttribute& attribute )
+{
+    int tmpHp    =   m_attribute.getHp();
+    // 修改属性
+    m_attribute.sufferNormalAttack(attribute);
+    tmpHp   -=  m_attribute.getHp();
+
+    char tmpHpStr[20];
+    sprintf(tmpHpStr, "-%d", tmpHp);
+
+    if (this->getType() == GAME_ENTITY_TYPE_PLAYER_CHARACTER)
+    {
+        // 如果玩家角色就飘黄字
+        m_shape->floatNumber(string(tmpHpStr), GameCharacterShape::FLOAT_NUMBER_YELLOW);
+    }
+    else
+    {
+        // 否则飘红字
+        m_shape->floatNumber(string(tmpHpStr), GameCharacterShape::FLOAT_NUMBER_RED);
+    }
 }

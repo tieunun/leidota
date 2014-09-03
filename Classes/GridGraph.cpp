@@ -1,4 +1,5 @@
 #include "GridGraph.h"
+#include <math.h>
 
 GridGraph::GridGraph( int gridW, int gridH, int xNum, int yNum )
 {

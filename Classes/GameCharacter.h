@@ -136,6 +136,11 @@ public:
     vector<int> getFollowGridIndex(GameCharacter* other);
 
     /**
+    * 受到普通攻击的接口 
+    */
+    void sufferNormalAttack(GameCharacterAttribute& attribute);
+
+    /**
     * 设置和返回该角色所属的队伍 
     */
     CC_SYNTHESIZE(GameTeam*, m_team, Team);

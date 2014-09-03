@@ -1,6 +1,6 @@
 #include "GameCharacterShape.h"
 
-GameCharacterShape::GameCharacterShape(const std::string& fileName, const std::string& armatureName)
+GameCharacterShape::GameCharacterShape(const std::string& fileName, const std::string& armatureName):FLOATNUMBERDIRATION(0.3f), FLOATNUMBERMOVEBYY(50)
 {
     ArmatureDataManager::getInstance()->addArmatureFileInfo(fileName);
     _armature = Armature::create(armatureName);
@@ -21,7 +21,7 @@ GameCharacterShape* GameCharacterShape::create(const std::string& fileName, cons
         pRet->autorelease();
         return pRet;
     }
-    
+
     return nullptr;
 }
 
@@ -108,4 +108,39 @@ Vec2 GameCharacterShape::getCenterPos()
     auto tmpRect    =   this->getCollisionRect();
     auto tmpPos     =   Vec2(tmpRect.getMidX(), tmpRect.getMidY());
     return tmpPos;
+}
+
+void GameCharacterShape::floatNumber( string numStr, GameCharacterShape::FloatNumberTypeEnum type )
+{
+    // 选择使用的文字样式
+    auto tmpFntSrc  =   "";
+    switch (type)
+    {
+    case GameCharacterShape::FLOAT_NUMBER_GREEN:
+        tmpFntSrc   =   "font/greennumber.fnt";
+        break;
+    case GameCharacterShape::FLOAT_NUMBER_RED:
+        tmpFntSrc   =   "font/rednumber.fnt";
+        break;
+    case GameCharacterShape::FLOAT_NUMBER_YELLOW:
+        tmpFntSrc   =   "font/yellownumber.fnt";
+        break;
+    default:
+        break;
+    }
+
+    // 创建标签
+    auto tmpText    =   Label::createWithBMFont(tmpFntSrc, numStr);
+    tmpText->setPositionY(this->getCenterPos().y);
+    this->addChild(tmpText);
+    tmpText->setScaleX(this->getScaleX());
+
+    // 绑定浮动的动画，播放动画
+    auto tmpMoveBy  =   MoveBy::create(FLOATNUMBERDIRATION, Vec2(0, FLOATNUMBERMOVEBYY));
+    tmpText->runAction(Sequence::create(tmpMoveBy, CallFuncN::create(std::bind(&GameCharacterShape::onFloatNumberMoveOver, this, std::placeholders::_1)), nullptr));
+}
+
+void GameCharacterShape::onFloatNumberMoveOver( Node* pNode )
+{
+    pNode->removeFromParentAndCleanup(true);
 }

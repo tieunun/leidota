@@ -66,7 +66,7 @@ bool GameCharacterShape::init()
     // Ìí¼ÓÑªÌõ
     auto tmpHpBarBg =   Sprite::create("character/barbg.png");
     tmpHpBarBg->setScale(0.5);
-    m_hpBar =   LoadingBar::create("character/hpbar.png", 50);
+    m_hpBar =   LoadingBar::create("character/hpbar.png", 100);
     m_hpBar->setAnchorPoint(Vec2(0, 0));
     m_hpBar->setPosition(Vec2(3.5, 2));
     tmpHpBarBg->addChild(m_hpBar);
@@ -200,4 +200,9 @@ void GameCharacterShape::hideHalo()
         m_halo->removeFromParentAndCleanup(true);
         m_halo  =   nullptr;
     }
+}
+
+void GameCharacterShape::setHpRatio( float ratio )
+{
+    m_hpBar->setPercent(ratio * 100);
 }

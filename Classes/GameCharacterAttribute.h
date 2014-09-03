@@ -22,6 +22,7 @@ public:
     */
     GameCharacterAttribute& sufferNormalAttack(GameCharacterAttribute& otherAttr);
 
+    CC_SYNTHESIZE(float, m_fullHp, FullHp);                             // 总血量
     CC_SYNTHESIZE(float, m_hp, Hp);                                     // 血量
     CC_SYNTHESIZE(float, m_attack, Attack);                             // 攻击值
     CC_SYNTHESIZE(float, m_defense, Defense);                           // 防御值

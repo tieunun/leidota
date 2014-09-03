@@ -3,6 +3,7 @@
 GameCharacterAttribute::GameCharacterAttribute(float hp, float attack, float defense, float rate, 
                                                float attDistance, int attInterval, int viewDistance)
 {
+    m_fullHp        =   hp;
     m_hp            =   hp;
     m_attack        =   attack;
     m_defense       =   defense;

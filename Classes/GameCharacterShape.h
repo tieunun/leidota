@@ -101,6 +101,12 @@ public:
     */
     void hideHalo();
 
+    /**
+    *	设置HP显示的比率，就是还剩百分之几的hp
+    *   0~1
+    */
+    void setHpRatio(float ratio);
+
 protected:
     GameCharacterShape(const std::string& fileName, const std::string& armatureName);
 

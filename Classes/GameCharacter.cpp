@@ -143,6 +143,10 @@ void GameCharacter::update(float dm)
     * 这里严重注意：在状态机中可能会删除自己，比如调用die的时候 
     */
     m_frameCount++;
+
+    // @_@ 每一帧都调整一下血量
+    m_shape->setHpRatio(m_attribute.getHp() / m_attribute.getFullHp());
+
     m_stateMachine->update(dm);
 }
 

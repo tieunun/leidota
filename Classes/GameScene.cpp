@@ -105,6 +105,12 @@ bool GameScene::init()
     tmpTeam3->addMercenaryIds(tmpRole8);
     TeamMgr->registerTeam(tmpTeam3);
 
+    auto tmpRole9   =   GameCharacter::create(4);
+    tmpRole9->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
+    tmpRole9->retain();
+    tmpTeam3->addMercenaryIds(tmpRole9);
+    m_map->placeOneCharacterToIndex(tmpRole9, 40);
+
     m_inputManager->init();
 
 #ifdef MOBILDINPUT

@@ -66,7 +66,10 @@ void GameCharacterMovingState::onEnter(GameCharacter* owner)
     owner->getShape()->playAction(RUN_ACTION);
 
     // 同时需要告知队伍自己正在移动
-    owner->getTeam()->playerMoving(owner);
+    if (owner->getTeam() != nullptr)
+    {
+        owner->getTeam()->playerMoving(owner);
+    }
 }
 
 void GameCharacterMovingState::update(GameCharacter* owner, float dm)

@@ -4,9 +4,11 @@
 #include "cocos2d.h"
 #include "cocostudio/CCArmatureDataManager.h"
 #include "cocostudio/CCArmature.h"
+#include "ui/UILoadingBar.h"
 
 using namespace cocos2d;
 using namespace cocostudio;
+using namespace ui;
 using namespace std;
 
 /**
@@ -34,6 +36,15 @@ public:
         FLOAT_NUMBER_GREEN,                     // 绿色
         FLOAT_NUMBER_RED,                       // 红色
         FLOAT_NUMBER_YELLOW                     // 黄色
+    };
+
+    /**
+    * 被选中的时候显示的光圈的类型 
+    */
+    enum HaloTypeEnum
+    {
+        HALO_GREEN,                             // 绿色光圈
+        HALO_RED                                // 红色光圈
     };
 
     /**
@@ -80,6 +91,16 @@ public:
     */
     void floatNumber(string numStr, FloatNumberTypeEnum type);
 
+    /**
+    *  在人物周围出现一个被选中的光圈
+    */
+    void showHalo(HaloTypeEnum type);
+
+    /**
+    * 如果当前人物身边有光圈，就删除掉 
+    */
+    void hideHalo();
+
 protected:
     GameCharacterShape(const std::string& fileName, const std::string& armatureName);
 
@@ -98,11 +119,18 @@ protected:
 
     ActionFrameEventCallback   _frameEventCallBack;    // 当播放动画的时候帧事件的回调函数
 
+    LoadingBar* m_hpBar;                            // 每个角色头上的血条
+
     /**
     * 一些常量@_@比如关于动画时间之类的 
     */
     const float FLOATNUMBERDIRATION;                // 浮动文字动画时间
     const float FLOATNUMBERMOVEBYY;                 // 移动距离
+
+    /**
+    * 临时值 
+    */
+    Armature*   m_halo;                             // 人物脚部旋转地光圈
 };
 
 #endif

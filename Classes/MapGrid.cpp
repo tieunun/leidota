@@ -5,6 +5,13 @@
 
 //#define DRAW_MAP_GRID
 
+/**
+* 主要是因为在编译android的时候发现没有定义abs，而应该使用fabs 
+*/
+#ifndef WIN32
+    #define abs(value)  fabs(value)
+#endif
+
 bool MapGrid::init()
 {
     if (!Layer::init())

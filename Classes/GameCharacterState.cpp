@@ -235,7 +235,12 @@ void GameCharacterNormalAttack::onEnter(GameCharacter* owner)
         owner->getShape()->faceToLeft();
     }
 
-    // owner->getShape()->playAction(NORMAL_ATTACK_ACTION, false);
+    // 如果当前的进攻者是主角，就在被攻击目标上有选择光环
+    if (EntityMgr->getmainEntity() == owner)
+    {
+        target->getShape()->showHalo(GameCharacterShape::HALO_RED);
+    }
+
     owner->normalAttack(targetId);
 }
 
@@ -257,6 +262,13 @@ void GameCharacterNormalAttack::update(GameCharacter* owner, float dm)
 void GameCharacterNormalAttack::onExit(GameCharacter* owner)
 {
     owner->exitNormalAttack();
+
+    // 如果对方角色还在，在离开战斗时，清除掉选择光环
+    auto tmpTarget  =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(targetId));
+    if (tmpTarget != nullptr)
+    {
+        tmpTarget->getShape()->hideHalo();
+    }
 }
 
 bool GameCharacterNormalAttack::onMessage(GameCharacter* owner, Telegram &msg)

@@ -5,6 +5,8 @@ GameCharacterShape::GameCharacterShape(const std::string& fileName, const std::s
     ArmatureDataManager::getInstance()->addArmatureFileInfo(fileName);
     _armature = Armature::create(armatureName);
     _currentAnimationName = "";
+    m_halo  =   nullptr;
+    m_hpBar =   nullptr;
     
     // @_@ 这里是因为美术每个资源的问题，给的任务的朝向不同，只好加上这个逻辑
     if (armatureName == "xuejingling-qian" || armatureName == "Aer")
@@ -58,7 +60,19 @@ bool GameCharacterShape::init()
         return false;
     }
 
-    this->addChild(_armature);
+    // 添加动画
+    this->addChild(_armature, 2);
+
+    // 添加血条
+    auto tmpHpBarBg =   Sprite::create("character/barbg.png");
+    tmpHpBarBg->setScale(0.5);
+    m_hpBar =   LoadingBar::create("character/hpbar.png", 50);
+    m_hpBar->setAnchorPoint(Vec2(0, 0));
+    m_hpBar->setPosition(Vec2(3.5, 2));
+    tmpHpBarBg->addChild(m_hpBar);
+    tmpHpBarBg->setAnchorPoint(Vec2(0.5, 0));
+    tmpHpBarBg->setPosition(Vec2(0, _armature->getContentSize().height));
+    this->addChild(tmpHpBarBg);
 
     return true;
 }
@@ -132,7 +146,7 @@ void GameCharacterShape::floatNumber( string numStr, GameCharacterShape::FloatNu
     // 创建标签
     auto tmpText    =   Label::createWithBMFont(tmpFntSrc, numStr);
     tmpText->setPositionY(this->getCenterPos().y);
-    this->addChild(tmpText);
+    this->addChild(tmpText, 4);
     tmpText->setScaleX(this->getScaleX());
 
     // 绑定浮动的动画，播放动画
@@ -143,4 +157,47 @@ void GameCharacterShape::floatNumber( string numStr, GameCharacterShape::FloatNu
 void GameCharacterShape::onFloatNumberMoveOver( Node* pNode )
 {
     pNode->removeFromParentAndCleanup(true);
+}
+
+void GameCharacterShape::showHalo( HaloTypeEnum type )
+{
+    if (m_halo != nullptr)
+    {
+        m_halo->removeFromParentAndCleanup(true);
+        m_halo  =   nullptr;
+    }
+
+    // 添加光圈动画
+    ArmatureDataManager::getInstance()->addArmatureFileInfo("halo/greenhalo0.png", "halo/greenhalo0.plist", "halo/greenhalo.ExportJson");
+    ArmatureDataManager::getInstance()->addArmatureFileInfo("halo/redhalo0.png", "halo/redhalo0.plist", "halo/redhalo.ExportJson");
+
+    switch (type)
+    {
+    case GameCharacterShape::HALO_GREEN:
+        {
+            m_halo  =   Armature::create("greenhalo");
+            this->addChild(m_halo);
+            break;
+        }
+        
+    case GameCharacterShape::HALO_RED:
+        {
+	        m_halo  =   Armature::create("redhalo");
+	        this->addChild(m_halo);
+	        break;
+        }
+    default:
+        break;
+    }
+
+    m_halo->getAnimation()->play("Animation1");
+}
+
+void GameCharacterShape::hideHalo()
+{
+    if (m_halo != nullptr)
+    {
+        m_halo->removeFromParentAndCleanup(true);
+        m_halo  =   nullptr;
+    }
 }

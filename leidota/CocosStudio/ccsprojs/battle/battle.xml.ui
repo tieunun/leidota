@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\cocostudiosample\leidota\CocosStudio\ccsprojs\battle</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\cocostudiosample\leidota\CocosStudio\assets</Resources>
+  <Name>battle</Name>
+  <JsonFileName>battle.json</JsonFileName>
+  <JsonFolder>E:\cocostudiosample\leidota\CocosStudio\ccsprojs\battle\Json</JsonFolder>
+  <JsonList>
+    <string>battle_1.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>1280</Width>
+    <Height>800</Height>
+  </CanvasSize>
+  <filePath>E:\cocostudiosample\leidota\CocosStudio\ccsprojs\battle\battle.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <imageFileList>
+    <string>battle0.plist</string>
+  </imageFileList>
+  <imagePngList>
+    <string>battle0.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>battle_1.json</CurrentUIJson>
+</UIProject>

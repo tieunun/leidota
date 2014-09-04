@@ -73,7 +73,8 @@ void FlightPropsMgr::update(float dm)
         // 如果飞行器飞行出了屏幕，也删除
         auto tmpWinSize     =   Director::getInstance()->getVisibleSize();
         auto tmpOrig        =   Director::getInstance()->getVisibleOrigin();
-        auto tmpFlightPos   =   tmpFlight->getPosition();
+        // 这里获取在世界中的坐标
+        auto tmpFlightPos   =   tmpFlight->convertToWorldSpace(Vec2(0, 0));
         if (tmpFlightPos.x < 0 || tmpFlightPos.x > tmpWinSize.width || tmpFlightPos.y < 0 || tmpFlightPos.y > tmpWinSize.height)
         {
             tmpFlight->shouldBeDel  =   true;

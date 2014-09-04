@@ -2,6 +2,7 @@
 #include "GameCharacterState.h"
 #include "FlightProps.h"
 #include "MessageDispatcher.h"
+#include "UIViewManager.h"
 
 GameCharacter* GameCharacter::create(int id)
 {
@@ -473,4 +474,7 @@ void GameCharacter::sufferNormalAttack( GameCharacterAttribute& attribute )
         // 否则飘红字
         m_shape->floatNumber(string(tmpHpStr), GameCharacterShape::FLOAT_NUMBER_RED);
     }
+
+    // @_@ 通知更新
+    UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_CHARACTER, this));
 }

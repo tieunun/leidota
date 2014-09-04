@@ -3,6 +3,7 @@
 #include "TeamManager.h"
 #include "GameTeamState.h"
 #include "EntityManager.h"
+#include "BattleUI.h"
 
 #define PCINPUT
 #ifndef PCINPUT
@@ -116,6 +117,10 @@ bool GameScene::init()
 #ifdef MOBILDINPUT
     this->addChild(dynamic_cast<Layer*>(m_inputManager), 20);
 #endif
+
+    // Õ½¶·UI
+    auto tmpUI  =   BattleUI::create();
+    this->addChild(tmpUI);
 
     return true;
 }

@@ -31,6 +31,9 @@
     <Filter Include="Classes\flightprops">
       <UniqueIdentifier>{2750b8e9-d1fb-43aa-8d16-8fea332d5bb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\ui">
+      <UniqueIdentifier>{c65a3b7e-0fa2-4018-9b9c-283697c828c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +101,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\FlightPropsMgr.cpp">
       <Filter>Classes\flightprops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleUI.cpp">
+      <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UIViewManager.cpp">
+      <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UIView.cpp">
+      <Filter>Classes\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +211,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\FlightPropsMgr.h">
       <Filter>Classes\flightprops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleUI.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIView.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RefreshUIEventEnum.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RefreshUIMsg.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIViewManager.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UIViewIdEnum.h">
+      <Filter>Classes\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

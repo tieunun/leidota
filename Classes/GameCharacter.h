@@ -141,9 +141,19 @@ public:
     void sufferNormalAttack(GameCharacterAttribute& attribute);
 
     /**
+    * 返回该角色的头像，@_@暂时先放在这里 
+    */
+    string getIconSrc();
+
+    /**
     * 设置和返回该角色所属的队伍 
     */
     CC_SYNTHESIZE(GameTeam*, m_team, Team);
+
+    /**
+    * 角色id，表示一种类型的人物 
+    */
+    CC_SYNTHESIZE_READONLY(int, m_characterId, CharacterId);
 
 protected:
     GameCharacter();

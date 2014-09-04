@@ -3,6 +3,7 @@
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "GameTeam.h"
+#include "UIViewManager.h"
 
 // 一个用来判断当前是否在某个状态的宏
 #define ISINSTATE(state)    dynamic_cast<state*>(owner->getFSM()->getCurrentState()) != nullptr
@@ -242,6 +243,7 @@ void GameCharacterNormalAttack::onEnter(GameCharacter* owner)
     if (EntityMgr->getmainEntity() == owner)
     {
         target->getShape()->showHalo(GameCharacterShape::HALO_RED);
+        UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_ATTACK_CHARACTER, target));
     }
 
     owner->normalAttack(targetId);
@@ -272,6 +274,7 @@ void GameCharacterNormalAttack::onExit(GameCharacter* owner)
     {
         tmpTarget->getShape()->hideHalo();
     }
+    UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_ATTACK_CHARACTER, nullptr));
 }
 
 bool GameCharacterNormalAttack::onMessage(GameCharacter* owner, Telegram &msg)

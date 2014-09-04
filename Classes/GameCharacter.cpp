@@ -20,6 +20,7 @@ GameCharacter* GameCharacter::create(int id)
     */
     tmpRet->m_stateMachine  =   StateMachine<GameCharacter>::create(tmpRet);
     tmpRet->m_stateMachine->retain();
+    tmpRet->m_characterId   =   id;
     switch (id)
     {
     case 1:                                                 // 对应的是宙斯
@@ -477,4 +478,46 @@ void GameCharacter::sufferNormalAttack( GameCharacterAttribute& attribute )
 
     // @_@ 通知更新
     UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_CHARACTER, this));
+}
+
+std::string GameCharacter::getIconSrc()
+{
+    string tmpSrc =   "character/icon/";
+    switch (m_characterId)
+    {
+    case 1:
+        {
+            tmpSrc  +=  "003.png";
+            break;
+        }
+
+    case 2:
+        {
+            tmpSrc  +=  "003.png";
+            break;
+        }
+
+    case 3:
+        {
+            tmpSrc  +=  "004.png";
+            break;
+        }
+
+    case 4:
+        {
+            tmpSrc  +=  "005.png";
+            break;
+        }
+
+    case 5:
+        {
+            tmpSrc  +=  "006.png";
+            break;
+        }
+
+    default:
+        break;
+    }
+
+    return tmpSrc;
 }

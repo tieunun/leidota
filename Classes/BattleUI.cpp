@@ -50,9 +50,21 @@ void BattleUI::onWee( RefreshUIMsg& msg )
             break;
         }
 
+    case REFRESH_UI_EVENT_ATTACK_CHARACTER:
+        {
+            refreshTargetCharacter((GameCharacter*)msg.extraInfo);
+            break;
+        }
+
     default:
         break;
     }
+}
+
+void BattleUI::setWeeList()
+{
+    m_weeList.push_back(REFRESH_UI_EVENT_CHARACTER);
+    m_weeList.push_back(REFRESH_UI_EVENT_ATTACK_CHARACTER);
 }
 
 void BattleUI::refreshCharacter( GameCharacter* character )
@@ -65,7 +77,19 @@ void BattleUI::refreshCharacter( GameCharacter* character )
     }
 }
 
-void BattleUI::setWeeList()
+void BattleUI::refreshTargetCharacter( GameCharacter* character )
 {
-    m_weeList.push_back(REFRESH_UI_EVENT_CHARACTER);
+    if (character == nullptr)
+    {
+        // 说明当前没有攻击目标
+        m_enemyPanel->setVisible(false);
+    }
+    else
+    {
+        // 否则就显示该角色信息
+        auto tmpAttribute   =   character->getAttribute();
+        m_enemyPanel->setVisible(true);
+        m_leaderHpBar->setPercent(tmpAttribute.getHp() / tmpAttribute.getFullHp() * 100);
+        m_enemyIcon->loadTexture(character->getIconSrc());
+    }
 }

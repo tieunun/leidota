@@ -14,7 +14,7 @@ public:
     	 当前暂时一个人物只有血量、攻击值、防御值以及移动速度
     */
     GameCharacterAttribute(float hp = 100, float attack = 10, float defense = 20, 
-        float rate = 80, float attDistance = 650, int attInterval = 20, int viewDistance = 10);
+        float rate = 80, float attDistance = 650, int attInterval = 10, int viewDistance = 10);
 
     /**
     	 遭受别人的普通攻击，这里之所以把对方的所有属性都传入，是因为考虑到可能普通攻击的杀伤计算

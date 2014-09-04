@@ -30,6 +30,11 @@ protected:
     */
     void refreshCharacter(GameCharacter* character);
 
+    /**
+    * 刷新当前作为主角攻击目标的角色 
+    */
+    void refreshTargetCharacter(GameCharacter* character);
+
     LoadingBar*     m_leaderHpBar;                  // 主角hp条
     ImageView*      m_leaderIcon;                   // 主角的头像
 

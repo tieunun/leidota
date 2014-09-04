@@ -7,7 +7,8 @@
 */
 enum RefreshUIEventEnum
 {
-    REFRESH_UI_EVENT_CHARACTER                      // 当角色数据发生变化的时候
+    REFRESH_UI_EVENT_CHARACTER,                      // 当角色数据发生变化的时候
+    REFRESH_UI_EVENT_ATTACK_CHARACTER                // 当主角攻击目标或者数据发生变化的时候
 };
 
 #endif

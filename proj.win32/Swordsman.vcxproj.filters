@@ -37,6 +37,9 @@
     <Filter Include="Classes\joystick">
       <UniqueIdentifier>{947c1301-eef2-499c-9a71-cb97803b74ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\character\system">
+      <UniqueIdentifier>{a54e92e6-4c6d-4c52-83f6-4b44086ba72f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -113,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\JoyStick.cpp">
       <Filter>Classes\joystick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ControlSystem.cpp">
+      <Filter>Classes\character\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MobilityControlSystem.cpp">
+      <Filter>Classes\character\system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\JoyStick.h">
       <Filter>Classes\joystick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MobilityControlSystem.h">
+      <Filter>Classes\character\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ControlSystem.h">
+      <Filter>Classes\character\system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

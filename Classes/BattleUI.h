@@ -42,6 +42,13 @@ protected:
     */
     void refreshTargetCharacter(GameCharacter* character);
 
+    /**
+    * 以下是接受界面按钮的点击事件 
+    */
+    void onClickChangeTargetBtn(Ref* target,Widget::TouchEventType type);
+    void onClickConvergeBtn(Ref* target,Widget::TouchEventType type);
+    void onClickSkillBtn(Ref* target,Widget::TouchEventType type);
+
     LoadingBar*     m_leaderHpBar;                  // 主角hp条
     ImageView*      m_leaderIcon;                   // 主角的头像
 

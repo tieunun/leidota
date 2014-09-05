@@ -16,6 +16,7 @@ bool BattleUI::init()
     auto tmpUIRoot = GUIReader::getInstance()->widgetFromJsonFile("battleui/battle_1.ExportJson");
     this->addChild(tmpUIRoot);
 
+    // 获取对应的节点
     auto tmpRoot    =   tmpUIRoot->getChildByName("leaderhpbarbg");
     m_leaderHpBar   =   dynamic_cast<LoadingBar*>(tmpRoot->getChildByName("leaderhpbar"));
     tmpRoot         =   tmpUIRoot->getChildByName("leadericonbg");
@@ -31,6 +32,11 @@ bool BattleUI::init()
     m_changeTargetBtn   =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("changetargetbtn"));
     m_skillBtn          =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("skillbtn"));
     m_convergeBtn       =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("jihuobtn"));
+
+    // 在节点上绑定回调
+    m_changeTargetBtn->addTouchEventListener(CC_CALLBACK_2(BattleUI::onClickChangeTargetBtn, this));
+    m_convergeBtn->addTouchEventListener(CC_CALLBACK_2(BattleUI::onClickConvergeBtn, this));
+    m_skillBtn->addTouchEventListener(CC_CALLBACK_2(BattleUI::onClickSkillBtn, this));
 
     // 操纵柄
     m_jokStick    =   JoyStick::create(Sprite::create("battleui/000.png"), Sprite::create("battleui/001.png"));
@@ -115,5 +121,29 @@ void BattleUI::update( float dm )
     else
     {
         _delegate->idle();
+    }
+}
+
+void BattleUI::onClickChangeTargetBtn( Ref* target,Widget::TouchEventType type )
+{
+    if (type == Widget::TouchEventType::ENDED)
+    {
+        _delegate->changeTarget();
+    }
+}
+
+void BattleUI::onClickConvergeBtn( Ref* target,Widget::TouchEventType type )
+{
+    if (type == Widget::TouchEventType::ENDED)
+    {
+
+    }
+}
+
+void BattleUI::onClickSkillBtn( Ref* target,Widget::TouchEventType type )
+{
+    if (type == Widget::TouchEventType::ENDED)
+    {
+
     }
 }

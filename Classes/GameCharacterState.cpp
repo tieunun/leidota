@@ -243,7 +243,8 @@ void GameCharacterNormalAttack::onEnter(GameCharacter* owner)
     if (EntityMgr->getmainEntity() == owner)
     {
         target->getShape()->showHalo(GameCharacterShape::HALO_RED);
-        UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_ATTACK_CHARACTER, target));
+        RefreshUIMsg tmpMsg(REFRESH_UI_EVENT_ATTACK_CHARACTER, target);
+        UIViewMgr->refreshView(tmpMsg);
     }
 
     owner->normalAttack(targetId);
@@ -274,7 +275,8 @@ void GameCharacterNormalAttack::onExit(GameCharacter* owner)
     {
         tmpTarget->getShape()->hideHalo();
     }
-    UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_ATTACK_CHARACTER, nullptr));
+    RefreshUIMsg tmpMsg(REFRESH_UI_EVENT_ATTACK_CHARACTER, nullptr);
+    UIViewMgr->refreshView(tmpMsg);
 }
 
 bool GameCharacterNormalAttack::onMessage(GameCharacter* owner, Telegram &msg)

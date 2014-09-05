@@ -3,6 +3,7 @@
 #include "FlightProps.h"
 #include "MessageDispatcher.h"
 #include "UIViewManager.h"
+#include "MobilityControlSystem.h"
 
 GameCharacter* GameCharacter::create(int id)
 {
@@ -85,7 +86,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(100, 3, 10, 60 + CCRANDOM_0_1() * 20);
+            tmpRet->m_attribute     =   GameCharacterAttribute(400, 1, 10, 60 + CCRANDOM_0_1() * 20);
 
             // 野猪怪：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -101,7 +102,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
             tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(100, 3, 10, 50 + CCRANDOM_0_1() * 20);
+            tmpRet->m_attribute     =   GameCharacterAttribute(400, 1, 10, 50 + CCRANDOM_0_1() * 20);
 
             // 牛人：近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
@@ -126,6 +127,11 @@ GameCharacter::GameCharacter()
     m_team                          =   nullptr;
     m_frameCount                    =   0;
     m_lastExitNormalAttackFrame     =   0;
+
+    /**
+    * 各种控制系统 
+    */
+    m_mobilityControlSystem         =   new MobilityControlSystem(this, 0.1);
 }
 
 GameCharacter::~GameCharacter()
@@ -137,6 +143,9 @@ GameCharacter::~GameCharacter()
     // 将该角色的显示从显示列表中移除
     m_shape->removeFromParent();
     CC_SAFE_RELEASE_NULL(m_shape);
+
+    CC_SAFE_DELETE(m_mobilityControlSystem);
+    m_mobilityControlSystem =   nullptr;
 }
 
 void GameCharacter::update(float dm)
@@ -148,6 +157,11 @@ void GameCharacter::update(float dm)
 
     // @_@ 每一帧都调整一下血量
     m_shape->setHpRatio(m_attribute.getHp() / m_attribute.getFullHp());
+
+    /**
+    * 更新该角色身上的所有控制系统 
+    */
+    m_mobilityControlSystem->tryUpdate();
 
     m_stateMachine->update(dm);
 }
@@ -477,7 +491,8 @@ void GameCharacter::sufferNormalAttack( GameCharacterAttribute& attribute )
     }
 
     // @_@ 通知更新
-    UIViewMgr->refreshView(RefreshUIMsg(REFRESH_UI_EVENT_CHARACTER, this));
+    RefreshUIMsg tmpMsg(REFRESH_UI_EVENT_CHARACTER, this);
+    UIViewMgr->refreshView(tmpMsg);
 }
 
 std::string GameCharacter::getIconSrc()

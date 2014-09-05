@@ -136,6 +136,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BaseGameEntity.cpp" />
     <ClCompile Include="..\Classes\BattleUI.cpp" />
+    <ClCompile Include="..\Classes\ControlSystem.cpp" />
     <ClCompile Include="..\Classes\EntityManager.cpp" />
     <ClCompile Include="..\Classes\FlightProps.cpp" />
     <ClCompile Include="..\Classes\FlightPropsMgr.cpp" />
@@ -152,6 +153,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\JoyStick.cpp" />
     <ClCompile Include="..\Classes\MapGrid.cpp" />
     <ClCompile Include="..\Classes\MessageDispatcher.cpp" />
+    <ClCompile Include="..\Classes\MobilityControlSystem.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
     <ClCompile Include="..\Classes\GameTeamState.cpp" />
     <ClCompile Include="..\Classes\TeamManager.cpp" />
@@ -163,6 +165,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BaseGameEntity.h" />
     <ClInclude Include="..\Classes\BattleUI.h" />
+    <ClInclude Include="..\Classes\ControlSystem.h" />
     <ClInclude Include="..\Classes\EntityManager.h" />
     <ClInclude Include="..\Classes\FlightProps.h" />
     <ClInclude Include="..\Classes\FlightPropsMgr.h" />
@@ -183,6 +186,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\JoyStick.h" />
     <ClInclude Include="..\Classes\MapGrid.h" />
     <ClInclude Include="..\Classes\MessageDispatcher.h" />
+    <ClInclude Include="..\Classes\MobilityControlSystem.h" />
     <ClInclude Include="..\Classes\NavGraphEdge.h" />
     <ClInclude Include="..\Classes\NavGraphNode.h" />
     <ClInclude Include="..\Classes\PCInputManager.h" />

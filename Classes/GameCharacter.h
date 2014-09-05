@@ -10,6 +10,7 @@
 using namespace std;
 
 class GameTeam;
+class ControlSystem;
 
 /**
 	 游戏角色类型
@@ -202,6 +203,9 @@ protected:
     int m_normatAttTargetId;                                    // 临时保存的攻击目标id
     int m_frameCount;                                           // 每一帧累加
     int m_lastExitNormalAttackFrame;                            // 保存上一次离开普通攻击状态的帧数
+
+private:
+    ControlSystem*  m_mobilityControlSystem;                    // 移动控制系统
 };
 
 #endif

@@ -149,6 +149,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameTeam.cpp" />
     <ClCompile Include="..\Classes\GraphSearchStaticMember.cpp" />
     <ClCompile Include="..\Classes\GridGraph.cpp" />
+    <ClCompile Include="..\Classes\JoyStick.cpp" />
     <ClCompile Include="..\Classes\MapGrid.cpp" />
     <ClCompile Include="..\Classes\MessageDispatcher.cpp" />
     <ClCompile Include="..\Classes\MobileInputManager.cpp" />
@@ -180,6 +181,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GraphSearchDijkstra.h" />
     <ClInclude Include="..\Classes\GridGraph.h" />
     <ClInclude Include="..\Classes\InputManager.h" />
+    <ClInclude Include="..\Classes\JoyStick.h" />
     <ClInclude Include="..\Classes\MapGrid.h" />
     <ClInclude Include="..\Classes\MessageDispatcher.h" />
     <ClInclude Include="..\Classes\MobileInputManager.h" />

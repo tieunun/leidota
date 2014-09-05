@@ -34,6 +34,9 @@
     <Filter Include="Classes\ui">
       <UniqueIdentifier>{c65a3b7e-0fa2-4018-9b9c-283697c828c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\joystick">
+      <UniqueIdentifier>{947c1301-eef2-499c-9a71-cb97803b74ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\UIView.cpp">
       <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\JoyStick.cpp">
+      <Filter>Classes\joystick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\UIViewIdEnum.h">
       <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\JoyStick.h">
+      <Filter>Classes\joystick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

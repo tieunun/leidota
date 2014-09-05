@@ -2,6 +2,7 @@
 #include "BattleUI.h"
 #include "UIViewIdEnum.h"
 #include "EntityManager.h"
+#include "JoyStick.h"
 
 using namespace cocostudio;
 
@@ -31,6 +32,11 @@ bool BattleUI::init()
     m_changeTargetBtn   =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("changetargetbtn"));
     m_skillBtn          =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("skillbtn"));
     m_convergeBtn       =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("jihuobtn"));
+
+    // ²Ù×Ý±ú
+    auto tmpCtrl    =   JoyStick::create(Sprite::create("battleui/000.png"), Sprite::create("battleui/001.png"));
+    tmpCtrl->setPosition(140, 140);
+    tmpUIRoot->addChild(tmpCtrl);
 
     return true;
 }

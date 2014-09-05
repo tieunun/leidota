@@ -5,10 +5,7 @@
 #include "EntityManager.h"
 #include "BattleUI.h"
 
-#define PCINPUT
-#ifndef PCINPUT
-    #define MOBILDINPUT
-#endif
+#define ADDPCINPUT
 
 bool GameScene::init()
 {
@@ -50,15 +47,11 @@ bool GameScene::init()
     m_mainModel     =   new GameMainModel();
     m_mainModel->setMainGameCharacter(tmpRole2);
     
-#ifdef PCINPUT
-    m_inputManager  =   new PCInputManager();
+#ifdef ADDPCINPUT                   // 如果添加了使用PC键盘输入
+    m_pcInputManager  =   new PCInputManager();
+    m_pcInputManager->setDelegate(m_mainModel);
+    m_pcInputManager->init();
 #endif
-    
-#ifdef MOBILDINPUT
-    m_inputManager  =   new MobileInputManager();
-#endif
-    
-    m_inputManager->setDelegate(m_mainModel);
 
     /**
     	 这里还需要增加3个敌人
@@ -112,15 +105,12 @@ bool GameScene::init()
     tmpTeam3->addMercenaryIds(tmpRole9);
     m_map->placeOneCharacterToIndex(tmpRole9, 40);
 
-    m_inputManager->init();
-
-#ifdef MOBILDINPUT
-    this->addChild(dynamic_cast<Layer*>(m_inputManager), 20);
-#endif
-
     // 战斗UI
     auto tmpUI  =   BattleUI::create();
     this->addChild(tmpUI);
+    // 允许手机输入的，也就是屏幕输入方式
+    m_mobileInputManager    =   tmpUI;
+    m_mobileInputManager->setDelegate(m_mainModel);
 
     return true;
 }

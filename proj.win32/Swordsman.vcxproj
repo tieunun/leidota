@@ -152,7 +152,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\JoyStick.cpp" />
     <ClCompile Include="..\Classes\MapGrid.cpp" />
     <ClCompile Include="..\Classes\MessageDispatcher.cpp" />
-    <ClCompile Include="..\Classes\MobileInputManager.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
     <ClCompile Include="..\Classes\GameTeamState.cpp" />
     <ClCompile Include="..\Classes\TeamManager.cpp" />
@@ -184,7 +183,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\JoyStick.h" />
     <ClInclude Include="..\Classes\MapGrid.h" />
     <ClInclude Include="..\Classes\MessageDispatcher.h" />
-    <ClInclude Include="..\Classes\MobileInputManager.h" />
     <ClInclude Include="..\Classes\NavGraphEdge.h" />
     <ClInclude Include="..\Classes\NavGraphNode.h" />
     <ClInclude Include="..\Classes\PCInputManager.h" />

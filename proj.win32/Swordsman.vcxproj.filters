@@ -81,9 +81,6 @@
     <ClCompile Include="..\Classes\PCInputManager.cpp">
       <Filter>Classes\input</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MobileInputManager.cpp">
-      <Filter>Classes\input</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameCharacter.cpp">
       <Filter>Classes\character</Filter>
     </ClCompile>
@@ -192,9 +189,6 @@
       <Filter>Classes\input</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\InputManager.h">
-      <Filter>Classes\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MobileInputManager.h">
       <Filter>Classes\input</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameCharacter.h">

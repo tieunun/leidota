@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "GameMap.h"
 #include "PCInputManager.h"
-#include "MobileInputManager.h"
 #include "GameMainModel.h"
 
 using namespace cocos2d;
@@ -28,7 +27,9 @@ public:
 protected:
     GameMap*    m_map;                  // 地图
 
-    InputManager* m_inputManager;     // 用来监听输入的
+    InputManager* m_pcInputManager;     // 用来监听输入的，键盘输入
+    InputManager* m_mobileInputManager; // 使用手机屏幕方式输入
+
     GameMainModel*  m_mainModel;        // 游戏主逻辑部分
 
     const int m_celebrateFrame;         // 保持庆祝多少帧

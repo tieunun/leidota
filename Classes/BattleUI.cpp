@@ -2,7 +2,6 @@
 #include "BattleUI.h"
 #include "UIViewIdEnum.h"
 #include "EntityManager.h"
-#include "JoyStick.h"
 
 using namespace cocostudio;
 
@@ -34,9 +33,11 @@ bool BattleUI::init()
     m_convergeBtn       =   dynamic_cast<Button*>(tmpUIRoot->getChildByName("jihuobtn"));
 
     // 操纵柄
-    auto tmpCtrl    =   JoyStick::create(Sprite::create("battleui/000.png"), Sprite::create("battleui/001.png"));
-    tmpCtrl->setPosition(140, 140);
-    tmpUIRoot->addChild(tmpCtrl);
+    m_jokStick    =   JoyStick::create(Sprite::create("battleui/000.png"), Sprite::create("battleui/001.png"));
+    m_jokStick->setPosition(140, 140);
+    tmpUIRoot->addChild(m_jokStick);
+    // @_@ 这里开启每一帧回调
+    this->scheduleUpdate();
 
     return true;
 }
@@ -97,5 +98,22 @@ void BattleUI::refreshTargetCharacter( GameCharacter* character )
         m_enemyPanel->setVisible(true);
         m_leaderHpBar->setPercent(tmpAttribute.getHp() / tmpAttribute.getFullHp() * 100);
         m_enemyIcon->loadTexture(character->getIconSrc());
+    }
+}
+
+void BattleUI::update( float dm )
+{
+    // 判断操纵柄方向
+    if (m_jokStick->getCtrlDirection().x > 10)
+    {
+        _delegate->moveToRight();
+    }
+    else if (m_jokStick->getCtrlDirection().x < -10)
+    {
+        _delegate->moveToLeft();
+    }
+    else
+    {
+        _delegate->idle();
     }
 }

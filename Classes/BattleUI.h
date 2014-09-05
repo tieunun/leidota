@@ -4,19 +4,26 @@
 #include "ui/CocosGUI.h"
 #include "UIView.h"
 #include "GameCharacter.h"
+#include "InputManager.h"
+#include "JoyStick.h"
 
 using namespace cocos2d;
 using namespace ui;
 
 /**
-* 战斗时候的UI界面，主要就是一些操作和一些信息的显示
+* 战斗时候的UI界面，主要就是一些操作和一些信息的显示，同时它也继承，作为游戏的输入端
 */
-class BattleUI : public UIView
+class BattleUI : public UIView, public InputManager
 {
 public:
     bool init() override;
 
+    /**
+    * 接受事件的回调函数 
+    */
     void onWee(RefreshUIMsg& msg) override;
+
+    void update(float dm) override;
 
     CREATE_FUNC(BattleUI);
 
@@ -45,6 +52,8 @@ protected:
     Button*         m_convergeBtn;                  // 集中火力的按钮
     Button*         m_changeTargetBtn;              // 更换当前主角的攻击目标
     Button*         m_skillBtn;                     // 技能按钮
+
+    JoyStick*       m_jokStick;                     // 操纵柄
 };
 
 #endif

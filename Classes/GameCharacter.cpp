@@ -3,7 +3,7 @@
 #include "FlightProps.h"
 #include "MessageDispatcher.h"
 #include "UIViewManager.h"
-#include "MobilityControlSystem.h"
+#include "TargetControlSystem.h"
 
 GameCharacter* GameCharacter::create(int id)
 {
@@ -131,7 +131,7 @@ GameCharacter::GameCharacter()
     /**
     * 各种控制系统 
     */
-    m_mobilityControlSystem         =   new MobilityControlSystem(this, 0.1);
+    m_targetControlSystem           =   new TargetControlSystem(this, 0.5);
 }
 
 GameCharacter::~GameCharacter()
@@ -144,8 +144,8 @@ GameCharacter::~GameCharacter()
     m_shape->removeFromParent();
     CC_SAFE_RELEASE_NULL(m_shape);
 
-    CC_SAFE_DELETE(m_mobilityControlSystem);
-    m_mobilityControlSystem =   nullptr;
+    CC_SAFE_DELETE(m_targetControlSystem);
+    m_targetControlSystem   =   nullptr;
 }
 
 void GameCharacter::update(float dm)
@@ -161,7 +161,7 @@ void GameCharacter::update(float dm)
     /**
     * 更新该角色身上的所有控制系统 
     */
-    m_mobilityControlSystem->tryUpdate();
+    m_targetControlSystem->tryUpdate();
 
     m_stateMachine->update(dm);
 }

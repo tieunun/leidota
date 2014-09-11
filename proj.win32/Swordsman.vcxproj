@@ -156,6 +156,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\MobilityControlSystem.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
     <ClCompile Include="..\Classes\GameTeamState.cpp" />
+    <ClCompile Include="..\Classes\TargetControlSystem.cpp" />
     <ClCompile Include="..\Classes\TeamManager.cpp" />
     <ClCompile Include="..\Classes\UIView.cpp" />
     <ClCompile Include="..\Classes\UIViewManager.cpp" />
@@ -197,6 +198,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\State.h" />
     <ClInclude Include="..\Classes\StateMachine.h" />
     <ClInclude Include="..\Classes\GameTeamState.h" />
+    <ClInclude Include="..\Classes\TargetControlSystem.h" />
     <ClInclude Include="..\Classes\TeamManager.h" />
     <ClInclude Include="..\Classes\Telegram.h" />
     <ClInclude Include="..\Classes\UIView.h" />

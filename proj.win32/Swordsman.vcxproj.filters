@@ -123,6 +123,9 @@
     <ClCompile Include="..\Classes\MobilityControlSystem.cpp">
       <Filter>Classes\character\system</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\TargetControlSystem.cpp">
+      <Filter>Classes\character\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -246,6 +249,9 @@
       <Filter>Classes\character\system</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ControlSystem.h">
+      <Filter>Classes\character\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TargetControlSystem.h">
       <Filter>Classes\character\system</Filter>
     </ClInclude>
   </ItemGroup>

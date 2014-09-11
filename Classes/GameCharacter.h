@@ -11,6 +11,7 @@ using namespace std;
 
 class GameTeam;
 class ControlSystem;
+class TargetControlSystem;
 
 /**
 	 游戏角色类型
@@ -156,6 +157,12 @@ public:
     */
     CC_SYNTHESIZE_READONLY(int, m_characterId, CharacterId);
 
+    /**
+    *  目标控制系统
+    *  @_@ 目前还需要由状态中的逻辑来参与一下，希望以后不会
+    */
+    CC_SYNTHESIZE_READONLY(TargetControlSystem*, m_targetControlSystem, TargetControlSystem);
+
 protected:
     GameCharacter();
     ~GameCharacter();
@@ -203,9 +210,6 @@ protected:
     int m_normatAttTargetId;                                    // 临时保存的攻击目标id
     int m_frameCount;                                           // 每一帧累加
     int m_lastExitNormalAttackFrame;                            // 保存上一次离开普通攻击状态的帧数
-
-private:
-    ControlSystem*  m_mobilityControlSystem;                    // 移动控制系统
 };
 
 #endif

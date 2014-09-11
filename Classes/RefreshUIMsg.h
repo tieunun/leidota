@@ -9,7 +9,7 @@
 class RefreshUIMsg
 {
 public:
-    RefreshUIMsg(RefreshUIEventEnum eventType, void* extraInfo)
+    RefreshUIMsg(RefreshUIEventEnum eventType, void* extraInfo = nullptr)
     {
         this->eventType =   eventType;
         this->extraInfo =   extraInfo;

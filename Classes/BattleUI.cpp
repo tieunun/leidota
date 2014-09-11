@@ -102,7 +102,7 @@ void BattleUI::refreshTargetCharacter( GameCharacter* character )
         // 否则就显示该角色信息
         auto tmpAttribute   =   character->getAttribute();
         m_enemyPanel->setVisible(true);
-        m_leaderHpBar->setPercent(tmpAttribute.getHp() / tmpAttribute.getFullHp() * 100);
+        m_enemyHpBar->setPercent(tmpAttribute.getHp() / tmpAttribute.getFullHp() * 100);
         m_enemyIcon->loadTexture(character->getIconSrc());
     }
 }

@@ -3,7 +3,7 @@
 #include "GraphSearchAStar.h"
 #include "EntityManager.h"
 
-//#define DRAW_MAP_GRID
+#define DRAW_MAP_GRID
 
 /**
 * 主要是因为在编译android的时候发现没有定义abs，而应该使用fabs 

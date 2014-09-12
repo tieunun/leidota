@@ -83,6 +83,24 @@ public:
     }
 
     /**
+    * 根据边的起始下标和结束下标返回对应的边 
+    */
+    const NavGraphEdge& getEdgeByFromAndTo(int fromIndex, int toIndex)
+    {
+        const EdgeList& tmpEdgeList = (*m_edges.find(fromIndex)).second;
+        for (auto tmpIterator = tmpEdgeList.begin(); tmpIterator != tmpEdgeList.end(); tmpIterator++)
+        {
+            if (tmpIterator->to() == toIndex)
+            {
+                return *tmpIterator;
+            }
+        }
+
+        assert(false && "invalid fromIndex or toIndex");
+        return NavGraphEdge();
+    }
+
+    /**
     	 用来修改某个节点的可通过属性
     */
     void setNodePassable(int nodeIndex, bool passable)

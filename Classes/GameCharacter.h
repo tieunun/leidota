@@ -12,6 +12,8 @@ using namespace std;
 class GameTeam;
 class ControlSystem;
 class TargetControlSystem;
+class PathPlanner;
+class GoalThink;
 
 /**
 	 游戏角色类型
@@ -148,6 +150,11 @@ public:
     string getIconSrc();
 
     /**
+    * 返回路径规划器 
+    */
+    PathPlanner* const getPathPlanner();
+
+    /**
     * 设置和返回该角色所属的队伍 
     */
     CC_SYNTHESIZE(GameTeam*, m_team, Team);
@@ -210,6 +217,9 @@ protected:
     int m_normatAttTargetId;                                    // 临时保存的攻击目标id
     int m_frameCount;                                           // 每一帧累加
     int m_lastExitNormalAttackFrame;                            // 保存上一次离开普通攻击状态的帧数
+
+    PathPlanner*                    m_pathPlanner;              // 路径规划器
+    GoalThink*                      m_brain;                    // 作为大脑存在的，是目标规划的最高级别
 };
 
 #endif

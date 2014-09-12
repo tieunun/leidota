@@ -21,17 +21,17 @@ bool GameScene::init()
     /**
     	 算了，暂时就此处将游戏角色添加到地图上
     */
-
+/**
     auto tmpRole1 = GameCharacter::create(3);
     tmpRole1->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole1->retain();
     m_map->placeCharacter1(tmpRole1);
-
+*/
     auto tmpRole2 = GameCharacter::create(2);
     tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole2->retain();
     m_map->placeCharacter2(tmpRole2);
-
+/**
     auto tmpRole3 = GameCharacter::create(1);
     tmpRole3->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole3->retain();
@@ -43,7 +43,7 @@ bool GameScene::init()
     tmpTeam1->addMercenaryIds(tmpRole1);
     tmpTeam1->addMercenaryIds(tmpRole3);
     TeamMgr->registerTeam(tmpTeam1);
-
+*/
     m_mainModel     =   new GameMainModel();
     m_mainModel->setMainGameCharacter(tmpRole2);
     
@@ -56,6 +56,7 @@ bool GameScene::init()
     /**
     	 这里还需要增加3个敌人
     */
+/**
     auto tmpRole4 = GameCharacter::create(4);
     tmpRole4->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
     tmpRole4->retain();
@@ -80,10 +81,11 @@ bool GameScene::init()
     tmpTeam2->addMercenaryIds(tmpRole5);
     tmpTeam2->addMercenaryIds(tmpRole6);
     TeamMgr->registerTeam(tmpTeam2);
-
+*/
     /**
     * 增加的另外一组敌人 
     */
+/**
     auto tmpRole7 = GameCharacter::create(5);
     tmpRole7->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
     tmpRole7->retain();
@@ -104,7 +106,7 @@ bool GameScene::init()
     tmpRole9->retain();
     tmpTeam3->addMercenaryIds(tmpRole9);
     m_map->placeOneCharacterToIndex(tmpRole9, 40);
-
+*/
     // 战斗UI
     auto tmpUI  =   BattleUI::create();
     this->addChild(tmpUI);

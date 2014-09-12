@@ -148,12 +148,17 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameMap.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\GameTeam.cpp" />
+    <ClCompile Include="..\Classes\GoalFollowPath.cpp" />
+    <ClCompile Include="..\Classes\GoalMoveToGrid.cpp" />
+    <ClCompile Include="..\Classes\GoalThink.cpp" />
+    <ClCompile Include="..\Classes\GoalTraverseEdge.cpp" />
     <ClCompile Include="..\Classes\GraphSearchStaticMember.cpp" />
     <ClCompile Include="..\Classes\GridGraph.cpp" />
     <ClCompile Include="..\Classes\JoyStick.cpp" />
     <ClCompile Include="..\Classes\MapGrid.cpp" />
     <ClCompile Include="..\Classes\MessageDispatcher.cpp" />
     <ClCompile Include="..\Classes\MobilityControlSystem.cpp" />
+    <ClCompile Include="..\Classes\PathPlanner.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
     <ClCompile Include="..\Classes\GameTeamState.cpp" />
     <ClCompile Include="..\Classes\TargetControlSystem.cpp" />
@@ -178,6 +183,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameMap.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\GameTeam.h" />
+    <ClInclude Include="..\Classes\Goal.h" />
+    <ClInclude Include="..\Classes\GoalComposite.h" />
+    <ClInclude Include="..\Classes\GoalFollowPath.h" />
+    <ClInclude Include="..\Classes\GoalMoveToGrid.h" />
+    <ClInclude Include="..\Classes\GoalThink.h" />
+    <ClInclude Include="..\Classes\GoalTraverseEdge.h" />
     <ClInclude Include="..\Classes\GraphSearchAStar.h" />
     <ClInclude Include="..\Classes\GraphSearchBFS.h" />
     <ClInclude Include="..\Classes\GraphSearchDFS.h" />
@@ -190,6 +201,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MobilityControlSystem.h" />
     <ClInclude Include="..\Classes\NavGraphEdge.h" />
     <ClInclude Include="..\Classes\NavGraphNode.h" />
+    <ClInclude Include="..\Classes\PathPlanner.h" />
     <ClInclude Include="..\Classes\PCInputManager.h" />
     <ClInclude Include="..\Classes\PriorityQLow.h" />
     <ClInclude Include="..\Classes\RefreshUIEventEnum.h" />
@@ -201,6 +213,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\TargetControlSystem.h" />
     <ClInclude Include="..\Classes\TeamManager.h" />
     <ClInclude Include="..\Classes\Telegram.h" />
+    <ClInclude Include="..\Classes\TimeTool.h" />
     <ClInclude Include="..\Classes\UIView.h" />
     <ClInclude Include="..\Classes\UIViewIdEnum.h" />
     <ClInclude Include="..\Classes\UIViewManager.h" />

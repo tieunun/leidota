@@ -4,6 +4,8 @@
 #include "MessageDispatcher.h"
 #include "UIViewManager.h"
 #include "TargetControlSystem.h"
+#include "PathPlanner.h"
+#include "GoalThink.h"
 
 GameCharacter* GameCharacter::create(int id)
 {
@@ -31,8 +33,8 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_shape->retain();
 
             // 不同的角色有不同的状态转换表
-            tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
-            tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
+            //tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
+            //tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
             // 不同的角色有不同的初始属性
             tmpRet->m_attribute     =   GameCharacterAttribute(200, 10, 30, 70);
@@ -51,8 +53,8 @@ GameCharacter* GameCharacter::create(int id)
             // 目前先使用一套AI逻辑@_@  FUCK
             // auto tmpState = GameCharacterPursueState::create();
             // tmpState->targetId  =   4;
-            tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
-            tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
+            //tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
+            //tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
             tmpRet->m_attribute     =   GameCharacterAttribute(100, 40, 10, 90, 700);
             
@@ -67,8 +69,8 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_shape         =   GameCharacterShape::create("Aer.ExportJson", "Aer");
             tmpRet->m_shape->retain();
 
-            tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
-            tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
+            //tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
+            //tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
             tmpRet->m_attribute     =   GameCharacterAttribute(150, 20, 20, 80);
             
@@ -83,8 +85,8 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_shape         =   GameCharacterShape::create("Pig.ExportJson", "Pig");
             tmpRet->m_shape->retain();
 
-            tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
-            tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
+            //tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
+            //tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
             tmpRet->m_attribute     =   GameCharacterAttribute(400, 1, 10, 60 + CCRANDOM_0_1() * 20);
 
@@ -99,8 +101,8 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_shape         =   GameCharacterShape::create("Niu.ExportJson", "Niu");
             tmpRet->m_shape->retain();
 
-            tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
-            tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
+            //tmpRet->m_stateMachine->changeState(GameCharacterIdleState::create());
+            //tmpRet->m_stateMachine->setGlobalState(GameCharacterGlobalState::create());
 
             tmpRet->m_attribute     =   GameCharacterAttribute(400, 1, 10, 50 + CCRANDOM_0_1() * 20);
 
@@ -132,6 +134,12 @@ GameCharacter::GameCharacter()
     * 各种控制系统 
     */
     m_targetControlSystem           =   new TargetControlSystem(this, 0.5);
+
+    // 路径规划器
+    m_pathPlanner                   =   new PathPlanner(this);
+
+    // 角色的大脑
+    m_brain                         =   new GoalThink(this);
 }
 
 GameCharacter::~GameCharacter()
@@ -146,10 +154,18 @@ GameCharacter::~GameCharacter()
 
     CC_SAFE_DELETE(m_targetControlSystem);
     m_targetControlSystem   =   nullptr;
+
+    CC_SAFE_DELETE(m_pathPlanner);
+    m_pathPlanner           =   nullptr;
+
+    CC_SAFE_DELETE(m_brain);
+    m_brain                 =   nullptr;
 }
 
 void GameCharacter::update(float dm)
 {
+    m_brain->process();
+
     /**
     * 这里严重注意：在状态机中可能会删除自己，比如调用die的时候 
     */
@@ -163,7 +179,7 @@ void GameCharacter::update(float dm)
     */
     m_targetControlSystem->tryUpdate();
 
-    m_stateMachine->update(dm);
+    // m_stateMachine->update(dm);
 }
 
 bool GameCharacter::handleMessage(Telegram& msg)
@@ -199,13 +215,33 @@ void GameCharacter::moveToGridIndex(int nodeIndex, float rate)
         return;
     }
 
-    auto tmpResourceGrid    =   m_graph->getNodeByIndex(m_objectOnGrid.nodeIndex);
-    auto tmpTargetGird      =   m_graph->getNodeByIndex(nodeIndex);
+    NavGraphNode& tmpResourceGrid    =   m_graph->getNodeByIndex(m_objectOnGrid.nodeIndex);
+    NavGraphNode& tmpTargetGird      =   m_graph->getNodeByIndex(nodeIndex);
+
+    // 调整朝向
+    if (m_graph->testIsAtLeft(m_objectOnGrid.nodeIndex, nodeIndex))
+    {
+        m_shape->faceToRight();
+    }
+    else if (m_graph->testIsAtRight(m_objectOnGrid.nodeIndex, nodeIndex))
+    {
+        m_shape->faceToLeft();
+    }
 
     // 先修改之前占领的网格
     m_graph->removeObjectFromGrid(&m_objectOnGrid);
+    // 判断目标节点是否可以行走，如果该节点不可走，就不能移动
+    if (!tmpTargetGird.passable())
+    {
+        m_shape->playAction(IDLE_ACTION);
+        return;
+    }
+    // 新的坑位
     m_objectOnGrid.nodeIndex    =   nodeIndex;
     m_graph->addObjectToGrid(&m_objectOnGrid);
+
+    // 播放移动的动画
+    m_shape->playAction(RUN_ACTION);
 
     // 首先结束之前的动作
     if (m_moveAction != nullptr)
@@ -535,4 +571,9 @@ std::string GameCharacter::getIconSrc()
     }
 
     return tmpSrc;
+}
+
+PathPlanner* const GameCharacter::getPathPlanner()
+{
+    return m_pathPlanner;
 }

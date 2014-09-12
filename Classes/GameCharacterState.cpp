@@ -43,13 +43,11 @@ void GameCharacterMovingState::onEnter(GameCharacter* owner)
 {
     if (movingDirection == MOVING_DIRECTION_LEFT)
     {
-        owner->getShape()->faceToLeft();
         auto tmpLeftGridIndex = owner->getMapGrid()->getLeftGridIndex(owner->getObjectOnGrid()->nodeIndex);
         owner->moveToGridIndex(tmpLeftGridIndex, owner->getAttribute().getRate());
     }
     else if (movingDirection == MOVING_DIRECTION_RIGHT)
     {
-        owner->getShape()->faceToRight();
         auto tmpRightGridIndex = owner->getMapGrid()->getRightGridIndex(owner->getObjectOnGrid()->nodeIndex);
         owner->moveToGridIndex(tmpRightGridIndex, owner->getAttribute().getRate());
     }
@@ -63,8 +61,6 @@ void GameCharacterMovingState::onEnter(GameCharacter* owner)
         auto tmpBottomIndex = owner->getMapGrid()->getBottomGridIndex(owner->getObjectOnGrid()->nodeIndex);
         owner->moveToGridIndex(tmpBottomIndex, owner->getAttribute().getRate());
     }
-
-    owner->getShape()->playAction(RUN_ACTION);
 
     // 同时需要告知队伍自己正在移动
     if (owner->getTeam() != nullptr)

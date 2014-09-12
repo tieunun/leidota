@@ -29,9 +29,11 @@ public:
     }
 
     int from(){return m_iFrom;}
+    int from() const {return m_iFrom;}
     void setFrom(int from) {m_iFrom = from;}
 
     int to() {return m_iTo;}
+    int to() const {return m_iTo;}
     void setTo(int to) {m_iTo = to;}
 
     float cost() {return m_fCost;}

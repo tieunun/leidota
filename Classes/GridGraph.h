@@ -42,6 +42,11 @@ public:
     int getDistanceInGrid(int index1, int index2);
 
     /**
+    *  返回网格中给定下标的几何距离
+    */
+    int getDistance(int index1, int index2);
+
+    /**
     * 返回以centerIndex为中心，radius格子数为半径的方块内还没有使用的网格索引 
     */
     vector<int> getUnusedGridIndex(int centerIndex, int radius);

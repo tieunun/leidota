@@ -51,3 +51,12 @@ vector<int> GridGraph::getUnusedGridIndex( int centerIndex, int radius )
     // @_@ 暂时先不用
     return vector<int>();
 }
+
+int GridGraph::getDistance( int index1, int index2 )
+{
+    auto tmpGrid1 = m_nodes[index1];
+    auto tmpGrid2 = m_nodes[index2];
+
+    return sqrt((tmpGrid1.getX() - tmpGrid2.getX()) * (tmpGrid1.getX() - tmpGrid2.getX())
+        + (tmpGrid1.getY() - tmpGrid2.getY()) * (tmpGrid1.getY() - tmpGrid2.getY()));
+}

@@ -308,6 +308,9 @@
     <ClInclude Include="..\Classes\GoalMoveToGrid.h">
       <Filter>Classes\ai\goal\composite</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\MathTool.h">
+      <Filter>Classes\tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

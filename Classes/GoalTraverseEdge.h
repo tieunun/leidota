@@ -42,6 +42,7 @@ private:
     float           m_timeExpected;         // 期望的到达时间
 
     const float     m_marginOfError;        // 给一些意外的时间
+    const int       m_fuzzyReachGap;        // 模糊的作为Reach判定的范围
 };
 
 #endif

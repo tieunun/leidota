@@ -3,12 +3,9 @@
 
 #include <vector>
 #include "SparseGraph.h"
+#include "MathTool.h"
 
 using namespace std;
-
-#ifndef WIN32
-#define  abs(value) fabs(value)
-#endif
 
 /**
 	 很多地方使用网格图，而网格中其中一些格子是障碍无法通行

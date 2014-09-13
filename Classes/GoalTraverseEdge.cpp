@@ -1,9 +1,10 @@
 #include "GoalTraverseEdge.h"
 #include "GameCharacter.h"
 #include "TimeTool.h"
+#include "MathTool.h"
 
 GoalTraverseEdge::GoalTraverseEdge( GameCharacter* owner, const NavGraphEdge& edge)
-    :Goal<GameCharacter>(owner), m_marginOfError(0.5)
+    :Goal<GameCharacter>(owner), m_marginOfError(0.5), m_fuzzyReachGap(10)
 {
     m_edge  =   edge;
 }
@@ -56,5 +57,7 @@ bool GoalTraverseEdge::isReach()
     auto tmpGridMap =   m_pOwner->getMapGrid();
     auto tmpPos     =   m_pOwner->getShape()->getPosition();
     auto tmpGrid    =   tmpGridMap->getNodeByIndex(m_edge.to());
-    return (tmpPos.x == tmpGrid.getX()) && (tmpPos.y == tmpGrid.getY());
+    //return (tmpPos.x == tmpGrid.getX()) && (tmpPos.y == tmpGrid.getY());
+    // @_@ 这里改为只要和目标有几个个像素以内就算到了，这样可以让动作看起来连贯
+    return abs(tmpPos.x - tmpGrid.getX()) <= m_fuzzyReachGap && abs(tmpPos.y - tmpGrid.getY()) <= m_fuzzyReachGap;
 }

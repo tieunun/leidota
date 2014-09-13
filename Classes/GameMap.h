@@ -58,7 +58,7 @@ public:
 
 protected:
 
-    GameMap():GRIDW(64),GRIDH(60),XNUM(65),YNUM(5),MOUNTAIN_MOVE_SCALE(0.5f),SKY_MOVE_SCALE(0.2){}
+    GameMap():GRIDW(64),GRIDH(60),XNUM(65),YNUM(5),MOUNTAIN_MOVE_SCALE(0.5f),SKY_MOVE_SCALE(0.2f){}
     ~GameMap();
 
     /**

@@ -15,7 +15,7 @@ GoalFollowPath::~GoalFollowPath()
 void GoalFollowPath::activate()
 {
     // @_@ 这里先一次把所有的目标创建出来
-    for (auto tmpIterator = m_path.rbegin(); tmpIterator != m_path.rend(); tmpIterator++)
+    for (auto tmpIterator = m_path.begin(); tmpIterator != m_path.end(); tmpIterator++)
     {
         addSubgoal(new GoalTraverseEdge(m_pOwner, *tmpIterator));
     }

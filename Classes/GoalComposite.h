@@ -45,9 +45,19 @@ protected:
 
 protected:
     /**
-    * 添加目标对象 
+    * 在后面追加目标对象 
     */
     virtual void addSubgoal(Goal<entity_type>* goal) override
+    {
+        assert(goal != nullptr && goal != this);
+
+        m_subgoalList.push_back(goal);
+    }
+
+    /**
+    * 从前面追加目标对象
+    */
+    virtual void pushSubgoal(Goal<entity_type>* goal) override
     {
         assert(goal != nullptr && goal != this);
 

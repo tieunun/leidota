@@ -17,6 +17,7 @@ public:
 
 protected:
     virtual void activate() override;
+    virtual void terminate() override;
 
 private:
     int                 m_gridIndex;

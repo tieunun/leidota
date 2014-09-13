@@ -1,6 +1,8 @@
 #ifndef __GOAL_H__
 #define __GOAL_H__
 
+#include <assert.h>
+
 template <class entity_type>
 class GoalComposite;
 
@@ -73,11 +75,20 @@ protected:
     virtual void terminate() {m_goalState = completed;}
 
     /**
-    * 原子目标是无法有子目标的 
+    * 原子目标是无法有子目标的，但是为了保证与GoalComposite统一的接口
+    * 在后面追加目标
     */
     virtual void addSubgoal(Goal<entity_type>* goal)
     {
-        throw std::runtime_error("Cannot add goals to atomic goals");
+        assert(false && "Cannot add goals to atomic goals");
+    }
+
+    /**
+    * 从前面给加入子目标对象 
+    */
+    virtual void pushSubgoal(Goal<entity_type>* goal)
+    {
+        assert(false && "Cannot push goals to atomic goals");
     }
 
     friend class GoalComposite<entity_type>;

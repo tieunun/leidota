@@ -83,7 +83,7 @@ void GameMap::cameraMove(int x)
 {
     // 主角相对地图移动了x的距离，@_@ 先假设佣兵主角永不
     // auto tmpCharacterPosX    =   EntityMgr->getEntityFromID(1)->getShape()->getPositionX();
-    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getEntityFromID(1);
+    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getmainEntity();
     if (tmpCharacter != nullptr)
     {
         // 调整当前人物所在

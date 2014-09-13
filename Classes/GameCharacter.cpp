@@ -251,8 +251,8 @@ void GameCharacter::moveToGridIndex(int nodeIndex, float rate)
     }
 
     // 设置缓动过去
-    auto tmpDirection       =   (tmpTargetGird.getX() - tmpResourceGrid.getX()) * (tmpTargetGird.getX() - tmpResourceGrid.getX()) + 
-         (tmpTargetGird.getY() - tmpResourceGrid.getY()) * (tmpTargetGird.getY() - tmpResourceGrid.getY());
+    auto tmpDirection       =   (tmpTargetGird.getX() - m_shape->getPositionX()) * (tmpTargetGird.getX() - m_shape->getPositionX()) + 
+         (tmpTargetGird.getY() - m_shape->getPositionY()) * (tmpTargetGird.getY() - m_shape->getPositionY());
     tmpDirection        =   sqrt(tmpDirection);
     m_moveAction        =   MoveTo::create(tmpDirection / rate, Vec2(tmpTargetGird.getX(), tmpTargetGird.getY()));
     // 增加一个动作结束的回调

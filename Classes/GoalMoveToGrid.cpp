@@ -26,3 +26,9 @@ void GoalMoveToGrid::activate()
         addSubgoal(new GoalFollowPath(m_pOwner, m_pathPlanner->getEdgeListPath()));
     }
 }
+
+void GoalMoveToGrid::terminate()
+{
+    m_goalState = completed;
+    m_pOwner->getShape()->playAction(IDLE_ACTION);
+}

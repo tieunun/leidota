@@ -10,7 +10,7 @@ vector<float> GraphSearchDijkstra::m_costToThisNode = vector<float>(0);
 vector<NavGraphEdge*> GraphSearchDijkstra::m_searchFroniter = vector<NavGraphEdge*>(0);
 
 int GraphSearchAStar::m_count       =   0;
-int GraphSearchAStar::m_maxLoopNum  =   15;
+int GraphSearchAStar::m_maxLoopNum  =   20;
 vector<float> GraphSearchAStar::m_GCosts = vector<float>(0);
 vector<float> GraphSearchAStar::m_FCosts = vector<float>(0);
 vector<NavGraphEdge*> GraphSearchAStar::m_shortestPathTree = vector<NavGraphEdge*>(0);

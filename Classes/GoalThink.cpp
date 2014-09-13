@@ -11,7 +11,7 @@ GoalThink::~GoalThink()
 
 }
 
-GoalThink::GoalStateEnum GoalThink::process()
+GoalStateEnum GoalThink::process()
 {
     return GoalComposite<GameCharacter>::process();
 }

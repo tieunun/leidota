@@ -31,16 +31,16 @@ protected:
     */
     virtual GoalStateEnum process()
     {
-        activateIfInactive();
+        this->activateIfInactive();
 
-        m_goalState = processSubgoals();
+        this->m_goalState = processSubgoals();
 
         // 默认情况下如果失败，就删除所有的子目标
-        if (m_goalState == failed)
+        if (this->m_goalState == failed)
         {
             removeAllSubgoals();
         }
-        return m_goalState;
+        return this->m_goalState;
     }
 
 protected:

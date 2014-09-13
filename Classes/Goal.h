@@ -7,6 +7,17 @@ template <class entity_type>
 class GoalComposite;
 
 /**
+* 当前目标的状态的枚举
+*/
+enum GoalStateEnum
+{
+    active,
+    inactive,
+    completed,
+    failed
+};
+
+/**
 *  所有目标的基类，这个是原子目标，不能存在子目标，该目标应该有能力去回调实体的接口
 *  来帮助实体完成该目标
 */
@@ -14,16 +25,7 @@ template <class entity_type>
 class Goal
 {
 protected:
-    /**
-    * 当前目标的状态的枚举
-    */
-    enum GoalStateEnum
-    {
-        active,
-        inactive,
-        completed,
-        failed
-    };
+    
 
 public:
 

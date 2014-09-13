@@ -21,7 +21,7 @@ void GoalFollowPath::activate()
     }
 }
 
-GoalFollowPath::GoalStateEnum GoalFollowPath::process()
+GoalStateEnum GoalFollowPath::process()
 {
     /**
     *  这里直接使用默认的，就是只要在角色沿着边移动的过程中出错了，该目标也会报错

@@ -29,7 +29,7 @@ void GoalTraverseEdge::activate()
         + tmpGridMap->getDistance(m_edge.from(), m_edge.to()) / tmpRate;
 }
 
-GoalTraverseEdge::GoalStateEnum GoalTraverseEdge::process()
+GoalStateEnum GoalTraverseEdge::process()
 {
     activateIfInactive();
 

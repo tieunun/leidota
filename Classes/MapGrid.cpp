@@ -3,7 +3,7 @@
 #include "GraphSearchAStar.h"
 #include "EntityManager.h"
 
-#define DRAW_MAP_GRID
+//#define DRAW_MAP_GRID
 
 /**
 * 主要是因为在编译android的时候发现没有定义abs，而应该使用fabs 
@@ -160,6 +160,9 @@ void MapGrid::addGameCharacter(GameCharacter* character)
 
     // 允许该角色访问该网格
     character->setGridGraph(this);
+
+    // @_@ 临时加上去，同时需要修改character上面的表示坐标的部分
+    character->getMovingEntity().setPosition(tmpShape->getPosition());
 }
 
 void MapGrid::adjustGameCharacterZOrder()

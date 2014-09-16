@@ -161,6 +161,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\PathPlanner.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
     <ClCompile Include="..\Classes\GameTeamState.cpp" />
+    <ClCompile Include="..\Classes\SteeringBehaviors.cpp" />
     <ClCompile Include="..\Classes\TargetControlSystem.cpp" />
     <ClCompile Include="..\Classes\TeamManager.cpp" />
     <ClCompile Include="..\Classes\UIView.cpp" />
@@ -201,6 +202,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MapGrid.h" />
     <ClInclude Include="..\Classes\MathTool.h" />
     <ClInclude Include="..\Classes\MessageDispatcher.h" />
+    <ClInclude Include="..\Classes\MovingEntity.h" />
     <ClInclude Include="..\Classes\NavGraphEdge.h" />
     <ClInclude Include="..\Classes\NavGraphNode.h" />
     <ClInclude Include="..\Classes\NormalCloseRangeWeapon.h" />
@@ -213,6 +215,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\State.h" />
     <ClInclude Include="..\Classes\StateMachine.h" />
     <ClInclude Include="..\Classes\GameTeamState.h" />
+    <ClInclude Include="..\Classes\SteeringBehaviors.h" />
     <ClInclude Include="..\Classes\TargetControlSystem.h" />
     <ClInclude Include="..\Classes\TeamManager.h" />
     <ClInclude Include="..\Classes\Telegram.h" />

@@ -10,6 +10,9 @@
 #include "WeaponControlSystem.h"
 #include "TargetControlSystem.h"
 
+#include "MovingEntity.h"
+#include "SteeringBehaviors.h"
+
 using namespace std;
 
 class GameTeam;
@@ -153,6 +156,8 @@ public:
     PathPlanner* const getPathPlanner();
     WeaponControlSystem* const getWeaponControlSystem();
     TargetControlSystem* const getTargetControlSystem();
+    MovingEntity& getMovingEntity() { return m_movingEntity; }
+    SteeringBehaviors* const getSteeringBehaviros() { return m_steeringBehaviors; }
 
     /**
     * 设置和返回该角色所属的队伍 
@@ -196,6 +201,11 @@ protected:
     typedef std::function<bool (int gridIndex1, int gridIndex2)> FollowGridSortFunc;
     bool followGridSortFunc(int index1, int index2);
 
+    /**
+    * 更新当前的坐标 
+    */
+    void updateMovement(float dm);
+
     StateMachine<GameCharacter>*    m_stateMachine;             // 该角色的状态机，相当于该角色的AI
     GameCharacterShape*             m_shape;                    // 该角色的外形
     MapGrid*                        m_graph;                    // 该角色所在的网格
@@ -220,6 +230,11 @@ protected:
     */
     WeaponControlSystem*            m_weaponControlSystem;      // 武器系统
     TargetControlSystem*            m_targetControlSystem;      // 目标选择系统
+
+    MovingEntity                    m_movingEntity;             // 用来代表角色移动的对象
+    SteeringBehaviors*              m_steeringBehaviors;        // 驱动力产生对象
+
+    float                           m_lastUpdateTime;           // 最近一次调用update的时间
 };
 
 #endif

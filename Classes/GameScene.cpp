@@ -31,6 +31,11 @@ bool GameScene::init()
     tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole2->retain();
     m_map->placeCharacter2(tmpRole2);
+
+    // 设置角色seek到某个位置
+    tmpRole2->getSteeringBehaviros()->setTarget(Vec2(900, 60));
+    tmpRole2->getSteeringBehaviros()->seekOn();
+
 /**
     auto tmpRole3 = GameCharacter::create(1);
     tmpRole3->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
@@ -100,13 +105,13 @@ bool GameScene::init()
     tmpTeam3->addMercenaryIds(tmpRole7);
     tmpTeam3->addMercenaryIds(tmpRole8);
     TeamMgr->registerTeam(tmpTeam3);
-*/
+
     auto tmpRole9   =   GameCharacter::create(4);
     tmpRole9->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
     tmpRole9->retain();
     //tmpTeam3->addMercenaryIds(tmpRole9);
     m_map->placeOneCharacterToIndex(tmpRole9, 9);
-
+*/
     // 战斗UI
     auto tmpUI  =   BattleUI::create();
     this->addChild(tmpUI);

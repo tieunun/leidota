@@ -5,8 +5,8 @@
 #include "UIViewManager.h"
 #include "PathPlanner.h"
 #include "GoalThink.h"
-
 #include "NormalCloseRangeWeapon.h"
+#include "TimeTool.h"
 
 GameCharacter* GameCharacter::create(int id)
 {
@@ -144,6 +144,11 @@ GameCharacter::GameCharacter()
 
     // 角色的大脑
     m_brain                         =   new GoalThink(this);
+
+    // 驱动力产生对象
+    m_steeringBehaviors             =   new SteeringBehaviors(this);
+
+    m_lastUpdateTime                =   -1;
 }
 
 GameCharacter::~GameCharacter()
@@ -167,21 +172,34 @@ GameCharacter::~GameCharacter()
 
     CC_SAFE_DELETE(m_brain);
     m_brain                 =   nullptr;
+
+    CC_SAFE_DELETE(m_steeringBehaviors);
+    m_steeringBehaviors     =   nullptr;
 }
 
 void GameCharacter::update(float dm)
 {
-    m_targetControlSystem->update();
+    if (m_lastUpdateTime == -1)
+    {
+        m_lastUpdateTime    =   TimeTool::getSecondTime();
+    }
+    auto tmpDmTime     =    TimeTool::getSecondTime() - m_lastUpdateTime;
 
-    m_brain->process();
+    // 根据MovingEntity来调整Shape的坐标
+    updateMovement(tmpDmTime);
+
+    m_lastUpdateTime    =   TimeTool::getSecondTime();
+    //m_targetControlSystem->update();
+
+    //m_brain->process();
 
     /**
     * 这里严重注意：在状态机中可能会删除自己，比如调用die的时候 
     */
-    m_frameCount++;
+    //m_frameCount++;
 
     // @_@ 每一帧都调整一下血量
-    m_shape->setHpRatio(m_attribute.getHp() / m_attribute.getFullHp());
+    //m_shape->setHpRatio(m_attribute.getHp() / m_attribute.getFullHp());
 
     /**
     * 更新该角色身上的所有控制系统 
@@ -594,4 +612,29 @@ WeaponControlSystem* const GameCharacter::getWeaponControlSystem()
 TargetControlSystem* const GameCharacter::getTargetControlSystem()
 {
     return m_targetControlSystem;
+}
+
+void GameCharacter::updateMovement(float dm)
+{
+    /**
+    *  @_@ 这里其实要计算驱动力、加速度、速度等，并更新MovingEntity中的
+    *  信息
+    */
+    // 总的合力
+    Vec2 tmpForce   =   m_steeringBehaviors->calculate();
+    if (tmpForce.isZero())
+    {
+        const double BrakingRate = 0.8; 
+        m_movingEntity.setVelocity(m_movingEntity.getVelocity() * BrakingRate);                                     
+    }
+    
+    // 加速度
+    Vec2 tmpAccel   =   tmpForce / m_movingEntity.getMass();
+
+    // 改变当前速度
+    m_movingEntity.setVelocity(m_movingEntity.getVelocity() + tmpAccel * dm);
+
+    // 改变当前坐标
+    m_movingEntity.setPosition(m_movingEntity.getPosition() + m_movingEntity.getVelocity() * dm);
+    m_shape->setPosition(m_movingEntity.getPosition());
 }

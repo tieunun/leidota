@@ -67,6 +67,9 @@
     <Filter Include="Classes\ai\goal\composite\topgoal">
       <UniqueIdentifier>{a0f350a9-224d-40ca-ba5d-22e6cbd42a75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\movement">
+      <UniqueIdentifier>{3519de77-6216-43a2-bca3-2139cb3505a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -173,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\GoalAttackTarget.cpp">
       <Filter>Classes\ai\goal\composite\topgoal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SteeringBehaviors.cpp">
+      <Filter>Classes\movement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +340,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GoalAttackTarget.h">
       <Filter>Classes\ai\goal\composite\topgoal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SteeringBehaviors.h">
+      <Filter>Classes\movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MovingEntity.h">
+      <Filter>Classes\movement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

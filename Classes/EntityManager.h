@@ -8,7 +8,7 @@
 	 用来更新实体的链表的数量，实体会被尽可能平均的分配在不同的链表上，然后在每一帧中
      只会调用一个链表上面的update，因为觉得这个没必要这么快
 */ 
-#define ENTITY_UPDATE_LIST_NUM     6
+#define ENTITY_UPDATE_LIST_NUM     1
 
 /**
 	全局的用来管理游戏中存在的所有实体，作为单件

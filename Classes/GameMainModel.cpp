@@ -37,12 +37,14 @@ void GameMainModel::moveToRight()
 
 void GameMainModel::idle()
 {
+/**
     if (EntityMgr->getmainEntity() != nullptr)
     {
         EntityMgr->getmainEntity()->handleMessage(*Telegram::create(0, 0, TELEGRAM_ENUM_USER_IDLE, 0));
     }
 
     CCLOG("idle");
+*/
 }
 
 void GameMainModel::changeTarget()

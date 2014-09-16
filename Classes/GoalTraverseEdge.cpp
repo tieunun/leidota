@@ -4,7 +4,7 @@
 #include "MathTool.h"
 
 GoalTraverseEdge::GoalTraverseEdge( GameCharacter* owner, const NavGraphEdge& edge)
-    :Goal<GameCharacter>(owner), m_marginOfError(0.5), m_fuzzyReachGap(10)
+    :Goal<GameCharacter>(owner), m_marginOfError(2), m_fuzzyReachGap(10)
 {
     m_edge  =   edge;
 }
@@ -16,17 +16,30 @@ GoalTraverseEdge::~GoalTraverseEdge()
 
 void GoalTraverseEdge::activate()
 {
-    /**
-    *  对于该目标，只需要让角色从该边的from到to，这里只需要要求角色向目标
-    *  移动
-    */ 
-    auto tmpRate = m_pOwner->getAttribute().getRate();
-    m_pOwner->moveToGridIndex(m_edge.to(), tmpRate);
+    do 
+    {
+        auto tmpGridMap =   m_pOwner->getMapGrid();
+        tmpGridMap->removeObjectFromGrid(m_pOwner->getObjectOnGrid());
+        // 判断to是否可以通行，如果不可以，直接失败
+        if (!tmpGridMap->getNodeByIndex(m_edge.to()).passable())
+        {
+            tmpGridMap->addObjectToGrid(m_pOwner->getObjectOnGrid());
+            m_goalState =   failed;
+            break;
+        }
+
+        /**
+        *  对于该目标，只需要让角色从该边的from到to，这里只需要要求角色向目标
+        *  移动
+        */ 
+        auto tmpRate = m_pOwner->getAttribute().getRate();
+        m_pOwner->moveToGridIndex(m_edge.to(), tmpRate);
     
-    auto tmpGridMap =   m_pOwner->getMapGrid();
-    m_activeTime    =   TimeTool::getSecondTime();
-    m_timeExpected  =   m_activeTime + m_marginOfError
-        + tmpGridMap->getDistance(m_edge.from(), m_edge.to()) / tmpRate;
+        m_activeTime    =   TimeTool::getSecondTime();
+        m_timeExpected  =   m_activeTime + m_marginOfError
+            + tmpGridMap->getDistance(m_edge.from(), m_edge.to()) / tmpRate;
+
+    } while (0);
 }
 
 GoalStateEnum GoalTraverseEdge::process()

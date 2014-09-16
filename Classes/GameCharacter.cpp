@@ -3,9 +3,10 @@
 #include "FlightProps.h"
 #include "MessageDispatcher.h"
 #include "UIViewManager.h"
-#include "TargetControlSystem.h"
 #include "PathPlanner.h"
 #include "GoalThink.h"
+
+#include "NormalCloseRangeWeapon.h"
 
 GameCharacter* GameCharacter::create(int id)
 {
@@ -41,6 +42,9 @@ GameCharacter* GameCharacter::create(int id)
 
             // 角色类型，宙斯属于近程攻击单位
             tmpRet->m_characterType =   GAMECHARACTER_TYPE_ENUM_SHORT_RANGE;
+
+            // 给它一些武器
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
 
             break;
         }
@@ -130,10 +134,10 @@ GameCharacter::GameCharacter()
     m_frameCount                    =   0;
     m_lastExitNormalAttackFrame     =   0;
 
-    /**
-    * 各种控制系统 
-    */
-    m_targetControlSystem           =   new TargetControlSystem(this, 0.5);
+    // 武器控制系统
+    m_weaponControlSystem           =   new WeaponControlSystem(this);
+    // 目标选择系统
+    m_targetControlSystem           =   new TargetControlSystem(this);
 
     // 路径规划器
     m_pathPlanner                   =   new PathPlanner(this);
@@ -152,6 +156,9 @@ GameCharacter::~GameCharacter()
     m_shape->removeFromParent();
     CC_SAFE_RELEASE_NULL(m_shape);
 
+    CC_SAFE_DELETE(m_weaponControlSystem);
+    m_weaponControlSystem   =   nullptr;
+
     CC_SAFE_DELETE(m_targetControlSystem);
     m_targetControlSystem   =   nullptr;
 
@@ -164,6 +171,8 @@ GameCharacter::~GameCharacter()
 
 void GameCharacter::update(float dm)
 {
+    m_targetControlSystem->update();
+
     m_brain->process();
 
     /**
@@ -177,7 +186,6 @@ void GameCharacter::update(float dm)
     /**
     * 更新该角色身上的所有控制系统 
     */
-    m_targetControlSystem->tryUpdate();
 
     // m_stateMachine->update(dm);
 }
@@ -576,4 +584,14 @@ std::string GameCharacter::getIconSrc()
 PathPlanner* const GameCharacter::getPathPlanner()
 {
     return m_pathPlanner;
+}
+
+WeaponControlSystem* const GameCharacter::getWeaponControlSystem()
+{
+    return m_weaponControlSystem;
+}
+
+TargetControlSystem* const GameCharacter::getTargetControlSystem()
+{
+    return m_targetControlSystem;
 }

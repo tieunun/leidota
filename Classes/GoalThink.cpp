@@ -19,7 +19,5 @@ GoalStateEnum GoalThink::process()
 void GoalThink::activate()
 {
     // @_@ 先添加一个寻路过去
-    addSubgoal(new GoalMoveToGrid(m_pOwner, 10));
-    addSubgoal(new GoalMoveToGrid(m_pOwner, 21));
-    addSubgoal(new GoalMoveToGrid(m_pOwner, 31));
+    addSubgoal(new GoalMoveToGrid(m_pOwner, 6));
 }

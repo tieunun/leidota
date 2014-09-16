@@ -7,11 +7,12 @@
 #include "MapGrid.h"
 #include "GameCharacterAttribute.h"
 
+#include "WeaponControlSystem.h"
+#include "TargetControlSystem.h"
+
 using namespace std;
 
 class GameTeam;
-class ControlSystem;
-class TargetControlSystem;
 class PathPlanner;
 class GoalThink;
 
@@ -149,10 +150,9 @@ public:
     */
     string getIconSrc();
 
-    /**
-    * 返回路径规划器 
-    */
     PathPlanner* const getPathPlanner();
+    WeaponControlSystem* const getWeaponControlSystem();
+    TargetControlSystem* const getTargetControlSystem();
 
     /**
     * 设置和返回该角色所属的队伍 
@@ -163,12 +163,6 @@ public:
     * 角色id，表示一种类型的人物 
     */
     CC_SYNTHESIZE_READONLY(int, m_characterId, CharacterId);
-
-    /**
-    *  目标控制系统
-    *  @_@ 目前还需要由状态中的逻辑来参与一下，希望以后不会
-    */
-    CC_SYNTHESIZE_READONLY(TargetControlSystem*, m_targetControlSystem, TargetControlSystem);
 
 protected:
     GameCharacter();
@@ -220,6 +214,12 @@ protected:
 
     PathPlanner*                    m_pathPlanner;              // 路径规划器
     GoalThink*                      m_brain;                    // 作为大脑存在的，是目标规划的最高级别
+
+    /**
+    * 一些系统
+    */
+    WeaponControlSystem*            m_weaponControlSystem;      // 武器系统
+    TargetControlSystem*            m_targetControlSystem;      // 目标选择系统
 };
 
 #endif

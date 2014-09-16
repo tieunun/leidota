@@ -34,9 +34,6 @@
     <Filter Include="Classes\joystick">
       <UniqueIdentifier>{947c1301-eef2-499c-9a71-cb97803b74ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\character\system">
-      <UniqueIdentifier>{a54e92e6-4c6d-4c52-83f6-4b44086ba72f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\ai">
       <UniqueIdentifier>{2ea3afb0-8228-43c0-9c41-9ea31c34fcae}</UniqueIdentifier>
     </Filter>
@@ -55,18 +52,27 @@
     <Filter Include="Classes\navigation">
       <UniqueIdentifier>{b4429bad-0e50-4c23-a9ac-01a013678b97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\weapons &amp; projectiles">
+      <UniqueIdentifier>{d9bb724d-a6dc-4301-ad36-c8c1769312dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\weapons &amp; projectiles\weapons">
+      <UniqueIdentifier>{7387d3c7-2a51-4060-b304-78728e84b2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\weapons &amp; projectiles\projectiles">
+      <UniqueIdentifier>{28061dca-256b-4c8c-9446-a431972d79c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ai\system">
+      <UniqueIdentifier>{a54e92e6-4c6d-4c52-83f6-4b44086ba72f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ai\goal\composite\topgoal">
+      <UniqueIdentifier>{a0f350a9-224d-40ca-ba5d-22e6cbd42a75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameScene.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameMainModel.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameTeam.cpp">
@@ -132,15 +138,6 @@
     <ClCompile Include="..\Classes\JoyStick.cpp">
       <Filter>Classes\joystick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ControlSystem.cpp">
-      <Filter>Classes\character\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MobilityControlSystem.cpp">
-      <Filter>Classes\character\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TargetControlSystem.cpp">
-      <Filter>Classes\character\system</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GoalTraverseEdge.cpp">
       <Filter>Classes\ai\goal\atomic</Filter>
     </ClCompile>
@@ -156,18 +153,33 @@
     <ClCompile Include="..\Classes\GoalMoveToGrid.cpp">
       <Filter>Classes\ai\goal\composite</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameMainModel.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Weapon.cpp">
+      <Filter>Classes\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NormalCloseRangeWeapon.cpp">
+      <Filter>Classes\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WeaponControlSystem.cpp">
+      <Filter>Classes\ai\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TargetControlSystem.cpp">
+      <Filter>Classes\ai\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoalAttackTarget.cpp">
+      <Filter>Classes\ai\goal\composite\topgoal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameScene.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameMainModel.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameTeam.h">
@@ -275,15 +287,6 @@
     <ClInclude Include="..\Classes\JoyStick.h">
       <Filter>Classes\joystick</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MobilityControlSystem.h">
-      <Filter>Classes\character\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ControlSystem.h">
-      <Filter>Classes\character\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TargetControlSystem.h">
-      <Filter>Classes\character\system</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Goal.h">
       <Filter>Classes\ai\goal\atomic</Filter>
     </ClInclude>
@@ -310,6 +313,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MathTool.h">
       <Filter>Classes\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMainModel.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Weapon.h">
+      <Filter>Classes\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NormalCloseRangeWeapon.h">
+      <Filter>Classes\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WeaponControlSystem.h">
+      <Filter>Classes\ai\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TargetControlSystem.h">
+      <Filter>Classes\ai\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalAttackTarget.h">
+      <Filter>Classes\ai\goal\composite\topgoal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

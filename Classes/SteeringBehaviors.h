@@ -28,12 +28,26 @@ public:
     */
     void seekOn() { m_behaviorsFlag |= SEEK; }
     void seekOff() { if (On(SEEK)) m_behaviorsFlag ^= SEEK;}
+    void arriveOn() { m_behaviorsFlag |= ARRIVE; }
+    void arriveOff() { if (On(ARRIVE)) m_behaviorsFlag ^= ARRIVE; }
+    void separationOn() { m_behaviorsFlag |= SEPARATION; }
+    void separationOff() { if (On(SEPARATION)) m_behaviorsFlag ^= SEPARATION; }
+    void wallAvoidanceOn() { m_behaviorsFlag |= WALL_AVOIDANCE; }
+    void wallAvoidanceOff() { if (On(WALL_AVOIDANCE)) m_behaviorsFlag ^= WALL_AVOIDANCE; }
 
 private:
     /**
     *  各种驱动行为
     */
-    Vec2 seek(const Vec2 &target);
+    Vec2 seek(const Vec2& target);
+    
+    Vec2 arrive(const Vec2& target);
+
+    // 用来分离各个移动体
+    Vec2 separation();
+
+    // 用来让移动体不撞到四周的墙壁
+    Vec2 wallAvoidance();
 
 private:
     /**
@@ -60,7 +74,7 @@ private:
     * 与seek和arrive行为有关的数据 
     */
     Vec2            m_vTarget;                          // 目标坐标
-
+    const float     m_arrivePrecision;                  // 接近的时候判断是到达的精度
 };
 
 #endif

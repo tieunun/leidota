@@ -624,7 +624,7 @@ void GameCharacter::updateMovement(float dm)
     Vec2 tmpForce   =   m_steeringBehaviors->calculate();
     if (tmpForce.isZero())
     {
-        const double BrakingRate = 0.8; 
+        const double BrakingRate = 0; 
         m_movingEntity.setVelocity(m_movingEntity.getVelocity() * BrakingRate);                                     
     }
     

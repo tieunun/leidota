@@ -34,7 +34,7 @@ bool GameScene::init()
 
     // 设置角色seek到某个位置
     tmpRole2->getSteeringBehaviros()->setTarget(Vec2(900, 60));
-    tmpRole2->getSteeringBehaviros()->seekOn();
+    tmpRole2->getSteeringBehaviros()->arriveOn();
 
 /**
     auto tmpRole3 = GameCharacter::create(1);

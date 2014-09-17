@@ -8,6 +8,7 @@ SteeringBehaviors::SteeringBehaviors( GameCharacter* owner ):m_arrivePrecision(1
 {
     m_pOwner        =   owner;
     m_behaviorsFlag =   NONE;
+    m_targetId      =   INVALID_GAME_ENTITY_ID;
 }
 
 SteeringBehaviors::~SteeringBehaviors()
@@ -36,6 +37,10 @@ cocos2d::Vec2 SteeringBehaviors::calculate()
         return m_vSteeringForce;
     }
     if (On(ARRIVE) && !accumulateForce(m_vSteeringForce, arrive(m_vTarget)))
+    {
+        return m_vSteeringForce;
+    }
+    if (On(PURSUIT) && !accumulateForce(m_vSteeringForce, pursuit(m_targetId)))
     {
         return m_vSteeringForce;
     }
@@ -84,8 +89,8 @@ cocos2d::Vec2 SteeringBehaviors::separation()
         }
 
         auto tmpToOwner =   m_pOwner->getMovingEntity().getPosition() - tmpCharacter->getMovingEntity().getPosition();
-        // 这个驱动力与该角色到owner的距离成反比
-        auto tmpLen     =   tmpToOwner.getLength() - m_pOwner->getMovingEntity().getRadius();
+        // 这个驱动力与该角色到owner的距离成反比（注意这里的距离是减去了两个半径后）
+        auto tmpLen     =   tmpToOwner.getLength() - (m_pOwner->getMovingEntity().getRadius() + tmpCharacter->getMovingEntity().getRadius());
         if (tmpLen <= 0)
         {
             tmpLen  =   1;
@@ -117,6 +122,32 @@ cocos2d::Vec2 SteeringBehaviors::wallAvoidance()
         }
         tmpForce    +=  m_wallAvoidanceMagnify * tmpIterator->getNormal() / tmpDot;
     }
+    return tmpForce;
+}
+
+cocos2d::Vec2 SteeringBehaviors::pursuit( int targetId )
+{
+    Vec2 tmpForce;
+    auto tmpCharacter           =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(targetId));
+    auto tmpOwnerMovingEntity   =   m_pOwner->getMovingEntity();
+    auto tmpTargetMovingEntity  =   tmpCharacter->getMovingEntity();
+    if (tmpCharacter != nullptr)
+    {
+        Vec2 tmpToTarget    =   tmpTargetMovingEntity.getPosition() - tmpOwnerMovingEntity.getPosition();
+        
+        // 如果两个的前进方向一样（相差在18度以内）或者当前就是面向目标
+        if (tmpOwnerMovingEntity.getHead().dot(tmpTargetMovingEntity.getHead()) <= -0.95 || 
+            tmpOwnerMovingEntity.getHead().dot(tmpToTarget) >= 0)
+        {
+            return seek(tmpTargetMovingEntity.getPosition());
+        }
+
+        // 要进行预判，预判距离与两者距离成正比，与两者的速度成反比
+        float tmpLookAheadTime = tmpToTarget.getLength() / 
+            (tmpTargetMovingEntity.getSpeed() + tmpOwnerMovingEntity.getSpeed());
+        return seek(tmpTargetMovingEntity.getPosition() + tmpTargetMovingEntity.getHead() * tmpLookAheadTime);
+    }
+
     return tmpForce;
 }
 

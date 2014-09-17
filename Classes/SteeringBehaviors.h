@@ -21,8 +21,10 @@ public:
     */
     Vec2 calculate();
 
-    void setTarget(Vec2 t) {m_vTarget = t;}
+    void setTarget(Vec2 t) { m_vTarget = t; }
     
+    void setTargetId(int id) { m_targetId = id; }
+
     /**
     * 关于驱动力的开启和关闭 
     */
@@ -34,6 +36,8 @@ public:
     void separationOff() { if (On(SEPARATION)) m_behaviorsFlag ^= SEPARATION; }
     void wallAvoidanceOn() { m_behaviorsFlag |= WALL_AVOIDANCE; }
     void wallAvoidanceOff() { if (On(WALL_AVOIDANCE)) m_behaviorsFlag ^= WALL_AVOIDANCE; }
+    void pursuitOn() { m_behaviorsFlag |= PURSUIT; }
+    void pursuitOff() { if(On(PURSUIT)) m_behaviorsFlag ^= PURSUIT; }
 
 private:
     /**
@@ -48,6 +52,9 @@ private:
 
     // 用来让移动体不撞到四周的墙壁
     Vec2 wallAvoidance();
+
+    // 用来驱动角色追击指定角色的
+    Vec2 pursuit(int targetId);
 
 private:
     // 判断是否是邻居，如果是邻居，该角色就会受到邻居的影响
@@ -69,7 +76,8 @@ private:
         SEEK                =   1,                      // 冲到指定的位置
         ARRIVE              =   1 << 1,                 // 到达指定位置
         SEPARATION          =   1 << 2,                 // 用来分离挨在一起的角色
-        WALL_AVOIDANCE      =   1 << 3,                 // 用来避开墙壁的 
+        WALL_AVOIDANCE      =   1 << 3,                 // 用来避开墙壁的
+        PURSUIT             =   1 << 4,                 // 追击指定角色
     };
 
     // 检查某个类型的驱动力是否开启
@@ -95,6 +103,11 @@ private:
     * 与wallavoidance行为相关的数据 
     */
     const float     m_wallAvoidanceMagnify;             // 被扩大的倍数
+
+    /**
+    * 与pursue行为有关的数据 
+    */
+    int             m_targetId;                         // 正在追击的对手id
 };
 
 #endif

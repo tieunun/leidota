@@ -11,7 +11,7 @@ using namespace cocos2d;
 class MovingEntity
 {
 public:
-    MovingEntity(float maxSpeed = 100, float maxForce = 110, float mass = 1, float radius = 50, float neighborRadius = 90)
+    MovingEntity(float maxSpeed = 100, float maxForce = 110, float mass = 1, float radius = 40, float neighborRadius = 150)
     {
         m_maxSpeed          =   maxSpeed;
         m_maxForce          =   maxForce;
@@ -40,6 +40,19 @@ public:
         }
 
         m_velocity  =   aVelocity;
+    }
+
+    /**
+    * 返回前进的方向（单位向量） 
+    */
+    Vec2 getHead()
+    {
+        return m_velocity.getNormalized();
+    }
+
+    float getSpeed()
+    {
+        return m_velocity.getLength();
     }
 };
 

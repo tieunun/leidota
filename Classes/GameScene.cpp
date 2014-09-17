@@ -27,9 +27,12 @@ bool GameScene::init()
     tmpRole1->retain();
     m_map->placeCharacter1(tmpRole1);
     tmpRole1->getSteeringBehaviros()->separationOn();
-    tmpRole1->getSteeringBehaviros()->setTarget(Vec2(1000, 300));
-    tmpRole1->getSteeringBehaviros()->arriveOn();
+    //tmpRole1->getSteeringBehaviros()->setTarget(Vec2(1000, 300));
+    //tmpRole1->getSteeringBehaviros()->arriveOn();
     tmpRole1->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole1->getMovingEntity().setMaxSpeed(50);
+    tmpRole1->getSteeringBehaviros()->setTargetId(1);
+    tmpRole1->getSteeringBehaviros()->pursuitOn();
 
     auto tmpRole2 = GameCharacter::create(1);
     tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
@@ -38,7 +41,7 @@ bool GameScene::init()
     tmpRole2->getSteeringBehaviros()->separationOn();
 
     // 设置角色seek到某个位置
-    tmpRole2->getSteeringBehaviros()->setTarget(Vec2(900, 60));
+    tmpRole2->getSteeringBehaviros()->setTarget(Vec2(1500, 60));
     tmpRole2->getSteeringBehaviros()->arriveOn();
     tmpRole2->getSteeringBehaviros()->wallAvoidanceOn();
 

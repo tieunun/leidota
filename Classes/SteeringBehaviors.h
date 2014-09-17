@@ -50,6 +50,16 @@ private:
     Vec2 wallAvoidance();
 
 private:
+    // 判断是否是邻居，如果是邻居，该角色就会受到邻居的影响
+    bool isNeighbor(GameCharacter* other);
+
+    /**
+    *   在m_vSteeringForce上增加force，同时判定是否到达最大驱动力，如果
+    *   到最大驱动力了，就返回false
+    */
+    bool accumulateForce(Vec2& steeringForce, Vec2 force);
+
+private:
     /**
     * 当前使用的行为驱动的标记 
     */
@@ -75,6 +85,16 @@ private:
     */
     Vec2            m_vTarget;                          // 目标坐标
     const float     m_arrivePrecision;                  // 接近的时候判断是到达的精度
+
+    /**
+    * 与separation行为相关的数据
+    */
+    const float     m_separationMagnify;                // 被扩大的倍数
+
+    /**
+    * 与wallavoidance行为相关的数据 
+    */
+    const float     m_wallAvoidanceMagnify;             // 被扩大的倍数
 };
 
 #endif

@@ -11,12 +11,13 @@ using namespace cocos2d;
 class MovingEntity
 {
 public:
-    MovingEntity(float maxSpeed = 100, float maxForce = 10, float mass = 1, float radius = 60)
+    MovingEntity(float maxSpeed = 100, float maxForce = 110, float mass = 1, float radius = 50, float neighborRadius = 90)
     {
-        m_maxSpeed      =   maxSpeed;
-        m_maxForce      =   maxForce;
-        m_mass          =   mass;
-        m_radius        =   radius;
+        m_maxSpeed          =   maxSpeed;
+        m_maxForce          =   maxForce;
+        m_mass              =   mass;
+        m_radius            =   radius;
+        m_neighborRadius    =   neighborRadius;
     }
 
     ~MovingEntity(){}
@@ -27,6 +28,7 @@ public:
     CC_SYNTHESIZE(float, m_maxSpeed, MaxSpeed);             // 最大速度
     CC_SYNTHESIZE(float, m_maxForce, MaxForce);             // 最大驱动力
     CC_SYNTHESIZE(float, m_radius, Radius);                 // 角色所占半径
+    CC_SYNTHESIZE(float, m_neighborRadius, NeighborRadius); // 邻居半径（在此半径内的其他角色会作为邻居）
 
     void setVelocity(Vec2 aVelocity)
     {

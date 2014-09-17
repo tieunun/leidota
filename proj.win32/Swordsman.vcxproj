@@ -223,6 +223,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\UIView.h" />
     <ClInclude Include="..\Classes\UIViewIdEnum.h" />
     <ClInclude Include="..\Classes\UIViewManager.h" />
+    <ClInclude Include="..\Classes\Wall2D.h" />
     <ClInclude Include="..\Classes\Weapon.h" />
     <ClInclude Include="..\Classes\WeaponControlSystem.h" />
     <ClInclude Include="main.h" />

@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "GridGraph.h"
+#include "Wall2D.h"
 
 class GameCharacter;
 
@@ -110,6 +111,8 @@ public:
     */
     bool testIsAtBottom(int nodeIndex1, int nodeIndex2);
 
+    const vector<Wall2D>& getWalls() { return m_walls; }
+
 protected:
     MapGrid(int gridW, int gridH, int xNum, int yNum);
     ~MapGrid();
@@ -133,6 +136,8 @@ protected:
     vector<ObjectOnMapGrid*> m_Objects;                 // 所有在网格中移动的物体
 
     const Color4F m_gridColor;                          // 网格使用的颜色
+
+    vector<Wall2D>  m_walls;                            // 四面墙壁
 };
 
 #endif

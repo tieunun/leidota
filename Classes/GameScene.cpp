@@ -21,20 +21,26 @@ bool GameScene::init()
     /**
     	 算了，暂时就此处将游戏角色添加到地图上
     */
-/**
+
     auto tmpRole1 = GameCharacter::create(3);
     tmpRole1->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole1->retain();
     m_map->placeCharacter1(tmpRole1);
-*/
+    tmpRole1->getSteeringBehaviros()->separationOn();
+    tmpRole1->getSteeringBehaviros()->setTarget(Vec2(1000, 300));
+    tmpRole1->getSteeringBehaviros()->arriveOn();
+    tmpRole1->getSteeringBehaviros()->wallAvoidanceOn();
+
     auto tmpRole2 = GameCharacter::create(1);
     tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole2->retain();
     m_map->placeCharacter2(tmpRole2);
+    tmpRole2->getSteeringBehaviros()->separationOn();
 
     // 设置角色seek到某个位置
     tmpRole2->getSteeringBehaviros()->setTarget(Vec2(900, 60));
     tmpRole2->getSteeringBehaviros()->arriveOn();
+    tmpRole2->getSteeringBehaviros()->wallAvoidanceOn();
 
 /**
     auto tmpRole3 = GameCharacter::create(1);
@@ -114,7 +120,7 @@ bool GameScene::init()
 */
     // 战斗UI
     auto tmpUI  =   BattleUI::create();
-    this->addChild(tmpUI);
+    //this->addChild(tmpUI);
     // 允许手机输入的，也就是屏幕输入方式
     m_mobileInputManager    =   tmpUI;
     m_mobileInputManager->setDelegate(m_mainModel);

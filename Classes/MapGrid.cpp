@@ -35,6 +35,13 @@ bool MapGrid::init()
 MapGrid::MapGrid(int gridW, int gridH, int xNum, int yNum):GridGraph(gridW, gridH, xNum, yNum),m_gridColor(1.0f, 0.0f, 0.0f, 1.0f)
 {
     this->setContentSize(Size(gridW * xNum, gridH * yNum));
+
+    // ËÄÃæµÄÇ½±Ú
+    auto tmpSize    =   this->getContentSize();
+    m_walls.push_back(Wall2D(Vec2(0, 0), Vec2(0, tmpSize.height), Vec2(1, 0)));
+    m_walls.push_back(Wall2D(Vec2(0, 0), Vec2(tmpSize.width, 0), Vec2(0, 1)));
+    m_walls.push_back(Wall2D(Vec2(tmpSize.width, 0), Vec2(tmpSize.width, tmpSize.height), Vec2(-1, 0)));
+    m_walls.push_back(Wall2D(Vec2(tmpSize.width, tmpSize.height), Vec2(0, tmpSize.height), Vec2(0, -1)));
 }
 
 MapGrid::~MapGrid()

@@ -36,7 +36,7 @@ bool GameMap::init()
 
 void GameMap::placeCharacter1(GameCharacter* character)
 {
-    placeOneCharacterToIndex(character, 0);
+    placeOneCharacterToIndex(character, XNUM);
 }
 
 void GameMap::placeCharacter2(GameCharacter* character)

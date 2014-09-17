@@ -27,29 +27,27 @@ bool GameScene::init()
     tmpRole1->retain();
     m_map->placeCharacter1(tmpRole1);
     tmpRole1->getSteeringBehaviros()->separationOn();
-    //tmpRole1->getSteeringBehaviros()->setTarget(Vec2(1000, 300));
-    //tmpRole1->getSteeringBehaviros()->arriveOn();
     tmpRole1->getSteeringBehaviros()->wallAvoidanceOn();
-    tmpRole1->getMovingEntity().setMaxSpeed(50);
-    tmpRole1->getSteeringBehaviros()->setTargetId(1);
-    tmpRole1->getSteeringBehaviros()->pursuitOn();
+    tmpRole1->getSteeringBehaviros()->keepFormationOn();
+    tmpRole1->getMovingEntity().setFormationPosId(0);
 
     auto tmpRole2 = GameCharacter::create(1);
     tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole2->retain();
     m_map->placeCharacter2(tmpRole2);
     tmpRole2->getSteeringBehaviros()->separationOn();
-
-    // 设置角色seek到某个位置
-    tmpRole2->getSteeringBehaviros()->setTarget(Vec2(1500, 60));
-    tmpRole2->getSteeringBehaviros()->arriveOn();
     tmpRole2->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole2->getSteeringBehaviros()->keepFormationOn();
+    tmpRole2->getMovingEntity().setFormationPosId(3);
 
-/**
     auto tmpRole3 = GameCharacter::create(1);
     tmpRole3->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
     tmpRole3->retain();
     m_map->placeCharacter3(tmpRole3);
+    tmpRole3->getSteeringBehaviros()->separationOn();
+    tmpRole3->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole3->getSteeringBehaviros()->keepFormationOn();
+    tmpRole3->getMovingEntity().setFormationPosId(4);
 
     // @_@ 创建为一个队伍
     auto tmpTeam1   =   GameTeam::create();
@@ -57,7 +55,9 @@ bool GameScene::init()
     tmpTeam1->addMercenaryIds(tmpRole1);
     tmpTeam1->addMercenaryIds(tmpRole3);
     TeamMgr->registerTeam(tmpTeam1);
-*/
+
+    tmpTeam1->getTeamFormation().setFormationAnchor(Vec2(1000, 260));
+
     m_mainModel     =   new GameMainModel();
     m_mainModel->setMainGameCharacter(tmpRole2);
     

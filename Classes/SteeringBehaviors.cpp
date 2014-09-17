@@ -2,9 +2,10 @@
 #include "GameCharacter.h"
 #include "MathTool.h"
 #include "EntityManager.h"
+#include "GameTeam.h"
 
 SteeringBehaviors::SteeringBehaviors( GameCharacter* owner ):m_arrivePrecision(1),
-    m_separationMagnify(1500), m_wallAvoidanceMagnify(1000)
+    m_separationMagnify(1000), m_wallAvoidanceMagnify(800)
 {
     m_pOwner        =   owner;
     m_behaviorsFlag =   NONE;
@@ -41,6 +42,12 @@ cocos2d::Vec2 SteeringBehaviors::calculate()
         return m_vSteeringForce;
     }
     if (On(PURSUIT) && !accumulateForce(m_vSteeringForce, pursuit(m_targetId)))
+    {
+        return m_vSteeringForce;
+    }
+    auto tmpFormation       =   m_pOwner->getTeam()->getTeamFormation();
+    auto tmpFormationPosId  =   m_pOwner->getMovingEntity().getFormationPosId();
+    if (On(KEEP_FORMATION) && !accumulateForce(m_vSteeringForce, keepFormation(tmpFormation, tmpFormationPosId)))
     {
         return m_vSteeringForce;
     }
@@ -179,4 +186,9 @@ bool SteeringBehaviors::accumulateForce( Vec2& steeringForce, Vec2 force )
         steeringForce   +=  force.getNormalized() * tmpLeftForce;
     }
     return true;
+}
+
+cocos2d::Vec2 SteeringBehaviors::keepFormation( Formation& aFormation, int posId )
+{
+    return arrive(aFormation.getPositionByPosId(posId));
 }

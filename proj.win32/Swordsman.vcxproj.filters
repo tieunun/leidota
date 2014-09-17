@@ -350,6 +350,9 @@
     <ClInclude Include="..\Classes\Wall2D.h">
       <Filter>Classes\navigation</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Formation.h">
+      <Filter>Classes\movement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

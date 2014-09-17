@@ -177,6 +177,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\EntityManager.h" />
     <ClInclude Include="..\Classes\FlightProps.h" />
     <ClInclude Include="..\Classes\FlightPropsMgr.h" />
+    <ClInclude Include="..\Classes\Formation.h" />
     <ClInclude Include="..\Classes\GameCharacter.h" />
     <ClInclude Include="..\Classes\GameCharacterAttribute.h" />
     <ClInclude Include="..\Classes\GameCharacterShape.h" />

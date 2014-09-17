@@ -622,18 +622,19 @@ void GameCharacter::updateMovement(float dm)
     */
     // 总的合力
     Vec2 tmpForce   =   m_steeringBehaviors->calculate();
-    if (tmpForce.getLengthSq() < 1)
+    if (tmpForce.getLengthSq() < 5)
     {
+        // 如果力过小，就直接把速度降为0
         const double BrakingRate = 0; 
         m_movingEntity.setVelocity(m_movingEntity.getVelocity() * BrakingRate);                                     
     }
-    
-    // 加速度
-    Vec2 tmpAccel   =   tmpForce / m_movingEntity.getMass();
-
-    // 改变当前速度
-    m_movingEntity.setVelocity(m_movingEntity.getVelocity() + tmpAccel * dm);
-
+    else
+    {
+        // 加速度
+        Vec2 tmpAccel   =   tmpForce / m_movingEntity.getMass();
+        // 改变当前速度
+        m_movingEntity.setVelocity(m_movingEntity.getVelocity() + tmpAccel * dm);
+    }
     // 改变当前坐标
     m_movingEntity.setPosition(m_movingEntity.getPosition() + m_movingEntity.getVelocity() * dm);
     m_shape->setPosition(m_movingEntity.getPosition());

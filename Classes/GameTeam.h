@@ -5,6 +5,7 @@
 #include "StateMachine.h"
 #include "Telegram.h"
 #include "BaseGameEntity.h"
+#include "Formation.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -55,6 +56,9 @@ public:
     */
     TeamStateMachine* getFSM();
 
+    // 返回队伍阵型
+    Formation& getTeamFormation() { return m_formation; }
+
     /**
     	 队伍id，用来全局唯一标示一个队伍
     */
@@ -77,6 +81,8 @@ private:
     int                         m_leaderId;                     // 主角id
     list<int>                   m_mercenaryIdList;              // 佣兵id列表
     TeamStateMachine*           m_stateMachine;                 // 该队伍的状态机
+
+    Formation                   m_formation;                    // 阵型
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define __STEERING_BEHAVIORS_H__
 
 #include "cocos2d.h"
+#include "Formation.h"
 
 using namespace cocos2d;
 
@@ -38,6 +39,8 @@ public:
     void wallAvoidanceOff() { if (On(WALL_AVOIDANCE)) m_behaviorsFlag ^= WALL_AVOIDANCE; }
     void pursuitOn() { m_behaviorsFlag |= PURSUIT; }
     void pursuitOff() { if(On(PURSUIT)) m_behaviorsFlag ^= PURSUIT; }
+    void keepFormationOn() { m_behaviorsFlag |= KEEP_FORMATION; }
+    void keepFormationOff() { if(On(KEEP_FORMATION)) m_behaviorsFlag ^= KEEP_FORMATION; }
 
 private:
     /**
@@ -55,6 +58,9 @@ private:
 
     // 用来驱动角色追击指定角色的
     Vec2 pursuit(int targetId);
+
+    // 用来保持阵型的驱动力
+    Vec2 keepFormation(Formation& aFormation, int posId);
 
 private:
     // 判断是否是邻居，如果是邻居，该角色就会受到邻居的影响
@@ -78,6 +84,7 @@ private:
         SEPARATION          =   1 << 2,                 // 用来分离挨在一起的角色
         WALL_AVOIDANCE      =   1 << 3,                 // 用来避开墙壁的
         PURSUIT             =   1 << 4,                 // 追击指定角色
+        KEEP_FORMATION      =   1 << 5,                 // 保持阵型
     };
 
     // 检查某个类型的驱动力是否开启

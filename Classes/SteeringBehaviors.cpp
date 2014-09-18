@@ -3,9 +3,10 @@
 #include "MathTool.h"
 #include "EntityManager.h"
 #include "GameTeam.h"
+#include "GameMap.h"
 
 SteeringBehaviors::SteeringBehaviors( GameCharacter* owner ):m_arrivePrecision(1),
-    m_separationMagnify(1000), m_wallAvoidanceMagnify(800)
+    m_separationMagnify(1500), m_wallAvoidanceMagnify(800)
 {
     m_pOwner        =   owner;
     m_behaviorsFlag =   NONE;
@@ -112,7 +113,7 @@ cocos2d::Vec2 SteeringBehaviors::wallAvoidance()
 {
     auto tmpMovingEntity    =   m_pOwner->getMovingEntity();
     Vec2 tmpForce;
-    auto tmpAllWalls    =   m_pOwner->getMapGrid()->getWalls();
+    auto tmpAllWalls    =   GamepMapSingleton->getWalls();
     for (auto tmpIterator = tmpAllWalls.begin(); tmpIterator != tmpAllWalls.end(); tmpIterator++)
     {
         // 分别计算距离每个边的距离

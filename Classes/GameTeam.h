@@ -2,7 +2,6 @@
 #define __GAME_TEAM_H__
 
 #include "cocos2d.h"
-#include "StateMachine.h"
 #include "Telegram.h"
 #include "BaseGameEntity.h"
 #include "Formation.h"
@@ -19,68 +18,36 @@ class GameCharacter;
 class GameTeam : public Ref
 {
 public:
-    typedef StateMachine<GameTeam>  TeamStateMachine;
-
-    GameTeam();
     ~GameTeam();
 
     /**
-    	 设置主角全局索引id
+    	 给该队伍添加成员，同时指定该角色在阵型中的位置编号
     */
-    void setLeaderId(GameCharacter* player);
+    void addMember(GameCharacter* player, int posId = 0);
 
     /**
-    	 添加佣兵
-    */
-    void addMercenaryIds(GameCharacter* player);
-
-    /**
-    	 每一帧中回调
+    	 每一帧中回调，在这里会调用所有成员的update
     */
     void update(float dm);
-
-    bool init();
-
-    /**
-    	 向全体队员发送某个消息
-    */
-    void sendMsgToAll(Telegram& msg);
-
-    /**
-    * 为了实现队伍级别的推进，队伍中角色移动的时候会向上级也就是队伍通知 
-    */
-    void playerMoving(GameCharacter* player);
-
-    /**
-    	 返回状态机，方便在状态中修改
-    */
-    TeamStateMachine* getFSM();
 
     // 返回队伍阵型
     Formation& getTeamFormation() { return m_formation; }
 
-    /**
-    	 队伍id，用来全局唯一标示一个队伍
-    */
+    // 队伍id，用来全局唯一标示一个队伍
     CC_SYNTHESIZE(int, m_teamId, TeamId);
-    CC_SYNTHESIZE_READONLY(GameEntityTypeEnum, m_type, TeamType);
 
-    CREATE_FUNC(GameTeam);
+    // 创建一个队伍，在调用这个函数后该队伍就被加入到TeamMgr中了
+    static GameTeam* create();
 
 private:
+    GameTeam();
 
-    /**
-    * 向所有的佣兵发送消息 
-    */
-    void sendToMercenaries( Telegram& msg );
+    // 删除处于死亡状态的角色
+    void removeDeadCharacter();
 
     static int m_nextValidId;                                   // 下一个有效地队伍id
-    /**
-    	 这里之所以没有直接使用GameCharacter是因为所有的最好都是从EntityManager中获取
-    */
-    int                         m_leaderId;                     // 主角id
-    list<int>                   m_mercenaryIdList;              // 佣兵id列表
-    TeamStateMachine*           m_stateMachine;                 // 该队伍的状态机
+
+    list<GameCharacter*>        m_members;                      // 队伍的所有成员
 
     Formation                   m_formation;                    // 阵型
 };

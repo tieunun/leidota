@@ -103,7 +103,6 @@ void BattleUI::refreshTargetCharacter( GameCharacter* character )
         auto tmpAttribute   =   character->getAttribute();
         m_enemyPanel->setVisible(true);
         m_enemyHpBar->setPercent(tmpAttribute.getHp() / tmpAttribute.getFullHp() * 100);
-        m_enemyIcon->loadTexture(character->getIconSrc());
     }
 }
 

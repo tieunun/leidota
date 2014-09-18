@@ -25,27 +25,6 @@ void NormalCloseRangeWeapon::attack( GameCharacter* target )
 
 bool NormalCloseRangeWeapon::isInAttackRange( GameCharacter* target )
 {
-    // 比如这种是否在攻击范围内的判定，是与使用的武器类型有关
-    auto tmpOwnerObject     =   m_pOwner->getObjectOnGrid();
-    auto tmpTargetObject    =   target->getObjectOnGrid();
-
-    auto tmpMapGrid         =   m_pOwner->getMapGrid();
-    // 如果在一条水平线上，并且间距在3个格子内
-    if (tmpMapGrid->testTwoIndexInOneHorizon(tmpOwnerObject->nodeIndex, tmpTargetObject->nodeIndex) 
-        && abs(tmpTargetObject->nodeIndex - tmpOwnerObject->nodeIndex) <= 3)
-    {
-        return true;
-    }
-
-    // 如果在交叉位置处
-    if (tmpOwnerObject->nodeIndex == tmpMapGrid->getLeftTopGridIndex(tmpTargetObject->nodeIndex)
-        || tmpOwnerObject->nodeIndex == tmpMapGrid->getRightTopGridIndex(tmpTargetObject->nodeIndex)
-        || tmpOwnerObject->nodeIndex == tmpMapGrid->getRightBottomGridIndex(tmpTargetObject->nodeIndex)
-        || tmpOwnerObject->nodeIndex == tmpMapGrid->getLeftBottomGridIndex(tmpTargetObject->nodeIndex))
-    {
-        return true;
-    }
-
     return false;
 }
 

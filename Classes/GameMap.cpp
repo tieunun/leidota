@@ -1,8 +1,21 @@
 #include "GameMap.h"
 #include "EntityManager.h"
+#include "TeamManager.h"
 #include "cocostudio/CCSSceneReader.h"
 
 using namespace cocostudio;
+
+GameMap* GameMap::m_instance    =   nullptr;
+GameMap* GameMap::instance()
+{
+    if (m_instance == nullptr)
+    {
+        m_instance  =   new GameMap();
+        m_instance->init();
+    }
+
+    return m_instance;
+}
 
 bool GameMap::init()
 {
@@ -22,56 +35,18 @@ bool GameMap::init()
     // 人物所在的背景
     m_bg1   =   tmpScene->getChildByTag(10006);
 
-    // 网格，所有的角色都是添加到这个上面
-    m_mapGrid   =   MapGrid::create(GRIDW, GRIDH, XNUM, YNUM);
-    auto tmpMapNode =   m_bg1->getChildByTag(10025);
-    tmpMapNode->addChild(m_mapGrid);
+    // 四面的墙
+    m_walls.push_back(Wall2D(m_wallLBPos, Vec2(m_wallRTPos.x, 0), Vec2(0, 1)));
+    m_walls.push_back(Wall2D(Vec2(m_wallRTPos.x, 0), m_wallRTPos, Vec2(-1, 0)));
+    m_walls.push_back(Wall2D(m_wallRTPos, Vec2(0, m_wallRTPos.y), Vec2(0, -1)));
+    m_walls.push_back(Wall2D(Vec2(0, m_wallRTPos.y), m_wallLBPos, Vec2(1, 0)));
 
-    m_initPosX  =   0;
+    // @_@ 所有的角色都是添加到这个上面
+    m_playerLayer =   m_bg1->getChildByTag(10025);
 
     this->scheduleUpdate();
 
     return true;
-}
-
-void GameMap::placeCharacter1(GameCharacter* character)
-{
-    placeOneCharacterToIndex(character, XNUM);
-}
-
-void GameMap::placeCharacter2(GameCharacter* character)
-{
-    placeOneCharacterToIndex(character, 2 * XNUM);
-}
-
-void GameMap::placeCharacter3(GameCharacter* character)
-{
-    placeOneCharacterToIndex(character, 4 * XNUM);
-}
-
-void GameMap::placeOneCharacterToIndex(GameCharacter* character, int nodeIndex)
-{
-    // 这里暂时放在这里
-    auto tmpGrid = character->getObjectOnGrid();
-    tmpGrid->placeType  =   PLACEHOLDER_TYPE_CROSS;
-    tmpGrid->nodeIndex  =   nodeIndex;
-
-    m_mapGrid->addGameCharacter(character);
-}
-
-void GameMap::placeEnemyCharacter1(GameCharacter* character)
-{
-    placeOneCharacterToIndex(character, XNUM - 1);
-}
-
-void GameMap::placeEnemyCharacter2(GameCharacter* character)
-{
-    placeOneCharacterToIndex(character, 3 * XNUM - 1);
-}
-
-void GameMap::placeEnemyCharacter3(GameCharacter* character)
-{
-    placeOneCharacterToIndex(character, 5 * XNUM - 1);
 }
 
 GameMap::~GameMap()
@@ -81,13 +56,11 @@ GameMap::~GameMap()
 
 void GameMap::cameraMove(int x)
 {
-    // 主角相对地图移动了x的距离，@_@ 先假设佣兵主角永不
-    // auto tmpCharacterPosX    =   EntityMgr->getEntityFromID(1)->getShape()->getPositionX();
-    auto tmpCharacter   =   (GameCharacter*)EntityMgr->getmainEntity();
-    if (tmpCharacter != nullptr)
+    auto tmpTeam    =   TeamMgr->getTeamFromId(0);
+    if (tmpTeam != nullptr)
     {
         // 调整当前人物所在
-        auto tmpCharacterPosX   =   tmpCharacter->getShape()->getPositionX();
+        auto tmpCharacterPosX   =   tmpTeam->getTeamFormation().getFormationAnchor().x;
         auto visibleSize        = Director::getInstance()->getVisibleSize();
         float parentX           = visibleSize.width / 2 - tmpCharacterPosX;
         parentX    =    parentX > 0 ? 0 : parentX;
@@ -99,7 +72,19 @@ void GameMap::cameraMove(int x)
     }
 }
 
-void GameMap::update( float )
+void GameMap::update( float x)
 {
     cameraMove(0);
+
+    // 同时调整在地图上面的所有角色的z
+    auto tmpChildren    =   m_playerLayer->getChildren();
+    for (auto tmpIterator = tmpChildren.begin(); tmpIterator != tmpChildren.end(); tmpIterator++)
+    {
+        (*tmpIterator)->setZOrder(500 - (*tmpIterator)->getPositionY());
+    }
+}
+
+void GameMap::placeGameCharacter( GameCharacter* player )
+{
+    m_playerLayer->addChild(player->getShape());
 }

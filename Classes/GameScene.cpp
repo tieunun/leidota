@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "GameCharacter.h"
 #include "TeamManager.h"
-#include "GameTeamState.h"
 #include "EntityManager.h"
 #include "BattleUI.h"
 
@@ -15,112 +14,71 @@ bool GameScene::init()
     }
 
     m_celebrateFrameCount   =   0;
-    m_map   =   GameMap::create();
+    m_map   =   GameMap::instance();
     this->addChild(m_map);
 
     /**
     	 算了，暂时就此处将游戏角色添加到地图上
     */
-
-    auto tmpRole1 = GameCharacter::create(3);
-    tmpRole1->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole1->retain();
-    m_map->placeCharacter1(tmpRole1);
-    tmpRole1->getSteeringBehaviros()->separationOn();
-    tmpRole1->getSteeringBehaviros()->wallAvoidanceOn();
-    tmpRole1->getSteeringBehaviros()->keepFormationOn();
-    tmpRole1->getMovingEntity().setFormationPosId(0);
-
-    auto tmpRole2 = GameCharacter::create(1);
-    tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole2->retain();
-    m_map->placeCharacter2(tmpRole2);
-    tmpRole2->getSteeringBehaviros()->separationOn();
-    tmpRole2->getSteeringBehaviros()->wallAvoidanceOn();
-    tmpRole2->getSteeringBehaviros()->keepFormationOn();
-    tmpRole2->getMovingEntity().setFormationPosId(3);
-
-    auto tmpRole3 = GameCharacter::create(1);
-    tmpRole3->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole3->retain();
-    m_map->placeCharacter3(tmpRole3);
-    tmpRole3->getSteeringBehaviros()->separationOn();
-    tmpRole3->getSteeringBehaviros()->wallAvoidanceOn();
-    tmpRole3->getSteeringBehaviros()->keepFormationOn();
-    tmpRole3->getMovingEntity().setFormationPosId(4);
-
-    // @_@ 创建为一个队伍
+    auto tmpRole1   =   GameCharacter::create(1);
+    tmpRole1->getMovingEntity().setPosition(Vec2(100, 100));
     auto tmpTeam1   =   GameTeam::create();
-    tmpTeam1->setLeaderId(tmpRole2);
-    tmpTeam1->addMercenaryIds(tmpRole1);
-    tmpTeam1->addMercenaryIds(tmpRole3);
-    TeamMgr->registerTeam(tmpTeam1);
+    tmpTeam1->addMember(tmpRole1, 0);
+    m_map->placeGameCharacter(tmpRole1);
+    tmpRole1->getSteeringBehaviros()->keepFormationOn();
+    tmpRole1->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole1->getSteeringBehaviros()->separationOn();
 
-    tmpTeam1->getTeamFormation().setFormationAnchor(Vec2(1000, 260));
+    auto tmpRole2   =   GameCharacter::create(1);
+    tmpRole2->getMovingEntity().setPosition(Vec2(660, 100));
+    tmpTeam1->addMember(tmpRole2, 1);
+    m_map->placeGameCharacter(tmpRole2);
+    tmpRole2->getSteeringBehaviros()->keepFormationOn();
+    tmpRole2->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole2->getSteeringBehaviros()->separationOn();
 
-    m_mainModel     =   new GameMainModel();
-    m_mainModel->setMainGameCharacter(tmpRole2);
+    auto tmpRole3   =   GameCharacter::create(1);
+    tmpRole3->getMovingEntity().setPosition(Vec2(1000, 50));
+    tmpTeam1->addMember(tmpRole3, 2);
+    m_map->placeGameCharacter(tmpRole3);
+    tmpRole3->getSteeringBehaviros()->keepFormationOn();
+    tmpRole3->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole3->getSteeringBehaviros()->separationOn();
+
+    auto tmpRole4   =   GameCharacter::create(1);
+    tmpRole4->getMovingEntity().setPosition(Vec2(700, 30));
+    tmpTeam1->addMember(tmpRole4, 3);
+    m_map->placeGameCharacter(tmpRole4);
+    tmpRole4->getSteeringBehaviros()->keepFormationOn();
+    tmpRole4->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole4->getSteeringBehaviros()->separationOn();
+
+    auto tmpRole5   =   GameCharacter::create(1);
+    tmpRole5->getMovingEntity().setPosition(Vec2(50, 30));
+    tmpTeam1->addMember(tmpRole5, 4);
+    m_map->placeGameCharacter(tmpRole5);
+    tmpRole5->getSteeringBehaviros()->keepFormationOn();
+    tmpRole5->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole5->getSteeringBehaviros()->separationOn();
+
+    auto tmpRole6   =   GameCharacter::create(1);
+    tmpRole6->getMovingEntity().setPosition(Vec2(0, 30));
+    tmpTeam1->addMember(tmpRole6, 5);
+    m_map->placeGameCharacter(tmpRole6);
+    tmpRole6->getSteeringBehaviros()->keepFormationOn();
+    tmpRole6->getSteeringBehaviros()->wallAvoidanceOn();
+    tmpRole6->getSteeringBehaviros()->separationOn();
+
+    tmpTeam1->getTeamFormation().setFormationAnchor(Vec2(800, 240));
     
+    m_mainModel =   new GameMainModel();
+
 #ifdef ADDPCINPUT                   // 如果添加了使用PC键盘输入
     m_pcInputManager  =   new PCInputManager();
     m_pcInputManager->setDelegate(m_mainModel);
     m_pcInputManager->init();
 #endif
 
-    /**
-    	 这里还需要增加3个敌人
-    */
-/**
-    auto tmpRole4 = GameCharacter::create(4);
-    tmpRole4->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole4->retain();
-    tmpRole4->getShape()->faceToLeft();
-    m_map->placeEnemyCharacter1(tmpRole4);
-
-    auto tmpRole5 = GameCharacter::create(4);
-    tmpRole5->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole5->retain();
-    tmpRole5->getShape()->faceToLeft();
-    m_map->placeEnemyCharacter2(tmpRole5);
-
-    auto tmpRole6 = GameCharacter::create(4);
-    tmpRole6->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole6->retain();
-    tmpRole6->getShape()->faceToLeft();
-    m_map->placeEnemyCharacter3(tmpRole6);
-
-    // 敌人也加为一对
-    auto tmpTeam2   =   GameTeam::create();
-    tmpTeam2->addMercenaryIds(tmpRole4);
-    tmpTeam2->addMercenaryIds(tmpRole5);
-    tmpTeam2->addMercenaryIds(tmpRole6);
-    TeamMgr->registerTeam(tmpTeam2);
-*/
-    /**
-    * 增加的另外一组敌人 
-    */
-/**
-    auto tmpRole7 = GameCharacter::create(5);
-    tmpRole7->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole7->retain();
-    m_map->placeOneCharacterToIndex(tmpRole7, 20);
-
-    auto tmpRole8 = GameCharacter::create(4);
-    tmpRole8->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole8->retain();
-    m_map->placeOneCharacterToIndex(tmpRole8, 20 + 3 * m_map->XNUM);
-
-    auto tmpTeam3   =   GameTeam::create();
-    tmpTeam3->addMercenaryIds(tmpRole7);
-    tmpTeam3->addMercenaryIds(tmpRole8);
-    TeamMgr->registerTeam(tmpTeam3);
-
-    auto tmpRole9   =   GameCharacter::create(4);
-    tmpRole9->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole9->retain();
-    //tmpTeam3->addMercenaryIds(tmpRole9);
-    m_map->placeOneCharacterToIndex(tmpRole9, 9);
-*/
     // 战斗UI
     auto tmpUI  =   BattleUI::create();
     //this->addChild(tmpUI);

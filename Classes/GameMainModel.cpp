@@ -58,8 +58,6 @@ void GameMainModel::changeTarget()
 
 void GameMainModel::update(float dm)
 {
-    EntityMgr->executeUpdate(dm);
-
     FliProMgr->update(dm);
 
     TeamMgr->update(dm);

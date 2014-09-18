@@ -10,9 +10,6 @@
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\state">
-      <UniqueIdentifier>{007add1d-c7ab-4604-b14f-523b2520eb83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\msg">
       <UniqueIdentifier>{2886c885-44da-4a81-b83d-dc890e46b474}</UniqueIdentifier>
     </Filter>
@@ -49,9 +46,6 @@
     <Filter Include="Classes\tools">
       <UniqueIdentifier>{7766df8b-0ae7-433b-8a92-30ebafa82e4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\navigation">
-      <UniqueIdentifier>{b4429bad-0e50-4c23-a9ac-01a013678b97}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\weapons &amp; projectiles">
       <UniqueIdentifier>{d9bb724d-a6dc-4301-ad36-c8c1769312dc}</UniqueIdentifier>
     </Filter>
@@ -70,6 +64,9 @@
     <Filter Include="Classes\movement">
       <UniqueIdentifier>{3519de77-6216-43a2-bca3-2139cb3505a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\map">
+      <UniqueIdentifier>{b4429bad-0e50-4c23-a9ac-01a013678b97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,26 +81,11 @@
     <ClCompile Include="..\Classes\TeamManager.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameCharacterState.cpp">
-      <Filter>Classes\state</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameTeamState.cpp">
-      <Filter>Classes\state</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MessageDispatcher.cpp">
       <Filter>Classes\msg</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MapGrid.cpp">
-      <Filter>Classes\navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GridGraph.cpp">
-      <Filter>Classes\navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GraphSearchStaticMember.cpp">
-      <Filter>Classes\navigation</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameMap.cpp">
-      <Filter>Classes\navigation</Filter>
+      <Filter>Classes\map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\PCInputManager.cpp">
       <Filter>Classes\input</Filter>
@@ -141,19 +123,7 @@
     <ClCompile Include="..\Classes\JoyStick.cpp">
       <Filter>Classes\joystick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GoalTraverseEdge.cpp">
-      <Filter>Classes\ai\goal\atomic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GoalFollowPath.cpp">
-      <Filter>Classes\ai\goal\composite</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GoalThink.cpp">
-      <Filter>Classes\ai\goal\composite</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PathPlanner.cpp">
-      <Filter>Classes\navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GoalMoveToGrid.cpp">
       <Filter>Classes\ai\goal\composite</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameMainModel.cpp">
@@ -194,56 +164,14 @@
     <ClInclude Include="..\Classes\TeamManager.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\State.h">
-      <Filter>Classes\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameCharacterState.h">
-      <Filter>Classes\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameTeamState.h">
-      <Filter>Classes\state</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Telegram.h">
       <Filter>Classes\msg</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MessageDispatcher.h">
       <Filter>Classes\msg</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\StateMachine.h">
-      <Filter>Classes\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MapGrid.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GridGraph.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GraphSearchDijkstra.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GraphSearchDFS.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GraphSearchBFS.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GraphSearchAStar.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NavGraphEdge.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NavGraphNode.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameMap.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SparseGraph.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PriorityQLow.h">
-      <Filter>Classes\navigation</Filter>
+      <Filter>Classes\map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PCInputManager.h">
       <Filter>Classes\input</Filter>
@@ -299,22 +227,10 @@
     <ClInclude Include="..\Classes\GoalComposite.h">
       <Filter>Classes\ai\goal\composite</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GoalTraverseEdge.h">
-      <Filter>Classes\ai\goal\atomic</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\TimeTool.h">
       <Filter>Classes\tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GoalFollowPath.h">
-      <Filter>Classes\ai\goal\composite</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GoalThink.h">
-      <Filter>Classes\ai\goal\composite</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PathPlanner.h">
-      <Filter>Classes\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GoalMoveToGrid.h">
       <Filter>Classes\ai\goal\composite</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MathTool.h">
@@ -348,7 +264,7 @@
       <Filter>Classes\movement</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Wall2D.h">
-      <Filter>Classes\navigation</Filter>
+      <Filter>Classes\map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Formation.h">
       <Filter>Classes\movement</Filter>

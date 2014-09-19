@@ -137,10 +137,10 @@ cocos2d::Vec2 SteeringBehaviors::pursuit( int targetId )
 {
     Vec2 tmpForce;
     auto tmpCharacter           =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(targetId));
-    auto tmpOwnerMovingEntity   =   m_pOwner->getMovingEntity();
-    auto tmpTargetMovingEntity  =   tmpCharacter->getMovingEntity();
     if (tmpCharacter != nullptr)
     {
+        auto tmpOwnerMovingEntity   =   m_pOwner->getMovingEntity();
+        auto tmpTargetMovingEntity  =   tmpCharacter->getMovingEntity();
         Vec2 tmpToTarget    =   tmpTargetMovingEntity.getPosition() - tmpOwnerMovingEntity.getPosition();
         
         // 如果两个的前进方向一样（相差在18度以内）或者当前就是面向目标
@@ -151,8 +151,10 @@ cocos2d::Vec2 SteeringBehaviors::pursuit( int targetId )
         }
 
         // 要进行预判，预判距离与两者距离成正比，与两者的速度成反比
-        float tmpLookAheadTime = tmpToTarget.getLength() / 
-            (tmpTargetMovingEntity.getSpeed() + tmpOwnerMovingEntity.getSpeed());
+        //float tmpLookAheadTime = tmpToTarget.getLength() / 
+        //    (tmpTargetMovingEntity.getSpeed() + tmpOwnerMovingEntity.getSpeed());
+        // @_@ 觉得不需要预判
+        float tmpLookAheadTime    =   0;
         return seek(tmpTargetMovingEntity.getPosition() + tmpTargetMovingEntity.getHead() * tmpLookAheadTime);
     }
 

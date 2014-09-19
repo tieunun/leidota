@@ -29,6 +29,16 @@ public:
     */
     void takeWeaponAndAttack(GameCharacter* target);
 
+    /**
+    * 返回使用当前武器的情况下，target是否在攻击范围内
+    */
+    bool isInAttackRange(GameCharacter* target);
+
+    /**
+    * @_@ 主要是因为在武器系统攻击的时候，角色是不能更新位置的，所以
+    */
+    bool canCharacterMove();
+
 private:
     GameCharacter*                              m_pOwner;           // 当前武器拥有者
 

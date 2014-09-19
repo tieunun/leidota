@@ -27,10 +27,9 @@ enum TelegramEnum
     /**
     	 队伍与队伍中的角色之间的消息
     */
-    TELEGRAM_ENUM_TEAM_IDLE,                        // 队伍通知角色等待
-    TELEGRAM_ENUM_TEAM_FREE_COMBAT,                 // 队伍通知角色自由战斗
-    TELEGRAM_ENUM_TEAM_CELEBRATE,                   // 队伍通知角色庆祝一下胜利
-    TELEGRAM_ENUM_TEAM_FOLLOW_SPECIFIED_PLAYER      // 队伍要求所有队员跟随指定角色
+    TELEGRAM_ENUM_TEAM_COLLECTIVE_FORWARD,          // 队伍集体前进
+    TELEGRAM_ENUM_TEAM_CANCEL_COLLECTIVE_FORWARD,   // 取消队伍集体前进
+    TELEGRAM_ENUM_TEAM_ATTACK_SPECIFIED_TARGET,     // 队伍指定角色攻击某个指定的角色
 };
 
 /**
@@ -55,7 +54,7 @@ public:
     float           dispatchTime;           // 发送时间
     void*           extraInfo;              // 额外的信息
 
-    static Telegram *create(int senderId, int receiverId, TelegramEnum type, float dispatchTime, void* extraInfo = nullptr)
+    static Telegram *create(int senderId, int receiverId, TelegramEnum type, float dispatchTime = 0, void* extraInfo = nullptr)
     {
         Telegram *pRet  =   new Telegram();
         if (pRet != nullptr)

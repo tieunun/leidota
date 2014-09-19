@@ -58,14 +58,26 @@
     <Filter Include="Classes\ai\system">
       <UniqueIdentifier>{a54e92e6-4c6d-4c52-83f6-4b44086ba72f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\ai\goal\composite\topgoal">
-      <UniqueIdentifier>{a0f350a9-224d-40ca-ba5d-22e6cbd42a75}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\movement">
       <UniqueIdentifier>{3519de77-6216-43a2-bca3-2139cb3505a2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Classes\map">
       <UniqueIdentifier>{b4429bad-0e50-4c23-a9ac-01a013678b97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\team">
+      <UniqueIdentifier>{68f07f86-f591-4921-89fc-8078093bfa5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ai\goal\composite\character">
+      <UniqueIdentifier>{789c357f-6b79-4510-bd5e-29156154cc14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ai\goal\composite\team">
+      <UniqueIdentifier>{930b87b6-44e1-40fb-9c9a-7d5201a2293d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ai\goal\atomic\character">
+      <UniqueIdentifier>{0c2c5926-4184-42aa-bd82-1f74f9af170a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\ai\goal\atomic\team">
+      <UniqueIdentifier>{d0b7750d-43d0-4361-85f8-2381db303c6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,12 +85,6 @@
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameTeam.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TeamManager.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MessageDispatcher.cpp">
@@ -123,9 +129,6 @@
     <ClCompile Include="..\Classes\JoyStick.cpp">
       <Filter>Classes\joystick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GoalThink.cpp">
-      <Filter>Classes\ai\goal\composite</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameMainModel.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -141,14 +144,23 @@
     <ClCompile Include="..\Classes\WeaponControlSystem.cpp">
       <Filter>Classes\ai\system</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TargetControlSystem.cpp">
-      <Filter>Classes\ai\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GoalAttackTarget.cpp">
-      <Filter>Classes\ai\goal\composite\topgoal</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\SteeringBehaviors.cpp">
       <Filter>Classes\movement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameTeam.cpp">
+      <Filter>Classes\team</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TeamManager.cpp">
+      <Filter>Classes\team</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoalAttackSpecifiedTarget.cpp">
+      <Filter>Classes\ai\goal\composite\character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoalCharacterThink.cpp">
+      <Filter>Classes\ai\goal\composite\character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GoalTeamAttackTargetTeam.cpp">
+      <Filter>Classes\ai\goal\composite\team</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,12 +168,6 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameTeam.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TeamManager.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Telegram.h">
@@ -230,9 +236,6 @@
     <ClInclude Include="..\Classes\TimeTool.h">
       <Filter>Classes\tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GoalThink.h">
-      <Filter>Classes\ai\goal\composite</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MathTool.h">
       <Filter>Classes\tools</Filter>
     </ClInclude>
@@ -251,12 +254,6 @@
     <ClInclude Include="..\Classes\WeaponControlSystem.h">
       <Filter>Classes\ai\system</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TargetControlSystem.h">
-      <Filter>Classes\ai\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GoalAttackTarget.h">
-      <Filter>Classes\ai\goal\composite\topgoal</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SteeringBehaviors.h">
       <Filter>Classes\movement</Filter>
     </ClInclude>
@@ -268,6 +265,30 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Formation.h">
       <Filter>Classes\movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TeamManager.h">
+      <Filter>Classes\team</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameTeam.h">
+      <Filter>Classes\team</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalTeamThink.h">
+      <Filter>Classes\ai\goal\composite\team</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalTeamAdvance.h">
+      <Filter>Classes\ai\goal\atomic\team</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalAttackSpecifiedTarget.h">
+      <Filter>Classes\ai\goal\composite\character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalCharacterThink.h">
+      <Filter>Classes\ai\goal\composite\character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalPursuitTarget.h">
+      <Filter>Classes\ai\goal\atomic\character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalTeamAttackTargetTeam.h">
+      <Filter>Classes\ai\goal\composite\team</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

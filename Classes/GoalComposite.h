@@ -13,6 +13,23 @@ using namespace std;
 template <class entity_type>
 class GoalComposite : public Goal<entity_type>
 {
+public:
+    /**
+    * 是否拥有子目标 
+    */
+    bool hasSubgoal()
+    {
+        return m_subgoalList.size() > 0;
+    }
+
+    /**
+    * 处理消息 
+    */
+    virtual bool handleMessage(Telegram& msg) override
+    {
+        return forwardMessageToFrontMostSubgoal(msg);
+    }
+
 protected:
     GoalComposite(entity_type* owner):Goal<entity_type>(owner)
     {
@@ -124,6 +141,18 @@ protected:
         }
 
         return tmpGoalState;
+    }
+
+    /**
+    * 将消息分派给最前面的子目标 
+    */
+    bool forwardMessageToFrontMostSubgoal(Telegram& msg)
+    {
+        if (!m_subgoalList.empty())
+        {
+            return m_subgoalList.front()->handleMessage(msg);
+        }
+        return false;
     }
 
 protected:

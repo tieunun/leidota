@@ -2,6 +2,7 @@
 #define __GOAL_H__
 
 #include <assert.h>
+#include "Telegram.h"
 
 template <class entity_type>
 class GoalComposite;
@@ -24,9 +25,6 @@ enum GoalStateEnum
 template <class entity_type>
 class Goal
 {
-protected:
-    
-
 public:
 
     /**
@@ -36,6 +34,11 @@ public:
     bool isActive()const{return m_goalState == active;}
     bool isInactive()const{return m_goalState == inactive;}
     bool hasFailed()const{return m_goalState == failed;}
+
+    /**
+    * 目标也有处理消息的能力 
+    */
+    virtual bool handleMessage(Telegram& msg) { return false; }
 
 protected:
     Goal(entity_type* owner)

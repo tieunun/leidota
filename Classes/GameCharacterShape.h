@@ -107,6 +107,11 @@ public:
     */
     void setHpRatio(float ratio);
 
+    /**
+    * 返回当前播放的动画 
+    */
+    string getCurrentAnimationName() { return _currentAnimationName; }
+
 protected:
     GameCharacterShape(const std::string& fileName, const std::string& armatureName);
 

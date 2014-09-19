@@ -24,11 +24,6 @@ public:
     	发送消息
     */
     void dispatchMessage(Telegram& msg);
-
-    /**
-    	 为了方便玩家给所有敌人发送消息的接口
-    */
-    void dispatchMessageToAllEnemy(Telegram& msg);
 };
 
 #define Dispatch MessageDispatcher::instance()

@@ -33,20 +33,3 @@ void MessageDispatcher::dispatchMessage(Telegram& msg)
     BaseGameEntity* tmpReceiver =   EntityMgr->getEntityFromID(msg.receiverId);
     disCharge(tmpReceiver, msg);
 }
-
-void MessageDispatcher::dispatchMessageToAllEnemy(Telegram& msg)
-{
-    // TODO 以后可能会有延时的情况
-    auto tmpMap         =   EntityMgr->getEntityMap();
-    auto tmpSender      =   tmpMap->find(msg.senderId)->second;
-    auto tmpIterator    =   tmpMap->begin();
-    for (; tmpIterator != tmpMap->end(); tmpIterator++)
-    {
-        auto tmpCharacter   =   tmpIterator->second;
-        
-        if (tmpCharacter->getType() != tmpSender->getType())
-        {
-            disCharge(tmpIterator->second, msg);
-        }
-    }
-}

@@ -42,6 +42,12 @@ public:
     */
     virtual bool isReadyForNextAttack() = 0;
 
+    /**
+    * 检查当前是否正在攻击中
+    * @_@ 主要是因为每种武器的攻击时长不同，而且在攻击时长内的时候是不允许移动
+    */
+    virtual bool isAttacking() = 0;
+
 protected:
     GameCharacter*      m_pOwner;                          // 武器的拥有者
     WeaponTypeEnum      m_weaponType;                      // 武器类型

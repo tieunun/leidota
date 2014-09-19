@@ -25,10 +25,18 @@ void NormalCloseRangeWeapon::attack( GameCharacter* target )
 
 bool NormalCloseRangeWeapon::isInAttackRange( GameCharacter* target )
 {
-    return false;
+    // @_@ 对于判断是否在普通攻击范围内的话，暂时没有啥好的方法，毕竟攻击范围是和武器相关的
+    auto tmpOwnerPos    =   m_pOwner->getMovingEntity().getPosition();
+    auto tmpTargetPos   =   target->getMovingEntity().getPosition();
+    return (tmpOwnerPos - tmpTargetPos).getLengthSq() < 10000;
 }
 
 bool NormalCloseRangeWeapon::isReadyForNextAttack()
 {
     return m_nextAttackReadyTime < TimeTool::getSecondTime();
+}
+
+bool NormalCloseRangeWeapon::isAttacking()
+{
+    return m_pOwner->getShape()->getCurrentAnimationName() == ACTION_NAME;
 }

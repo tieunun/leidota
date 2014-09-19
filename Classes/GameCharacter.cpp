@@ -2,7 +2,7 @@
 #include "FlightProps.h"
 #include "MessageDispatcher.h"
 #include "UIViewManager.h"
-#include "GoalThink.h"
+#include "GoalCharacterThink.h"
 #include "NormalCloseRangeWeapon.h"
 #include "TimeTool.h"
 
@@ -94,16 +94,18 @@ GameCharacter::GameCharacter()
 
     // 武器控制系统
     m_weaponControlSystem           =   new WeaponControlSystem(this);
-    // 目标选择系统
-    m_targetControlSystem           =   new TargetControlSystem(this);
 
     // 角色的大脑
-    m_brain                         =   new GoalThink(this);
+    m_brain                         =   new GoalCharacterThink(this);
 
     // 驱动力产生对象
     m_steeringBehaviors             =   new SteeringBehaviors(this);
 
     m_lastUpdateTime                =   -1;
+
+    // 默认就打开几个驱动力
+    m_steeringBehaviors->wallAvoidanceOn();
+    m_steeringBehaviors->separationOn();
 }
 
 GameCharacter::~GameCharacter()
@@ -114,9 +116,6 @@ GameCharacter::~GameCharacter()
 
     CC_SAFE_DELETE(m_weaponControlSystem);
     m_weaponControlSystem   =   nullptr;
-
-    CC_SAFE_DELETE(m_targetControlSystem);
-    m_targetControlSystem   =   nullptr;
 
     CC_SAFE_DELETE(m_brain);
     m_brain                 =   nullptr;
@@ -139,6 +138,9 @@ void GameCharacter::update(float dm)
     }
     auto tmpDmTime     =    TimeTool::getSecondTime() - m_lastUpdateTime;
 
+    // 思考一下
+    m_brain->process();
+
     // 根据MovingEntity来调整Shape的坐标
     updateMovement(tmpDmTime);
 
@@ -153,31 +155,37 @@ void GameCharacter::update(float dm)
 
 bool GameCharacter::handleMessage(Telegram& msg)
 {
+    // 首先把消息交给该成员的脑袋
+    if (m_brain->handleMessage(msg)) return true;
+
+    switch (msg.type)
+    {
+    case TELEGRAM_ENUM_TEAM_COLLECTIVE_FORWARD:                 // 队伍通知手下跟随队伍前进
+        {
+            m_steeringBehaviors->keepFormationOn();
+            break;
+        }
+
+    case TELEGRAM_ENUM_TEAM_CANCEL_COLLECTIVE_FORWARD:          // 队伍通知手下不用跟随队伍了
+        {
+            m_steeringBehaviors->keepFormationOff();
+            break;
+        }
+
+    default:
+        break;
+    }
     return false;
-}
-
-GameCharacterShape* GameCharacter::getShape()
-{
-    return m_shape;
-}
-
-GameCharacterAttribute& GameCharacter::getAttribute()
-{
-    return m_attribute;
-}
-
-WeaponControlSystem* const GameCharacter::getWeaponControlSystem()
-{
-    return m_weaponControlSystem;
-}
-
-TargetControlSystem* const GameCharacter::getTargetControlSystem()
-{
-    return m_targetControlSystem;
 }
 
 void GameCharacter::updateMovement(float dm)
 {
+    m_shape->setPosition(m_movingEntity.getPosition());
+    // 如果当前武器系统使得该角色无法移动
+   if (!m_weaponControlSystem->canCharacterMove())
+   {
+       return;
+   }
     /**
     *  @_@ 这里其实要计算驱动力、加速度、速度等，并更新MovingEntity中的
     *  信息
@@ -219,4 +227,9 @@ void GameCharacter::updateMovement(float dm)
     // 改变当前坐标
     m_movingEntity.setPosition(m_movingEntity.getPosition() + m_movingEntity.getVelocity() * dm);
     m_shape->setPosition(m_movingEntity.getPosition());
+}
+
+bool GameCharacter::hasGoal()
+{
+    return m_brain->hasSubgoal();
 }

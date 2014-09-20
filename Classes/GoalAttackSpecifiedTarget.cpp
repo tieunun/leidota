@@ -15,6 +15,8 @@ void GoalAttackSpecifiedTarget::activate()
 
 GoalStateEnum GoalAttackSpecifiedTarget::process()
 {
+    activateIfInactive();
+
     do 
     {
         // 如果设定目标已经不在了，就是该目标已经完成
@@ -41,8 +43,8 @@ GoalStateEnum GoalAttackSpecifiedTarget::process()
             }
         }
 
-        // 执行子目标
-        m_goalState =   processSubgoals();
+        // 执行子目标，@_@ 这里的子目标是否完成并不代表该目标完成
+        processSubgoals();
 
     } while (0);
 

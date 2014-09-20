@@ -110,7 +110,17 @@ public:
     /**
     * 返回当前播放的动画 
     */
-    string getCurrentAnimationName() { return _currentAnimationName; }
+    string getCurrentAnimationName();
+
+    /**
+    * 临时用的一个东西，就是从外面设置一个数字，可以在角色上显示 
+    */
+    void setPosNumber(int posNum) 
+    {
+        char tmpStr[10];
+        sprintf(tmpStr, "%d", posNum);
+        m_posNumLabel->setString(tmpStr);
+    }
 
 protected:
     GameCharacterShape(const std::string& fileName, const std::string& armatureName);
@@ -142,6 +152,7 @@ protected:
     * 临时值 
     */
     Armature*   m_halo;                             // 人物脚部旋转地光圈
+    Label*      m_posNumLabel;                      // 数字标签
 };
 
 #endif

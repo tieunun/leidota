@@ -151,6 +151,9 @@ void GameCharacter::update(float dm)
     }
 
     m_lastUpdateTime    =   TimeTool::getSecondTime();
+
+    // @_@ 额外的数字标签
+    m_shape->setPosNumber(m_movingEntity.getFormationPosId());
 }
 
 bool GameCharacter::handleMessage(Telegram& msg)

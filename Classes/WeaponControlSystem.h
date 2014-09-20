@@ -46,6 +46,8 @@ private:
     
     typedef map<Weapon::WeaponTypeEnum, Weapon*> WeaponMap;
     WeaponMap        m_allWeapons;                                  // 当前角色拥有的所有武器
+
+    int                                         m_targetId;         // 临时记录上一次攻击的目标的id
 };
 
 #endif

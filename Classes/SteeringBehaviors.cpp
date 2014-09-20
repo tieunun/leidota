@@ -141,21 +141,15 @@ cocos2d::Vec2 SteeringBehaviors::pursuit( int targetId )
     {
         auto tmpOwnerMovingEntity   =   m_pOwner->getMovingEntity();
         auto tmpTargetMovingEntity  =   tmpCharacter->getMovingEntity();
-        Vec2 tmpToTarget    =   tmpTargetMovingEntity.getPosition() - tmpOwnerMovingEntity.getPosition();
-        
-        // 如果两个的前进方向一样（相差在18度以内）或者当前就是面向目标
-        if (tmpOwnerMovingEntity.getHead().dot(tmpTargetMovingEntity.getHead()) <= -0.95 || 
-            tmpOwnerMovingEntity.getHead().dot(tmpToTarget) >= 0)
+        // 这里根据对手是向左还是向右以及速度方向来判定seek是偏左还是偏右
+        Vec2 tmpOffset              =   (tmpTargetMovingEntity.getRadius() + tmpOwnerMovingEntity.getRadius()) * Vec2(1, 0);
+        if (tmpOwnerMovingEntity.getPosition().x < tmpTargetMovingEntity.getPosition().x)
         {
-            return seek(tmpTargetMovingEntity.getPosition());
+            // 当前角色在目标左侧，且目标向右移动中，seek目标左侧
+            tmpOffset   *=  -1;
         }
 
-        // 要进行预判，预判距离与两者距离成正比，与两者的速度成反比
-        //float tmpLookAheadTime = tmpToTarget.getLength() / 
-        //    (tmpTargetMovingEntity.getSpeed() + tmpOwnerMovingEntity.getSpeed());
-        // @_@ 觉得不需要预判
-        float tmpLookAheadTime    =   0;
-        return seek(tmpTargetMovingEntity.getPosition() + tmpTargetMovingEntity.getHead() * tmpLookAheadTime);
+        return seek(tmpTargetMovingEntity.getPosition() + tmpOffset);
     }
 
     return tmpForce;

@@ -24,12 +24,22 @@ void GoalTeamAttackTargetTeam::inspectTeamMembers()
 {
     // @_@ 先写一个简单的规则
     GameCharacter* tmpOwnMem    =   *m_pOwner->getMembers().begin();
+    GameCharacter* tmpTarget    =   *m_targetTeam->getMembers().begin();
     if (!tmpOwnMem->hasGoal())
     {
-        GameCharacter* tmpTarget    =   *m_targetTeam->getMembers().begin();
-
         // 给这个角色发送一个消息，就是指定它去攻击目标
         auto tmpMsg = Telegram::create(0, tmpOwnMem->getId(), TELEGRAM_ENUM_TEAM_ATTACK_SPECIFIED_TARGET, 0, (void*)tmpTarget->getId());
         m_pOwner->sendMessageToOneMember(*tmpMsg, tmpOwnMem);
+    }
+    if (m_pOwner->getMembers().size() > 1)
+    {
+        auto tmpIterator            =   m_pOwner->getMembers().begin();
+        tmpIterator++;
+        GameCharacter* tmpSecMem    =   *tmpIterator;
+        if (!tmpSecMem->hasGoal())
+        {
+            auto tmpMsg = Telegram::create(0, tmpSecMem->getId(), TELEGRAM_ENUM_TEAM_ATTACK_SPECIFIED_TARGET, 0, (void*)tmpTarget->getId());
+            m_pOwner->sendMessageToOneMember(*tmpMsg, tmpSecMem);
+        }
     }
 }

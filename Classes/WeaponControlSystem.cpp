@@ -1,6 +1,7 @@
 #include "WeaponControlSystem.h"
 #include "NormalCloseRangeWeapon.h"
 #include "GameCharacter.h"
+#include "EntityManager.h"
 
 WeaponControlSystem::WeaponControlSystem( GameCharacter* owner )
 {
@@ -43,6 +44,7 @@ void WeaponControlSystem::takeWeaponAndAttack( GameCharacter* target )
         }
 
         m_currentWeapon->attack(target);
+        m_targetId  =   target->getId();
     }
 }
 
@@ -53,5 +55,7 @@ bool WeaponControlSystem::isInAttackRange( GameCharacter* target )
 
 bool WeaponControlSystem::canCharacterMove()
 {
-    return !m_currentWeapon->isAttacking();
+    // 只有当前武器不在攻击或者当前目标存在并且在攻击范围内
+    auto tmpTarget  =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(m_targetId));
+    return !m_currentWeapon->isAttacking() && !(tmpTarget != nullptr && isInAttackRange(tmpTarget));
 }

@@ -74,6 +74,11 @@ bool GameCharacterShape::init()
     tmpHpBarBg->setPosition(Vec2(0, _armature->getContentSize().height));
     this->addChild(tmpHpBarBg);
 
+    // @_@ 增加标签
+    m_posNumLabel = Label::createWithBMFont("font/greennumber.fnt", "-1");
+    m_posNumLabel->setPositionY(this->getCenterPos().y);
+    this->addChild(m_posNumLabel, 4);
+
     return true;
 }
 
@@ -205,4 +210,14 @@ void GameCharacterShape::hideHalo()
 void GameCharacterShape::setHpRatio( float ratio )
 {
     m_hpBar->setPercent(ratio * 100);
+}
+
+std::string GameCharacterShape::getCurrentAnimationName()
+{
+    // 如果当前没有在播放动画，就返回空的字符串
+    if (isNotInAnimation())
+    {
+        return "";
+    }
+    return _currentAnimationName;
 }

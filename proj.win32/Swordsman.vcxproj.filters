@@ -290,6 +290,9 @@
     <ClInclude Include="..\Classes\GoalTeamAttackTargetTeam.h">
       <Filter>Classes\ai\goal\composite\team</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GoalTeamRecoverFormation.h">
+      <Filter>Classes\ai\goal\atomic\team</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

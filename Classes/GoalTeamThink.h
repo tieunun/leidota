@@ -17,10 +17,9 @@ public:
     GoalTeamThink(GameTeam* owner):GoalComposite<GameTeam>(owner){}
 
     // @_@ 临时使用的，方便外部设置目标
-    void setGoal(Goal* aGoal)
+    void addSubgoal(Goal* aGoal)
     {
-        removeAllSubgoals();
-        addSubgoal(aGoal);
+        GoalComposite<GameTeam>::addSubgoal(aGoal);
     }
 
     virtual void activate() override

@@ -119,3 +119,20 @@ void GameTeam::collectiveForwardEnd()
 
     m_advanceRate   =   0;
 }
+
+bool GameTeam::isEveryMemberInPos()
+{
+    auto tmpIterator = m_members.begin();
+    for (; tmpIterator != m_members.end(); tmpIterator++)
+    {
+        auto tmpMovingEntity    =   (*tmpIterator)->getMovingEntity();
+        auto tmpPos1            =   tmpMovingEntity.getPosition();
+        auto tmpPos2            =   m_formation.getPositionByPosId(tmpMovingEntity.getFormationPosId());
+        if ((tmpPos1 - tmpPos2).getLengthSq() > 900 || tmpMovingEntity.getSpeed() != 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}

@@ -42,6 +42,12 @@ public:
     // 给某个指定的角色发送消息
     void sendMessageToOneMember(Telegram& msg, GameCharacter* aCharacter);
 
+    // 判断是否所有人都在阵型指定位置
+    bool isEveryMemberInPos();
+
+    // 从阵型中找到指定位置id的成员，如果没有了，就返回null
+    GameCharacter* getMemberIdFromFormation(int posId);
+
     const list<GameCharacter*>& getMembers() { return m_members; }
 
     // 返回队伍大脑

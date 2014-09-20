@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "BattleUI.h"
 #include "GoalTeamAttackTargetTeam.h"
+#include "GoalTeamRecoverFormation.h"
 #include "GoalTeamThink.h"
 
 #define ADDPCINPUT
@@ -59,17 +60,46 @@ bool GameScene::init()
     * 添加的敌人 
     */
     auto tmpRole7   =   GameCharacter::create(1);
-    tmpRole7->getMovingEntity().setPosition(Vec2(1000, 200));
+    tmpRole7->getMovingEntity().setPosition(Vec2(1300, 200));
+
+    auto tmpRole8   =   GameCharacter::create(1);
+    tmpRole8->getMovingEntity().setPosition(Vec2(1300, 200));
+
+    auto tmpRole9   =   GameCharacter::create(1);
+    tmpRole9->getMovingEntity().setPosition(Vec2(1300, 200));
+
+    auto tmpRole10   =   GameCharacter::create(1);
+    tmpRole10->getMovingEntity().setPosition(Vec2(1300, 200));
+
+    auto tmpRole11   =   GameCharacter::create(1);
+    tmpRole11->getMovingEntity().setPosition(Vec2(1300, 200));
+
+    auto tmpRole12   =   GameCharacter::create(1);
+    tmpRole11->getMovingEntity().setPosition(Vec2(1300, 200));
 
     auto tmpTeam2   =   GameTeam::create();
     tmpTeam2->getTeamFormation().setFormationType(Formation::FORMATION_TYPE_LEFT);
-    tmpTeam2->getTeamFormation().setFormationAnchor(Vec2(1000, 240));
+    tmpTeam2->getTeamFormation().setFormationAnchor(Vec2(1200, 240));
     m_map->placeGameCharacter(tmpRole7);
+    m_map->placeGameCharacter(tmpRole8);
+    m_map->placeGameCharacter(tmpRole9);
+    m_map->placeGameCharacter(tmpRole10);
+    m_map->placeGameCharacter(tmpRole11);
+    m_map->placeGameCharacter(tmpRole12);
     tmpTeam2->addMember(tmpRole7, 1);
+    tmpTeam2->addMember(tmpRole8, 2);
+    tmpTeam2->addMember(tmpRole9, 3);
+    tmpTeam2->addMember(tmpRole10, 4);
+    tmpTeam2->addMember(tmpRole11, 5);
+    tmpTeam2->addMember(tmpRole12, 0);
+    
+    // 队伍恢复阵型
+    tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam1));
+    tmpTeam2->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam2));
 
     // 设置队伍级别目标
-    tmpTeam1->getTeamBrain()->setGoal(new GoalTeamAttackTargetTeam(tmpTeam1, tmpTeam2));
-    tmpTeam2->getTeamBrain()->setGoal(new GoalTeamAttackTargetTeam(tmpTeam2, tmpTeam1));
+    tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamAttackTargetTeam(tmpTeam1, tmpTeam2));
+    tmpTeam2->getTeamBrain()->addSubgoal(new GoalTeamAttackTargetTeam(tmpTeam2, tmpTeam1));
 
     m_mainModel =   new GameMainModel();
 

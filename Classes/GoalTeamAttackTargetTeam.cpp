@@ -15,7 +15,7 @@ void GoalTeamAttackTargetTeam::activate()
 GoalStateEnum GoalTeamAttackTargetTeam::process()
 {
     // 这里做的应该是纵观大局，随时给首先分配任务，直到对方队伍消灭才改为completed
-    m_goalState = GoalComposite<GameTeam>::process();
+    activateIfInactive();
     inspectTeamMembers();
     return m_goalState;
 }
@@ -23,6 +23,7 @@ GoalStateEnum GoalTeamAttackTargetTeam::process()
 void GoalTeamAttackTargetTeam::inspectTeamMembers()
 {
     // @_@ 先写一个简单的规则
+    /**
     GameCharacter* tmpOwnMem    =   *m_pOwner->getMembers().begin();
     GameCharacter* tmpTarget    =   *m_targetTeam->getMembers().begin();
     if (!tmpOwnMem->hasGoal())
@@ -40,6 +41,21 @@ void GoalTeamAttackTargetTeam::inspectTeamMembers()
         {
             auto tmpMsg = Telegram::create(0, tmpSecMem->getId(), TELEGRAM_ENUM_TEAM_ATTACK_SPECIFIED_TARGET, 0, (void*)tmpTarget->getId());
             m_pOwner->sendMessageToOneMember(*tmpMsg, tmpSecMem);
+        }
+    }
+    */
+    /**
+    * 接下来按照攻击顺序依次给队员设置攻击目标 
+    */
+    auto tmpOwnMembers      =   m_pOwner->getMembers();
+    auto tmpTargetMembers   =   m_targetTeam->getMembers();
+    // 开始遍历我方角色
+    for (auto tmpIterator = tmpOwnMembers.begin(); tmpIterator != tmpOwnMembers.end(); tmpIterator++)
+    {
+        auto tmpCharacter = dynamic_cast<GameCharacter*>(*tmpIterator);
+        if (tmpCharacter->getMovingEntity().getFormationPosId() == 0)
+        {
+
         }
     }
 }

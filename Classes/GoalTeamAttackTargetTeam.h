@@ -25,6 +25,11 @@ private:
     void inspectTeamMembers();
 
     GameTeam*       m_targetTeam;               // 目标队伍
+
+    /**
+    *	因为队伍级AI给角色分配的目标是按照固定模式的，所以以二元数组的方式保存
+    */
+    vector<vector<int>> m_targetRule;
 };
 
 #endif

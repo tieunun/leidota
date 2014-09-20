@@ -136,3 +136,16 @@ bool GameTeam::isEveryMemberInPos()
 
     return true;
 }
+
+GameCharacter* GameTeam::getMemberIdFromFormation( int posId )
+{
+    for (auto tmpIterator = m_members.begin(); tmpIterator != m_members.end(); tmpIterator++)
+    {
+        if ((*tmpIterator)->getMovingEntity().getFormationPosId() == posId)
+        {
+            return *tmpIterator;
+        }
+    }
+
+    return nullptr;
+}

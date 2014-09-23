@@ -89,7 +89,7 @@ public:
     /**
     * 当想让该角色身上出现数字飘动的时候调用的接口 
     */
-    void floatNumber(string numStr, FloatNumberTypeEnum type);
+    void floatNumber(int num, FloatNumberTypeEnum type);
 
     /**
     *  在人物周围出现一个被选中的光圈

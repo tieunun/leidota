@@ -4,6 +4,7 @@
 #include "UIViewManager.h"
 #include "GoalCharacterThink.h"
 #include "NormalCloseRangeWeapon.h"
+#include "NormalLongRangeWeapon.h"
 #include "TimeTool.h"
 
 GameCharacter* GameCharacter::create(int id)
@@ -15,9 +16,7 @@ GameCharacter* GameCharacter::create(int id)
     tmpRet->autorelease();
 
     /**
-    	 Fuck主要是以后会有多种人物，这里吧，暂时就这样搞
-    */
-    /**
+        Fuck主要是以后会有多种人物，这里吧，暂时就这样搞
         在此处拼装状态机、外形等
     */
     tmpRet->m_characterId   =   id;
@@ -30,7 +29,7 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_shape->retain();
 
             // 不同的角色有不同的初始属性
-            tmpRet->m_attribute     =   GameCharacterAttribute(200, 10, 30, 70);
+            tmpRet->m_attribute     =   GameCharacterAttribute(80, 10, 30, 70);
 
             // 给它一些武器
             tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
@@ -44,6 +43,10 @@ GameCharacter* GameCharacter::create(int id)
             tmpRet->m_shape->retain();
 
             tmpRet->m_attribute     =   GameCharacterAttribute(100, 40, 10, 90, 700);
+
+            tmpRet->getWeaponControlSystem()->addWeapon(
+                new NormalLongRangeWeapon(tmpRet, PROJECTILE_TYPE_GALAXO_BALL, 
+                tmpRet->getAttribute().getAttDistance()));
 
             break;
         }
@@ -161,18 +164,31 @@ bool GameCharacter::handleMessage(Telegram& msg)
     // 首先把消息交给该成员的脑袋
     if (m_brain->handleMessage(msg)) return true;
 
+    /**
+    *	这里主要处理一些非AI的消息 
+    */
     switch (msg.type)
     {
-    case TELEGRAM_ENUM_TEAM_COLLECTIVE_FORWARD:                 // 队伍通知手下跟随队伍前进
+    case TELEGRAM_ENUM_NORMAL_ATTACK:                       // 收到普通攻击后
         {
-            m_steeringBehaviors->keepFormationOn();
-            break;
-        }
-
-    case TELEGRAM_ENUM_TEAM_CANCEL_COLLECTIVE_FORWARD:          // 队伍通知手下不用跟随队伍了
-        {
-            m_steeringBehaviors->keepFormationOff();
-            break;
+            // 普通攻击只扣血，同时还要飘字
+            TelegramNormalAttack* tmpMsg    =   dynamic_cast<TelegramNormalAttack*>(&msg);
+            auto tmpFrontHp                 =   m_attribute.getHp();
+            m_attribute.sufferNormalAttack(tmpMsg->senderAtt);
+            auto tmpHp                      =   tmpFrontHp - m_attribute.getHp();
+            if (this->getType() == GAME_ENTITY_TYPE_PLAYER_CHARACTER)
+            {
+                m_shape->floatNumber(tmpHp, GameCharacterShape::FLOAT_NUMBER_GREEN);
+            }
+            else if (this->getType() == GAME_ENTITY_TYPE_ENEMY_CHARACTER)
+            {
+                m_shape->floatNumber(tmpHp, GameCharacterShape::FLOAT_NUMBER_RED);
+            }
+            if (m_attribute.getHp() <= 0)
+            {
+                m_state =   dead;
+            }
+            return true;
         }
 
     default:

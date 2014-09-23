@@ -152,7 +152,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\JoyStick.cpp" />
     <ClCompile Include="..\Classes\MessageDispatcher.cpp" />
     <ClCompile Include="..\Classes\NormalCloseRangeWeapon.cpp" />
+    <ClCompile Include="..\Classes\NormalLongRangeWeapon.cpp" />
     <ClCompile Include="..\Classes\PCInputManager.cpp" />
+    <ClCompile Include="..\Classes\Projectile.cpp" />
+    <ClCompile Include="..\Classes\ProjectileGalaxoBall.cpp" />
+    <ClCompile Include="..\Classes\ProjectileManager.cpp" />
     <ClCompile Include="..\Classes\SteeringBehaviors.cpp" />
     <ClCompile Include="..\Classes\TeamManager.cpp" />
     <ClCompile Include="..\Classes\UIView.cpp" />
@@ -191,7 +195,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\MessageDispatcher.h" />
     <ClInclude Include="..\Classes\MovingEntity.h" />
     <ClInclude Include="..\Classes\NormalCloseRangeWeapon.h" />
+    <ClInclude Include="..\Classes\NormalLongRangeWeapon.h" />
     <ClInclude Include="..\Classes\PCInputManager.h" />
+    <ClInclude Include="..\Classes\Projectile.h" />
+    <ClInclude Include="..\Classes\ProjectileGalaxoBall.h" />
+    <ClInclude Include="..\Classes\ProjectileManager.h" />
     <ClInclude Include="..\Classes\RefreshUIEventEnum.h" />
     <ClInclude Include="..\Classes\RefreshUIMsg.h" />
     <ClInclude Include="..\Classes\SteeringBehaviors.h" />

@@ -1,7 +1,7 @@
 #include "GameMainModel.h"
 #include "EntityManager.h"
-#include "FlightPropsMgr.h"
 #include "TeamManager.h"
+#include "ProjectileManager.h"
 
 GameMainModel::GameMainModel()
 {
@@ -58,9 +58,11 @@ void GameMainModel::changeTarget()
 
 void GameMainModel::update(float dm)
 {
-    FliProMgr->update(dm);
-
+    // 队伍逻辑更新
     TeamMgr->update(dm);
+
+    // 飞行中的“子弹”更新
+    ProjectileMgr->update(dm);
 }
 
 void GameMainModel::setMainGameCharacter(GameCharacter* character)

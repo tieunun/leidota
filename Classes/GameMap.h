@@ -8,6 +8,8 @@
 using namespace cocos2d;
 using namespace std;
 
+class Projectile;
+
 /**
 	 游戏地图，此时不再使用网格，对于地图，只是一个四面有墙的矩形区域，地图作为
      全局单件存在
@@ -23,6 +25,9 @@ public:
 
     // 在地图上放置一个角色
     void placeGameCharacter(GameCharacter* player);
+
+    // 在地图上添加子弹
+    void addProjectile(Projectile* aProjectile);
 
 protected:
     GameMap():MOUNTAIN_MOVE_SCALE(0.5f),SKY_MOVE_SCALE(0.2f),m_wallLBPos(0,0),m_wallRTPos(4000, 300){}

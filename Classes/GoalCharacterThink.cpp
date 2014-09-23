@@ -31,6 +31,18 @@ bool GoalCharacterThink::handleMessage( Telegram& msg )
 
     switch (msg.type)
     {
+    case TELEGRAM_ENUM_TEAM_COLLECTIVE_FORWARD:                 // 队伍通知手下跟随队伍前进
+        {
+            m_pOwner->getSteeringBehaviros()->keepFormationOn();
+            return true;
+        }
+
+    case TELEGRAM_ENUM_TEAM_CANCEL_COLLECTIVE_FORWARD:          // 队伍通知手下不用跟随队伍了
+        {
+            m_pOwner->getSteeringBehaviros()->keepFormationOff();
+            return true;
+        }
+
     case TELEGRAM_ENUM_TEAM_ATTACK_SPECIFIED_TARGET:            // 队伍命令手下攻击指定目标
         {
             // 删除所有的当前任务，然后设定新的任务

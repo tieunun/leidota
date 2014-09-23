@@ -162,6 +162,18 @@
     <ClCompile Include="..\Classes\GoalTeamAttackTargetTeam.cpp">
       <Filter>Classes\ai\goal\composite\team</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Projectile.cpp">
+      <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ProjectileGalaxoBall.cpp">
+      <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ProjectileManager.cpp">
+      <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NormalLongRangeWeapon.cpp">
+      <Filter>Classes\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -292,6 +304,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GoalTeamRecoverFormation.h">
       <Filter>Classes\ai\goal\atomic\team</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NormalLongRangeWeapon.h">
+      <Filter>Classes\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile.h">
+      <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ProjectileGalaxoBall.h">
+      <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ProjectileManager.h">
+      <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

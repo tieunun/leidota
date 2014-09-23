@@ -1,11 +1,10 @@
 #include "NormalCloseRangeWeapon.h"
-#include "Telegram.h"
-#include "GameCharacter.h"
+#include "MessageDispatcher.h"
 #include "TimeTool.h"
 #include "MathTool.h"
 
 NormalCloseRangeWeapon::NormalCloseRangeWeapon( GameCharacter* owner, float minAttackInterval, string actionName )
-    :Weapon(owner, Weapon::WeaponTypeEnum::NORMAL_CLOSE_RANGE_WEAPON), m_actionName(actionName), m_xOffset(110), m_yOffset(8)
+    :Weapon(owner, NORMAL_CLOSE_RANGE_WEAPON), m_actionName(actionName), m_xOffset(110), m_yOffset(8)
 {
     m_minAttackInterval     =   minAttackInterval;
 }
@@ -18,9 +17,11 @@ NormalCloseRangeWeapon::~NormalCloseRangeWeapon()
 void NormalCloseRangeWeapon::attack( GameCharacter* target )
 {
     // 对于普通的近程攻击只需要播放动画，然后在对应的动作帧发出消息就OK了
-    m_pOwner->getShape()->playAction(m_actionName, false);
+    m_pOwner->getShape()->playAction(m_actionName, false, 
+        std::bind(&NormalCloseRangeWeapon::onAttackEffect, this, std::placeholders::_1));
     m_lastAttackTime        =   TimeTool::getSecondTime();
     m_nextAttackReadyTime   =   m_lastAttackTime + m_minAttackInterval;
+    m_targetId              =   target->getId();
 }
 
 bool NormalCloseRangeWeapon::isInAttackRange( GameCharacter* target )
@@ -46,4 +47,11 @@ bool NormalCloseRangeWeapon::isReadyForNextAttack()
 bool NormalCloseRangeWeapon::isAttacking()
 {
     return m_pOwner->getShape()->getCurrentAnimationName() == m_actionName;
+}
+
+void NormalCloseRangeWeapon::onAttackEffect(string evt)
+{
+    // 给受击者发送一条消息
+    auto tmpMsg = TelegramNormalAttack::create(m_pOwner->getId(), m_targetId, m_pOwner->getAttribute());
+    Dispatch->dispatchMessage(*tmpMsg);
 }

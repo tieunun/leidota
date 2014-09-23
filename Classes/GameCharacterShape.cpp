@@ -129,8 +129,10 @@ Vec2 GameCharacterShape::getCenterPos()
     return tmpPos;
 }
 
-void GameCharacterShape::floatNumber( string numStr, GameCharacterShape::FloatNumberTypeEnum type )
+void GameCharacterShape::floatNumber(int num, GameCharacterShape::FloatNumberTypeEnum type )
 {
+    char numStr[10];
+    sprintf(numStr, "%d", num);
     // 选择使用的文字样式
     auto tmpFntSrc  =   "";
     switch (type)

@@ -44,7 +44,7 @@ private:
 
     Weapon*                                     m_currentWeapon;    // 当前武器
     
-    typedef map<Weapon::WeaponTypeEnum, Weapon*> WeaponMap;
+    typedef map<WeaponTypeEnum, Weapon*> WeaponMap;
     WeaponMap        m_allWeapons;                                  // 当前角色拥有的所有武器
 
     int                                         m_targetId;         // 临时记录上一次攻击的目标的id

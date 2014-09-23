@@ -2,6 +2,7 @@
 #include "EntityManager.h"
 #include "TeamManager.h"
 #include "cocostudio/CCSSceneReader.h"
+#include "Projectile.h"
 
 using namespace cocostudio;
 
@@ -87,4 +88,9 @@ void GameMap::update( float x)
 void GameMap::placeGameCharacter( GameCharacter* player )
 {
     m_playerLayer->addChild(player->getShape());
+}
+
+void GameMap::addProjectile(Projectile* aProjectile)
+{
+    m_playerLayer->addChild(aProjectile->getShape());
 }

@@ -58,6 +58,7 @@ void GameMainModel::changeTarget()
 
 void GameMainModel::update(float dm)
 {
+    // CCLOG("GameMainModel::update");
     // ¶ÓÎéÂß¼­¸üĞÂ
     TeamMgr->update(dm);
 

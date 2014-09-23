@@ -139,7 +139,7 @@ void GameCharacter::update(float dm)
         m_lastUpdateTime    =   TimeTool::getSecondTime();
     }
     auto tmpDmTime     =    TimeTool::getSecondTime() - m_lastUpdateTime;
-
+    //CCLOG("%f", tmpDmTime);
     // Ë¼¿¼Ò»ÏÂ
     m_brain->process();
 
@@ -177,7 +177,7 @@ bool GameCharacter::handleMessage(Telegram& msg)
             auto tmpHp                      =   tmpFrontHp - m_attribute.getHp();
             if (this->getType() == GAME_ENTITY_TYPE_PLAYER_CHARACTER)
             {
-                m_shape->floatNumber(tmpHp, GameCharacterShape::FLOAT_NUMBER_GREEN);
+                m_shape->floatNumber(tmpHp, GameCharacterShape::FLOAT_NUMBER_YELLOW);
             }
             else if (this->getType() == GAME_ENTITY_TYPE_ENEMY_CHARACTER)
             {

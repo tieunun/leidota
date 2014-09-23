@@ -41,8 +41,8 @@ private:
     *  普通攻击的限制基本上就只有最短攻击间隔
     */
     float           m_minAttackInterval;
-    float           m_lastAttackTime;               // 最近一次攻击时间
-    float           m_nextAttackReadyTime;          // 下一次攻击准备完毕时间
+    double          m_lastAttackTime;               // 最近一次攻击时间
+    double          m_nextAttackReadyTime;          // 下一次攻击准备完毕时间
 
     /**
     *	临时数据 

@@ -8,7 +8,7 @@
 #include "GoalTeamGuard.h"
 #include "GoalTeamThink.h"
 
-#define ADDPCINPUT
+//#define ADDPCINPUT
 
 bool GameScene::init()
 {
@@ -150,9 +150,9 @@ bool GameScene::init()
     tmpTeam3->addMember(tmpRole18, 0);
 
     // 队伍恢复阵型
-    tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam1));
-    tmpTeam2->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam2));
-    tmpTeam3->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam3));
+    tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam1, 12));
+    tmpTeam2->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam2, 15));
+    tmpTeam3->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam3, 30));
 
     // 设置队伍级别目标
     tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamAttackTargetTeam(tmpTeam1, tmpTeam2));
@@ -162,18 +162,18 @@ bool GameScene::init()
 
     m_mainModel =   new GameMainModel();
 
-#ifdef ADDPCINPUT                   // 如果添加了使用PC键盘输入
-    m_pcInputManager  =   new PCInputManager();
-    m_pcInputManager->setDelegate(m_mainModel);
-    m_pcInputManager->init();
-#endif
+//#ifdef ADDPCINPUT                   // 如果添加了使用PC键盘输入
+//    m_pcInputManager  =   new PCInputManager();
+//    m_pcInputManager->setDelegate(m_mainModel);
+//    m_pcInputManager->init();
+//#endif
 
     // 战斗UI
-    auto tmpUI  =   BattleUI::create();
-    //this->addChild(tmpUI);
+    // auto tmpUI  =   BattleUI::create();
+    // this->addChild(tmpUI);
     // 允许手机输入的，也就是屏幕输入方式
-    m_mobileInputManager    =   tmpUI;
-    m_mobileInputManager->setDelegate(m_mainModel);
+    // m_mobileInputManager    =   tmpUI;
+    // m_mobileInputManager->setDelegate(m_mainModel);
 
     return true;
 }

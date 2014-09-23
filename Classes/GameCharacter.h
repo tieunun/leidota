@@ -96,7 +96,7 @@ protected:
     MovingEntity                    m_movingEntity;             // 用来代表角色移动的对象
     SteeringBehaviors*              m_steeringBehaviors;        // 驱动力产生对象
 
-    float                           m_lastUpdateTime;           // 最近一次调用update的时间
+    double                          m_lastUpdateTime;           // 最近一次调用update的时间
     GameCharacterStateEnum          m_state;                    // 角色当前当前状态
 };
 

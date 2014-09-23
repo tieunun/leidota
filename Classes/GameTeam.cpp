@@ -39,6 +39,7 @@ void GameTeam::addMember(GameCharacter* player, int posId)
 
 void GameTeam::update(float dm)
 {
+    //CCLOG("GameTeam::update");
     // 首先删除当前处于死亡状态的成员
     removeDeadCharacter();
 

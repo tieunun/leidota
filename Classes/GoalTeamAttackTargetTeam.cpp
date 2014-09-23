@@ -71,9 +71,16 @@ void GoalTeamAttackTargetTeam::activate()
     // 判断距离，如果两个部队距离太远，就让该部队起步走到离地方一定距离的地方
     auto tmpOwnerXPos   =   m_pOwner->getTeamFormation().getFormationAnchor().x;
     auto tmpTargetXPos  =   m_targetTeam->getTeamFormation().getFormationAnchor().x;
-    if (tmpTargetXPos - tmpOwnerXPos > m_attDistance)
+    if (abs(tmpTargetXPos - tmpOwnerXPos) > m_attDistance)
     {
-        addSubgoal(new GoalTeamAdvance(m_pOwner, tmpTargetXPos - m_attDistance));
+        if (m_pOwner->getTeamFormation().getFormationType() == Formation::FORMATION_TYPE_RIGHT)
+        {
+            addSubgoal(new GoalTeamAdvance(m_pOwner, tmpTargetXPos - m_attDistance));
+        }
+        else if (m_pOwner->getTeamFormation().getFormationType() == Formation::FORMATION_TYPE_LEFT)
+        {
+            addSubgoal(new GoalTeamAdvance(m_pOwner, tmpTargetXPos + m_attDistance));
+        }
     }
 }
 

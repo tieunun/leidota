@@ -37,3 +37,4 @@
 /proj.android/libs/armeabi
 /.svn
 /proj.win32/*.aps
+/bin/debug/android

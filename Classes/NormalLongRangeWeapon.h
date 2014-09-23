@@ -37,8 +37,8 @@ private:
     float           m_minAttInterval;               // 最小攻击间隔
     const string    m_actionName;                   // 开火的时候的角色动画
 
-    float   m_lastAttackTime;                         // 最近一次发送攻击的时间
-    float   m_nextAttackReadyTime;                    // 
+    double   m_lastAttackTime;                         // 最近一次发送攻击的时间
+    double   m_nextAttackReadyTime;                    // 
 
     int     m_targetId;
 

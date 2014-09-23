@@ -24,12 +24,21 @@ private:
     // 检查每一个队员，并在需要的时候给他们发送消息
     void inspectTeamMembers();
 
+    // 判断自己是否打赢对方
+    bool isWin();
+
     GameTeam*       m_targetTeam;               // 目标队伍
+    int             m_targetId;
 
     /**
     *	因为队伍级AI给角色分配的目标是按照固定模式的，所以以二元数组的方式保存
     */
     vector<vector<int>> m_targetRule;
+
+    /**
+    *	一些常量 
+    */
+    const float m_attDistance;                  // 攻击范围，再次攻击范围外的话会先接近
 };
 
 #endif

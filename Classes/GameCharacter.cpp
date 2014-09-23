@@ -1,5 +1,4 @@
 #include "GameCharacter.h"
-#include "FlightProps.h"
 #include "MessageDispatcher.h"
 #include "UIViewManager.h"
 #include "GoalCharacterThink.h"
@@ -188,6 +187,7 @@ bool GameCharacter::handleMessage(Telegram& msg)
             {
                 m_state =   dead;
             }
+            m_shape->setHpRatio(m_attribute.getHp() / m_attribute.getFullHp());
             return true;
         }
 

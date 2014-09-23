@@ -15,6 +15,8 @@ TeamManager* TeamManager::instance()
 
 void TeamManager::update(float dm)
 {
+    removeCanRemoveTeam();
+
     auto tmpIterator    =   m_allTeam.begin();
     for (; tmpIterator != m_allTeam.end(); )
     {
@@ -22,18 +24,14 @@ void TeamManager::update(float dm)
         tmpIterator++;
         tmpTeam->update(dm);
     }
+
+    removeCanRemoveTeam();
 }
 
 void TeamManager::registerTeam(GameTeam* pTeam)
 {
     pTeam->retain();
     m_allTeam.insert(TeamMap::value_type(pTeam->getTeamId(), pTeam));
-}
-
-void TeamManager::removeTeam(GameTeam* pTeam)
-{
-    m_allTeam.erase(pTeam->getTeamId());
-    CC_SAFE_RELEASE_NULL(pTeam);
 }
 
 const TeamManager::TeamMap& TeamManager::getTeamMap()
@@ -50,4 +48,20 @@ GameTeam* TeamManager::getTeamFromId(int id)
     }
 
     return tmpIterator->second;
+}
+
+void TeamManager::removeCanRemoveTeam()
+{
+    for (auto tmpIterator = m_allTeam.begin(); tmpIterator != m_allTeam.end();)
+    {
+        if (tmpIterator->second->canRemove())
+        {
+            CC_SAFE_RELEASE_NULL(tmpIterator->second);
+            tmpIterator =   m_allTeam.erase(tmpIterator);
+        }
+        else
+        {
+            tmpIterator++;
+        }
+    }
 }

@@ -1,10 +1,15 @@
 #include "GoalTeamAttackTargetTeam.h"
+#include "GoalTeamAdvance.h"
 #include "GameCharacter.h"
 #include "MessageDispatcher.h"
+#include "TeamManager.h"
+#include "MathTool.h"
 
-GoalTeamAttackTargetTeam::GoalTeamAttackTargetTeam( GameTeam* owner, GameTeam* target ) :GoalComposite<GameTeam>(owner)
+GoalTeamAttackTargetTeam::GoalTeamAttackTargetTeam( GameTeam* owner, GameTeam* target ) 
+    :GoalComposite<GameTeam>(owner), m_attDistance(800)
 {
     m_targetTeam    =   target;
+    m_targetId      =   target->getTeamId();
     
     // 0号位
     m_targetRule.push_back(vector<int>());
@@ -63,24 +68,45 @@ GoalTeamAttackTargetTeam::GoalTeamAttackTargetTeam( GameTeam* owner, GameTeam* t
 
 void GoalTeamAttackTargetTeam::activate()
 {
-
+    // 判断距离，如果两个部队距离太远，就让该部队起步走到离地方一定距离的地方
+    auto tmpOwnerXPos   =   m_pOwner->getTeamFormation().getFormationAnchor().x;
+    auto tmpTargetXPos  =   m_targetTeam->getTeamFormation().getFormationAnchor().x;
+    if (tmpTargetXPos - tmpOwnerXPos > m_attDistance)
+    {
+        addSubgoal(new GoalTeamAdvance(m_pOwner, tmpTargetXPos - m_attDistance));
+    }
 }
 
 GoalStateEnum GoalTeamAttackTargetTeam::process()
 {
     // 这里做的应该是纵观大局，随时给首先分配任务，直到对方队伍消灭才改为completed
     activateIfInactive();
-    inspectTeamMembers();
+    
+    // 当子目标结束后才会开战
+    if (processSubgoals() == completed)
+    {
+        inspectTeamMembers();
+    }
+
     return m_goalState;
 }
 
 void GoalTeamAttackTargetTeam::inspectTeamMembers()
 {
+    // 判断是否有队伍失败了
+    if (isWin())
+    {
+        // 目标结束
+        m_goalState =   completed;
+        return;
+    }
+
     /**
     * 接下来按照攻击顺序依次给队员设置攻击目标 
     */
     auto tmpOwnMembers      =   m_pOwner->getMembers();
     auto tmpTargetMembers   =   m_targetTeam->getMembers();
+
     // 开始遍历我方角色
     for (auto tmpIterator = tmpOwnMembers.begin(); tmpIterator != tmpOwnMembers.end(); tmpIterator++)
     {
@@ -110,4 +136,10 @@ void GoalTeamAttackTargetTeam::inspectTeamMembers()
             m_pOwner->sendMessageToOneMember(*tmpMsg, tmpOwnCharacter);
         }
     }
+}
+
+bool GoalTeamAttackTargetTeam::isWin()
+{
+    // 敌方队伍消失
+    return TeamMgr->getTeamFromId(m_targetId) == nullptr;
 }

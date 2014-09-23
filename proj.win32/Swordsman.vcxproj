@@ -137,8 +137,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BaseGameEntity.cpp" />
     <ClCompile Include="..\Classes\BattleUI.cpp" />
     <ClCompile Include="..\Classes\EntityManager.cpp" />
-    <ClCompile Include="..\Classes\FlightProps.cpp" />
-    <ClCompile Include="..\Classes\FlightPropsMgr.cpp" />
     <ClCompile Include="..\Classes\GameCharacter.cpp" />
     <ClCompile Include="..\Classes\GameCharacterAttribute.cpp" />
     <ClCompile Include="..\Classes\GameCharacterShape.cpp" />
@@ -170,8 +168,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BaseGameEntity.h" />
     <ClInclude Include="..\Classes\BattleUI.h" />
     <ClInclude Include="..\Classes\EntityManager.h" />
-    <ClInclude Include="..\Classes\FlightProps.h" />
-    <ClInclude Include="..\Classes\FlightPropsMgr.h" />
     <ClInclude Include="..\Classes\Formation.h" />
     <ClInclude Include="..\Classes\GameCharacter.h" />
     <ClInclude Include="..\Classes\GameCharacterAttribute.h" />
@@ -186,6 +182,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GoalPursuitTarget.h" />
     <ClInclude Include="..\Classes\GoalTeamAdvance.h" />
     <ClInclude Include="..\Classes\GoalTeamAttackTargetTeam.h" />
+    <ClInclude Include="..\Classes\GoalTeamGuard.h" />
     <ClInclude Include="..\Classes\GoalTeamRecoverFormation.h" />
     <ClInclude Include="..\Classes\GoalTeamThink.h" />
     <ClInclude Include="..\Classes\GoalCharacterThink.h" />

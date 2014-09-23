@@ -132,7 +132,7 @@ Vec2 GameCharacterShape::getCenterPos()
 void GameCharacterShape::floatNumber(int num, GameCharacterShape::FloatNumberTypeEnum type )
 {
     char numStr[10];
-    sprintf(numStr, "%d", num);
+    sprintf(numStr, "-%d", num);
     // 选择使用的文字样式
     auto tmpFntSrc  =   "";
     switch (type)

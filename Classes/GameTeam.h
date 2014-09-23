@@ -13,6 +13,15 @@ class GameCharacter;
 class GoalTeamThink;
 
 /**
+*	队伍类型，当前主要是用来分清哪个队伍是玩家，哪个队伍是敌人 
+*/
+enum GameTeamTypeEnum
+{
+    GAME_TEAM_TYPE_PLAYER,          // 玩家队伍
+    GAME_TEAM_TYPE_ENEMY,           // 敌方队伍
+};
+
+/**
 	 游戏中我方队伍的概念，为了实现队伍级别的组合、AI的概念
      @_@    这里就不考虑敌方队伍这个概念
 */
@@ -57,7 +66,10 @@ public:
     CC_SYNTHESIZE(int, m_teamId, TeamId);
 
     // 创建一个队伍，在调用这个函数后该队伍就被加入到TeamMgr中了
-    static GameTeam* create();
+    static GameTeam* create(GameTeamTypeEnum teamType);
+
+    // 是否可以被删除
+    bool canRemove() { return (m_teamState & GAME_TEAM_STATE_REMOVE) != 0; }
 
 private:
     GameTeam();
@@ -65,14 +77,51 @@ private:
     // 删除处于死亡状态的角色
     void removeDeadCharacter();
 
-    static int m_nextValidId;                                   // 下一个有效地队伍id
+    void setCanRemove() { m_teamState |= GAME_TEAM_STATE_REMOVE; }
 
-    list<GameCharacter*>        m_members;                      // 队伍的所有成员
-    Formation                   m_formation;                    // 阵型
+    /**
+    *	关于移动状态的 
+    */
+    void setCollectiveForwardState() { m_teamMoveState = GAME_TEAM_MOVE_COLLECTIVEFORWARD; }
+    void setStayState() { m_teamMoveState = GAME_TEAM_MOVE_STAY; }
+    void setFollowPlayerState() { m_teamMoveState = GAME_TEAM_MOVE_FOLLOW_PLAYER; }
 
-    GoalTeamThink*              m_teamBrain;                    // 队伍级别的大脑
+    bool iscollectiveForwardState() { return m_teamMoveState == GAME_TEAM_MOVE_COLLECTIVEFORWARD; }
+    bool isStayState() { return m_teamMoveState == GAME_TEAM_MOVE_STAY; }
+    bool isFollowPlayerState() { return m_teamMoveState == GAME_TEAM_MOVE_FOLLOW_PLAYER; }
 
-    float m_advanceRate;                                        // 队伍推进速度
+    static int m_nextValidId;                                       // 下一个有效地队伍id
+
+    /**
+    *	队伍当前状态的位
+    */
+    enum GameTeamStateEnum
+    {
+        GAME_TEAM_STATE_ACTIVE  =   0x0001,         // 当前队伍处于活跃状态
+        GAME_TEAM_STATE_REMOVE  =   0x0002,         // 可以移除当前队伍了
+    };
+
+    list<GameCharacter*>        m_members;                          // 队伍的所有成员
+    Formation                   m_formation;                        // 阵型
+
+    GoalTeamThink*              m_teamBrain;                        // 队伍级别的大脑
+
+    float m_advanceRate;                                            // 队伍推进速度
+
+    CC_SYNTHESIZE_READONLY(GameTeamTypeEnum, m_teamType, TeamType); // 队伍类型
+
+    int                        m_teamState;                        // 队伍当前状态
+
+    /**
+    *	队伍当前移动状态 
+    */
+    enum GameTeamMoveStateEnum
+    {
+        GAME_TEAM_MOVE_STAY,                                    // 固顶
+        GAME_TEAM_MOVE_COLLECTIVEFORWARD,                       // 集体前进
+        GAME_TEAM_MOVE_FOLLOW_PLAYER,                           // 依据成员
+    };
+    GameTeamMoveStateEnum       m_teamMoveState;
 };
 
 #endif

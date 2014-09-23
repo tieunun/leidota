@@ -22,9 +22,6 @@
     <Filter Include="Classes\entity">
       <UniqueIdentifier>{8a079575-b740-4427-8cec-73eec339801f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\flightprops">
-      <UniqueIdentifier>{2750b8e9-d1fb-43aa-8d16-8fea332d5bb0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\ui">
       <UniqueIdentifier>{c65a3b7e-0fa2-4018-9b9c-283697c828c7}</UniqueIdentifier>
     </Filter>
@@ -110,12 +107,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\EntityManager.cpp">
       <Filter>Classes\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FlightProps.cpp">
-      <Filter>Classes\flightprops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FlightPropsMgr.cpp">
-      <Filter>Classes\flightprops</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BattleUI.cpp">
       <Filter>Classes\ui</Filter>
@@ -211,12 +202,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BaseGameEntity.h">
       <Filter>Classes\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FlightProps.h">
-      <Filter>Classes\flightprops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FlightPropsMgr.h">
-      <Filter>Classes\flightprops</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleUI.h">
       <Filter>Classes\ui</Filter>
@@ -316,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ProjectileManager.h">
       <Filter>Classes\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GoalTeamGuard.h">
+      <Filter>Classes\ai\goal\composite\team</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

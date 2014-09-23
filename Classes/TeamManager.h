@@ -28,11 +28,6 @@ public:
     void registerTeam(GameTeam* pTeam);
 
     /**
-    	 移除一个队伍
-    */
-    void removeTeam(GameTeam* pTeam);
-
-    /**
     	 为了方便外部直接访问所有的队伍
     */
     const TeamMap& getTeamMap();
@@ -43,6 +38,9 @@ public:
     GameTeam* getTeamFromId(int id);
 
 private:
+    // 删除可以被删除的队伍
+    void removeCanRemoveTeam();
+
     static TeamManager* m_instance;
 
     TeamMap             m_allTeam;                  // 保存所有的队伍 

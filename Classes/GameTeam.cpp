@@ -12,6 +12,8 @@ GameTeam::GameTeam()
     m_teamId        =   m_nextValidId++;
     m_advanceRate   =   0;
     m_teamBrain     =   new GoalTeamThink(this);
+    m_teamState     =   GAME_TEAM_STATE_ACTIVE;
+    setStayState();
 }
 
 GameTeam::~GameTeam()
@@ -52,17 +54,49 @@ void GameTeam::update(float dm)
     // 再删除处于死亡状态的队员
     removeDeadCharacter();
 
+    // 更新队伍位置，如果队伍速度大于0，就表示是集体移动
     auto tmpTeamPos =   m_formation.getFormationAnchor();
-    tmpTeamPos.setPoint(tmpTeamPos.x + dm * m_advanceRate, tmpTeamPos.y);
-    m_formation.setFormationAnchor(tmpTeamPos);
+    if (iscollectiveForwardState())
+    {
+        tmpTeamPos.setPoint(tmpTeamPos.x + dm * m_advanceRate, tmpTeamPos.y);
+        m_formation.setFormationAnchor(tmpTeamPos);
+    }
+    else if (isFollowPlayerState())
+    {
+        // 否则队伍就始终跟随最前面的人
+        auto tmpFormationX    =   0;
+        for (auto tmpIterator = m_members.begin(); tmpIterator != m_members.end(); tmpIterator++)
+        {
+            auto tmpXPos    =   (*tmpIterator)->getMovingEntity().getPosition().x;
+            if (m_formation.getFormationType() == Formation::FORMATION_TYPE_RIGHT && 
+                tmpFormationX < tmpXPos)
+            {
+                tmpFormationX   =   tmpXPos;
+            }
+            if (m_formation.getFormationType() == Formation::FORMATION_TYPE_LEFT &&
+                tmpFormationX > tmpXPos)
+            {
+                tmpFormationX   =   tmpXPos;
+            }
+        }
+        tmpTeamPos.setPoint(tmpFormationX, tmpTeamPos.y);
+        m_formation.setFormationAnchor(tmpTeamPos);
+    }
+
+    // 判断是否可以被删除
+    if (m_members.size() == 0)
+    {
+        setCanRemove();
+    }
 }
 
-GameTeam* GameTeam::create()
+GameTeam* GameTeam::create(GameTeamTypeEnum teamType)
 {
     auto pRet   =   new GameTeam();
     if (pRet != nullptr)
     {
         pRet->autorelease();
+        pRet->m_teamType    =   teamType;
         TeamMgr->registerTeam(pRet);
     }
 
@@ -109,7 +143,9 @@ void GameTeam::collectiveForwardStart()
     sendMessageToAllMember(*tmpMsg);
 
     // 同时让锚点在每一帧中向前移动，@_@先这样写，通过速度来控制阵型移动
-    m_advanceRate   =   0;
+    m_advanceRate   =   40;
+
+    setCollectiveForwardState();
 }
 
 void GameTeam::collectiveForwardEnd()
@@ -118,6 +154,8 @@ void GameTeam::collectiveForwardEnd()
     sendMessageToAllMember(*tmpMsg);
 
     m_advanceRate   =   0;
+
+    setFollowPlayerState();
 }
 
 bool GameTeam::isEveryMemberInPos()

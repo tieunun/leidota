@@ -9,7 +9,7 @@ ProjectileGalaxoBall::ProjectileGalaxoBall( GameCharacterAttribute& att, int tar
     ArmatureDataManager::getInstance()->addArmatureFileInfo("xuejingling-texiao.ExportJson");
     m_ball      =   Armature::create("xuejingling-texiao");
     m_ball->retain();
-    m_rate      =   1400;
+    m_rate      =   1800;
     m_targetId  =   targetId;
     GameCharacter* tmpTarget    =   dynamic_cast<GameCharacter*>(EntityMgr->getEntityFromID(m_targetId));
     m_targetPos =   tmpTarget->getShape()->getCenterPos();

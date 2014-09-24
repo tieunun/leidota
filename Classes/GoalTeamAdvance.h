@@ -3,6 +3,7 @@
 
 #include "Goal.h"
 #include "GameTeam.h"
+#include "MathTool.h"
 
 /**
 * 队伍集体向前移动的目标，移动到指定的x位置
@@ -27,7 +28,7 @@ protected:
         activateIfInactive();
 
         // 当前进到位置后并摆好阵后结束该目标
-        if (m_pOwner->getTeamFormation().getFormationAnchor().x >= m_xPos)
+        if (abs(m_pOwner->getTeamFormation().getFormationAnchor().x - m_xPos) <= 30)
         {
             m_goalState =   completed;
         }

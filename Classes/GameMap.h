@@ -30,7 +30,7 @@ public:
     void addProjectile(Projectile* aProjectile);
 
 protected:
-    GameMap():MOUNTAIN_MOVE_SCALE(0.5f),SKY_MOVE_SCALE(0.2f),m_wallLBPos(0,0),m_wallRTPos(4000, 300){}
+    GameMap():MOUNTAIN_MOVE_SCALE(0.91f),SKY_MOVE_SCALE(0.32f),m_wallLBPos(0,0),m_wallRTPos(5120, 370){}
     ~GameMap();
 
     bool init () override;

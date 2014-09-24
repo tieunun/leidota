@@ -63,7 +63,7 @@ void GameMap::cameraMove(int x)
         // 调整当前人物所在
         auto tmpCharacterPosX   =   tmpTeam->getTeamFormation().getFormationAnchor().x;
         auto visibleSize        = Director::getInstance()->getVisibleSize();
-        float parentX           = visibleSize.width * 2 / 3 - tmpCharacterPosX;
+        float parentX           = visibleSize.width / 2 - tmpCharacterPosX;
         parentX    =    parentX > 0 ? 0 : parentX;
         m_bg1->setPositionX(parentX);
 

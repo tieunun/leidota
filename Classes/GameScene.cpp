@@ -57,7 +57,7 @@ bool GameScene::init()
 
     auto tmpRole6   =   GameCharacter::create(2);
     tmpRole6->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole6->getMovingEntity().setPosition(Vec2(0, 30));
+    tmpRole6->getMovingEntity().setPosition(Vec2(30, 30));
     tmpTeam1->addMember(tmpRole6, 5);
     m_map->placeGameCharacter(tmpRole6);
 
@@ -111,27 +111,27 @@ bool GameScene::init()
     */
     auto tmpRole13   =   GameCharacter::create(1);
     tmpRole13->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole13->getMovingEntity().setPosition(Vec2(1300, 200));
+    tmpRole13->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpRole14   =   GameCharacter::create(1);
     tmpRole14->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole14->getMovingEntity().setPosition(Vec2(1300, 200));
+    tmpRole14->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpRole15   =   GameCharacter::create(1);
     tmpRole15->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole15->getMovingEntity().setPosition(Vec2(1300, 200));
+    tmpRole15->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpRole16   =   GameCharacter::create(1);
     tmpRole16->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole16->getMovingEntity().setPosition(Vec2(1300, 200));
+    tmpRole16->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpRole17   =   GameCharacter::create(1);
     tmpRole17->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole17->getMovingEntity().setPosition(Vec2(1300, 200));
+    tmpRole17->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpRole18   =   GameCharacter::create(1);
     tmpRole18->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole18->getMovingEntity().setPosition(Vec2(1300, 200));
+    tmpRole18->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpTeam3   =   GameTeam::create(GAME_TEAM_TYPE_ENEMY);
     tmpTeam3->getTeamFormation().setFormationType(Formation::FORMATION_TYPE_LEFT);
@@ -152,7 +152,7 @@ bool GameScene::init()
     // 队伍恢复阵型
     tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam1, 12));
     tmpTeam2->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam2, 15));
-    tmpTeam3->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam3, 30));
+    tmpTeam3->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam3, 35));
 
     // 设置队伍级别目标
     tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamAttackTargetTeam(tmpTeam1, tmpTeam2));

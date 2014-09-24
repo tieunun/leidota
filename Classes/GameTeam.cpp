@@ -55,7 +55,7 @@ void GameTeam::update(float dm)
     // 再删除处于死亡状态的队员
     removeDeadCharacter();
 
-    // 更新队伍位置，如果队伍速度大于0，就表示是集体移动
+    // 更新队伍位置
     auto tmpTeamPos =   m_formation.getFormationAnchor();
     if (iscollectiveForwardState())
     {
@@ -144,7 +144,14 @@ void GameTeam::collectiveForwardStart()
     sendMessageToAllMember(*tmpMsg);
 
     // 同时让锚点在每一帧中向前移动，@_@先这样写，通过速度来控制阵型移动
-    m_advanceRate   =   40;
+    if (this->getTeamFormation().getFormationType() == Formation::FORMATION_TYPE_RIGHT)
+    {
+        m_advanceRate   =   40;
+    }
+    else if (this->getTeamFormation().getFormationType() == Formation::FORMATION_TYPE_LEFT)
+    {
+        m_advanceRate   =   -40;
+    }
 
     setCollectiveForwardState();
 }

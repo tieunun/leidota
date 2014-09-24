@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <SceneProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>E:\cocostudiosample\leidota\CocosStudio\ccsprojs\leidota</ProjectDir>
+  <ProjectDir>E:\leidota\leidota\CocosStudio\ccsprojs\leidota</ProjectDir>
   <Version>1.6.0.0</Version>
-  <Resources>E:\cocostudiosample\leidota</Resources>
+  <Resources>E:\leidota\leidota</Resources>
   <Name>leidota</Name>
   <JsonFileName>leidota.json</JsonFileName>
-  <JsonFolder>E:\cocostudiosample\leidota\CocosStudio\assets\publish</JsonFolder>
+  <JsonFolder>E:\leidota\leidota\CocosStudio\assets\publish</JsonFolder>
   <JsonList />
   <CanvasSize>
-    <Width>4960</Width>
+    <Width>5120</Width>
     <Height>800</Height>
   </CanvasSize>
-  <filePath>E:\cocostudiosample\leidota\CocosStudio\ccsprojs\leidota\leidota.xml.scene</filePath>
+  <filePath>E:\leidota\leidota\CocosStudio\ccsprojs\leidota\leidota.xml.scene</filePath>
   <ProjectType>SceneProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <JSFileList />
   <DefaultUI_JSList />
-  <Res>E:\cocostudiosample\leidota\CocosStudio\assets</Res>
+  <Res>E:\leidota\leidota\CocosStudio\assets</Res>
 </SceneProject>

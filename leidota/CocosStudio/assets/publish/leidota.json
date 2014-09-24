@@ -35,8 +35,8 @@
           "scalex": 1,
           "scaley": 1,
           "visible": 1,
-          "x": 1280,
-          "y": 560.9998779296875,
+          "x": 828,
+          "y": 400,
           "zorder": 1,
           "gameobjects": [],
           "components": [
@@ -47,34 +47,6 @@
               "file": null,
               "fileData": {
                 "path": "gamesky1.png",
-                "plistFile": "",
-                "resourceType": 0
-              }
-            }
-          ]
-        },
-        {
-          "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-          "classname": "CCNode",
-          "name": null,
-          "canedit": true,
-          "objecttag": 10015,
-          "rotation": 0,
-          "scalex": 1,
-          "scaley": 1,
-          "visible": 1,
-          "x": 3679.134033203125,
-          "y": 553.74969482421875,
-          "zorder": 1,
-          "gameobjects": [],
-          "components": [
-            {
-              "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-              "classname": "CCSprite",
-              "name": "CCSprite",
-              "file": null,
-              "fileData": {
-                "path": "gamesky2.png",
                 "plistFile": "",
                 "resourceType": 0
               }
@@ -108,7 +80,7 @@
           "scalex": 1,
           "scaley": 1,
           "visible": 1,
-          "x": 1280,
+          "x": 1260,
           "y": 400,
           "zorder": 1,
           "gameobjects": [],
@@ -136,7 +108,7 @@
           "scalex": 1,
           "scaley": 1,
           "visible": 1,
-          "x": 3700,
+          "x": 3595,
           "y": 400,
           "zorder": 1,
           "gameobjects": [],
@@ -181,8 +153,8 @@
           "scalex": 1,
           "scaley": 1,
           "visible": 1,
-          "x": 1280,
-          "y": 400,
+          "x": 1248,
+          "y": 326,
           "zorder": 1,
           "gameobjects": [],
           "components": [
@@ -209,7 +181,7 @@
           "scalex": 1,
           "scaley": 1,
           "visible": 1,
-          "x": 3678.76904296875,
+          "x": 3807.76904296875,
           "y": 400,
           "zorder": 1,
           "gameobjects": [],
@@ -267,8 +239,8 @@
               "scalex": 1,
               "scaley": 1,
               "visible": 1,
-              "x": 1260,
-              "y": 94.999969482421875,
+              "x": 1479,
+              "y": 84,
               "zorder": 1,
               "gameobjects": [],
               "components": [
@@ -284,34 +256,6 @@
                   }
                 }
               ]
-            },
-            {
-              "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-              "classname": "CCNode",
-              "name": null,
-              "canedit": true,
-              "objecttag": 10005,
-              "rotation": 0,
-              "scalex": 1,
-              "scaley": 1,
-              "visible": 1,
-              "x": 3144.333251953125,
-              "y": 80.333335876464844,
-              "zorder": 1,
-              "gameobjects": [],
-              "components": [
-                {
-                  "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-                  "classname": "CCSprite",
-                  "name": "CCSprite",
-                  "file": null,
-                  "fileData": {
-                    "path": "gamegrass2.png",
-                    "plistFile": "",
-                    "resourceType": 0
-                  }
-                }
-              ]
             }
           ],
           "components": []
@@ -322,7 +266,7 @@
   ],
   "CanvasSize": {
     "_height": 800,
-    "_width": 4960
+    "_width": 5120
   },
   "Triggers": null,
   "Version": "1.6.0.0",

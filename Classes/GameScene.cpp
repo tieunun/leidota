@@ -26,128 +26,110 @@ bool GameScene::init()
     */
     auto tmpRole1   =   GameCharacter::create(1);
     tmpRole1->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole1->getMovingEntity().setPosition(Vec2(100, 100));
-    auto tmpTeam1   =   GameTeam::create(GAME_TEAM_TYPE_PLAYER);
-    tmpTeam1->addMember(tmpRole1, 0);
-    m_map->placeGameCharacter(tmpRole1);
 
-    auto tmpRole2   =   GameCharacter::create(1);
+    auto tmpRole2   =   GameCharacter::create(6);
     tmpRole2->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole2->getMovingEntity().setPosition(Vec2(660, 100));
-    tmpTeam1->addMember(tmpRole2, 1);
-    m_map->placeGameCharacter(tmpRole2);
 
     auto tmpRole3   =   GameCharacter::create(1);
     tmpRole3->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole3->getMovingEntity().setPosition(Vec2(1000, 50));
-    tmpTeam1->addMember(tmpRole3, 2);
-    m_map->placeGameCharacter(tmpRole3);
 
-    auto tmpRole4   =   GameCharacter::create(1);
+    auto tmpRole4   =   GameCharacter::create(6);
     tmpRole4->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole4->getMovingEntity().setPosition(Vec2(700, 30));
-    tmpTeam1->addMember(tmpRole4, 3);
-    m_map->placeGameCharacter(tmpRole4);
 
     auto tmpRole5   =   GameCharacter::create(2);
     tmpRole5->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole5->getMovingEntity().setPosition(Vec2(50, 30));
-    tmpTeam1->addMember(tmpRole5, 4);
-    m_map->placeGameCharacter(tmpRole5);
 
-    auto tmpRole6   =   GameCharacter::create(2);
+    auto tmpRole6   =   GameCharacter::create(1);
     tmpRole6->setType(GAME_ENTITY_TYPE_PLAYER_CHARACTER);
-    tmpRole6->getMovingEntity().setPosition(Vec2(30, 30));
-    tmpTeam1->addMember(tmpRole6, 5);
-    m_map->placeGameCharacter(tmpRole6);
 
-    tmpTeam1->getTeamFormation().setFormationAnchor(Vec2(500, 240));
-    
+    auto tmpTeam1   =   GameTeam::create(GAME_TEAM_TYPE_PLAYER);
+    tmpTeam1->getTeamFormation().setFormationAnchor(Vec2(500, 300));
+    m_map->placeGameCharacter(tmpRole1);
+    m_map->placeGameCharacter(tmpRole2);
+    m_map->placeGameCharacter(tmpRole3);
+    m_map->placeGameCharacter(tmpRole4);
+    m_map->placeGameCharacter(tmpRole5);
+    m_map->placeGameCharacter(tmpRole6);
+    tmpTeam1->addMember(tmpRole1, 0);
+    tmpTeam1->addMember(tmpRole2, 1);
+    tmpTeam1->addMember(tmpRole3, 2);
+    tmpTeam1->addMember(tmpRole4, 6);
+    tmpTeam1->addMember(tmpRole5, 7);
+    tmpTeam1->addMember(tmpRole6, 8);
+
     /**
     * 添加的敌人 
     */
-    auto tmpRole7   =   GameCharacter::create(1);
+    auto tmpRole7   =   GameCharacter::create(4);
     tmpRole7->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole7->getMovingEntity().setPosition(Vec2(1300, 200));
 
-    auto tmpRole8   =   GameCharacter::create(1);
+    auto tmpRole8   =   GameCharacter::create(4);
     tmpRole8->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole8->getMovingEntity().setPosition(Vec2(1300, 200));
 
-    auto tmpRole9   =   GameCharacter::create(1);
+    auto tmpRole9   =   GameCharacter::create(5);
     tmpRole9->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole9->getMovingEntity().setPosition(Vec2(1300, 200));
 
-    auto tmpRole10   =   GameCharacter::create(1);
+    auto tmpRole10   =   GameCharacter::create(4);
     tmpRole10->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole10->getMovingEntity().setPosition(Vec2(1300, 200));
 
-    auto tmpRole11   =   GameCharacter::create(1);
+    auto tmpRole11   =   GameCharacter::create(4);
     tmpRole11->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole11->getMovingEntity().setPosition(Vec2(1300, 200));
 
-    auto tmpRole12   =   GameCharacter::create(1);
+    auto tmpRole12   =   GameCharacter::create(5);
     tmpRole12->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole12->getMovingEntity().setPosition(Vec2(1300, 200));
 
     auto tmpTeam2   =   GameTeam::create(GAME_TEAM_TYPE_ENEMY);
     tmpTeam2->getTeamFormation().setFormationType(Formation::FORMATION_TYPE_LEFT);
-    tmpTeam2->getTeamFormation().setFormationAnchor(Vec2(1500, 240));
+    tmpTeam2->getTeamFormation().setFormationAnchor(Vec2(1500, 300));
     m_map->placeGameCharacter(tmpRole7);
     m_map->placeGameCharacter(tmpRole8);
     m_map->placeGameCharacter(tmpRole9);
     m_map->placeGameCharacter(tmpRole10);
     m_map->placeGameCharacter(tmpRole11);
     m_map->placeGameCharacter(tmpRole12);
-    tmpTeam2->addMember(tmpRole7, 1);
-    tmpTeam2->addMember(tmpRole8, 2);
-    tmpTeam2->addMember(tmpRole9, 3);
-    tmpTeam2->addMember(tmpRole10, 4);
-    tmpTeam2->addMember(tmpRole11, 5);
-    tmpTeam2->addMember(tmpRole12, 0);
+    tmpTeam2->addMember(tmpRole7, 0);
+    tmpTeam2->addMember(tmpRole8, 1);
+    tmpTeam2->addMember(tmpRole9, 2);
+    tmpTeam2->addMember(tmpRole10, 6);
+    tmpTeam2->addMember(tmpRole11, 7);
+    tmpTeam2->addMember(tmpRole12, 8);
     
     /**
     *	再添加第三队 
     */
-    auto tmpRole13   =   GameCharacter::create(1);
+    auto tmpRole13   =   GameCharacter::create(7);
     tmpRole13->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole13->getMovingEntity().setPosition(Vec2(2800, 200));
 
-    auto tmpRole14   =   GameCharacter::create(1);
+    auto tmpRole14   =   GameCharacter::create(7);
     tmpRole14->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole14->getMovingEntity().setPosition(Vec2(2800, 200));
 
-    auto tmpRole15   =   GameCharacter::create(1);
+    auto tmpRole15   =   GameCharacter::create(5);
     tmpRole15->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole15->getMovingEntity().setPosition(Vec2(2800, 200));
 
-    auto tmpRole16   =   GameCharacter::create(1);
+    auto tmpRole16   =   GameCharacter::create(5);
     tmpRole16->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole16->getMovingEntity().setPosition(Vec2(2800, 200));
 
-    auto tmpRole17   =   GameCharacter::create(1);
+    auto tmpRole17   =   GameCharacter::create(2);
     tmpRole17->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole17->getMovingEntity().setPosition(Vec2(2800, 200));
 
-    auto tmpRole18   =   GameCharacter::create(1);
+    auto tmpRole18   =   GameCharacter::create(2);
     tmpRole18->setType(GAME_ENTITY_TYPE_ENEMY_CHARACTER);
-    tmpRole18->getMovingEntity().setPosition(Vec2(2800, 200));
 
     auto tmpTeam3   =   GameTeam::create(GAME_TEAM_TYPE_ENEMY);
     tmpTeam3->getTeamFormation().setFormationType(Formation::FORMATION_TYPE_LEFT);
-    tmpTeam3->getTeamFormation().setFormationAnchor(Vec2(2800, 240));
+    tmpTeam3->getTeamFormation().setFormationAnchor(Vec2(2800, 300));
     m_map->placeGameCharacter(tmpRole13);
     m_map->placeGameCharacter(tmpRole14);
     m_map->placeGameCharacter(tmpRole15);
     m_map->placeGameCharacter(tmpRole16);
     m_map->placeGameCharacter(tmpRole17);
     m_map->placeGameCharacter(tmpRole18);
-    tmpTeam3->addMember(tmpRole13, 1);
-    tmpTeam3->addMember(tmpRole14, 2);
-    tmpTeam3->addMember(tmpRole15, 3);
-    tmpTeam3->addMember(tmpRole16, 4);
-    tmpTeam3->addMember(tmpRole17, 5);
-    tmpTeam3->addMember(tmpRole18, 0);
+    tmpTeam3->addMember(tmpRole13, 0);
+    tmpTeam3->addMember(tmpRole14, 1);
+    tmpTeam3->addMember(tmpRole15, 2);
+    tmpTeam3->addMember(tmpRole16, 6);
+    tmpTeam3->addMember(tmpRole17, 7);
+    tmpTeam3->addMember(tmpRole18, 8);
 
     // 队伍恢复阵型
     tmpTeam1->getTeamBrain()->addSubgoal(new GoalTeamRecoverFormation(tmpTeam1, 12));

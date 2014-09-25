@@ -1,23 +1,28 @@
 #include "GameCharacterShape.h"
 
-GameCharacterShape::GameCharacterShape(const std::string& fileName, const std::string& armatureName):FLOATNUMBERDIRATION(0.3f), FLOATNUMBERMOVEBYY(50)
+const string GameCharacterShape::SHAPEDIR   =   "shape/";
+
+GameCharacterShape::GameCharacterShape(const std::string& armatureName):
+    FLOATNUMBERDIRATION(0.3f), FLOATNUMBERMOVEBYY(50)
 {
-    ArmatureDataManager::getInstance()->addArmatureFileInfo(fileName);
+    string tmpFileName  =   SHAPEDIR + armatureName;
+    ArmatureDataManager::getInstance()->addArmatureFileInfo(tmpFileName + ".ExportJson");
     _armature = Armature::create(armatureName);
     _currentAnimationName = "";
     m_halo  =   nullptr;
     m_hpBar =   nullptr;
     
     // @_@ 这里是因为美术每个资源的问题，给的任务的朝向不同，只好加上这个逻辑
-    if (armatureName == "xuejingling-qian" || armatureName == "Aer")
+    if (armatureName == "xuejingling-qian" || armatureName == "Aer" || armatureName == "Theif" 
+        || armatureName == "YSG")
     {
         _armature->setScaleX(-1);
     }
 }
 
-GameCharacterShape* GameCharacterShape::create(const std::string& fileName, const std::string& armatureName)
+GameCharacterShape* GameCharacterShape::create(const std::string& armatureName)
 {
-    auto pRet   =   new GameCharacterShape(fileName, armatureName);
+    auto pRet   =   new GameCharacterShape(armatureName);
     if (pRet && pRet->init())
     {
         pRet->autorelease();
@@ -74,11 +79,24 @@ bool GameCharacterShape::init()
     tmpHpBarBg->setPosition(Vec2(0, _armature->getContentSize().height));
     this->addChild(tmpHpBarBg);
 
+/**
     // @_@ 增加标签
     m_posNumLabel = Label::createWithBMFont("font/greennumber.fnt", "-1");
     m_posNumLabel->setPositionY(this->getCenterPos().y);
     this->addChild(m_posNumLabel, 4);
 
+    // @_@ 当前目标的标签
+    m_goalLabel =   Label::createWithSystemFont("Hello World","Arial", 25);
+    m_goalLabel->setColor(Color3B(255, 0, 0));
+    m_goalLabel->setPositionY(this->getCenterPos().y + 50);
+    this->addChild(m_goalLabel, 5);
+
+    // @_@ 驱动力的标签
+    m_forceLabel =  Label::create("驱动力","Arial", 25);
+    m_forceLabel->setColor(Color3B(0, 255, 0));
+    m_forceLabel->setPositionY(this->getCenterPos().y - 50);
+    this->addChild(m_forceLabel, 5);
+*/
     return true;
 }
 
@@ -152,7 +170,7 @@ void GameCharacterShape::floatNumber(int num, GameCharacterShape::FloatNumberTyp
 
     // 创建标签
     auto tmpText    =   Label::createWithBMFont(tmpFntSrc, numStr);
-    tmpText->setPositionY(this->getCenterPos().y);
+    tmpText->setPositionY(_armature->getContentSize().height / 2);
     this->addChild(tmpText, 4);
     tmpText->setScaleX(this->getScaleX());
 

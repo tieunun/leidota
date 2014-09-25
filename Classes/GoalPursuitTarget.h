@@ -16,6 +16,13 @@ public:
         m_targetId  =   targetId;
     }
 
+    virtual string getGoalDescribe()
+    {
+        char tmpStr[40];
+        sprintf(tmpStr, "GoalPursuitTarget : targetId = %d", m_targetId);
+        return tmpStr;
+    }
+
 protected:
     virtual void activate() override
     {

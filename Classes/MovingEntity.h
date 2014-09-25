@@ -11,7 +11,7 @@ using namespace cocos2d;
 class MovingEntity
 {
 public:
-    MovingEntity(float maxSpeed = 100, float maxForce = 130, float mass = 1, float radius = 50, float neighborRadius = 70)
+    MovingEntity(float maxSpeed = 100, float maxForce = 130, float mass = 1, float radius = 45, float neighborRadius = 65)
     {
         m_maxSpeed          =   maxSpeed;
         m_maxForce          =   maxForce;

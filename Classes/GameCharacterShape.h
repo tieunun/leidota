@@ -48,10 +48,9 @@ public:
     };
 
     /**
-    	 关于角色外形，都只用对应一个骨骼动画的配置文件
-         @_@ 以后可能会改一下的
+    	 角色形象的，记住按照固定的命名方式，这样就只需要传入动画名称
     */
-    static GameCharacterShape* create(const std::string& fileName, const std::string& armatureName);
+    static GameCharacterShape* create(const std::string& armatureName);
 
     /**
     	 播放动画，需要提供动画名称，向左还是向右，是否循环
@@ -117,13 +116,40 @@ public:
     */
     void setPosNumber(int posNum) 
     {
+     /**
         char tmpStr[10];
         sprintf(tmpStr, "%d", posNum);
         m_posNumLabel->setString(tmpStr);
+        m_posNumLabel->setScaleX(this->getScaleX());
+        */
+    }
+
+    /**
+    *	显示当前角色的目标 
+    */
+    void setCurrentGoal(string goalDescribe)
+    {
+    /**
+        m_goalLabel->setString(goalDescribe);
+        m_goalLabel->setScaleX(this->getScaleX());
+    */
+    }
+
+    /**
+    *	显示角色当前驱动力 
+    */
+    void setForce(Vec2 aForce)
+    {
+    /**
+        char tmpStr[20];
+        sprintf(tmpStr, "(%d, %d)", (int)aForce.x, (int)aForce.y);
+        m_forceLabel->setString(tmpStr);
+        m_forceLabel->setScaleX(this->getScaleX());
+    */
     }
 
 protected:
-    GameCharacterShape(const std::string& fileName, const std::string& armatureName);
+    GameCharacterShape(const std::string& armatureName);
 
     /**
     	 当发生骨骼动画帧事件的时候会回调该函数
@@ -147,12 +173,15 @@ protected:
     */
     const float FLOATNUMBERDIRATION;                // 浮动文字动画时间
     const float FLOATNUMBERMOVEBYY;                 // 移动距离
+    static const string SHAPEDIR;                   // 外形的目录
 
     /**
     * 临时值 
     */
     Armature*   m_halo;                             // 人物脚部旋转地光圈
     Label*      m_posNumLabel;                      // 数字标签
+    Label*      m_goalLabel;                        // 角色当前目标
+    Label*      m_forceLabel;                       // 驱动力的标签
 };
 
 #endif

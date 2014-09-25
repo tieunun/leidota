@@ -4,7 +4,7 @@
 #include "MathTool.h"
 
 NormalCloseRangeWeapon::NormalCloseRangeWeapon( GameCharacter* owner, float minAttackInterval, string actionName )
-    :Weapon(owner, NORMAL_CLOSE_RANGE_WEAPON), m_actionName(actionName), m_xOffset(110), m_yOffset(8)
+    :Weapon(owner, NORMAL_CLOSE_RANGE_WEAPON), m_actionName(actionName), m_xOffset(80), m_yOffset(8)
 {
     m_minAttackInterval     =   minAttackInterval;
 }

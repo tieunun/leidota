@@ -17,6 +17,13 @@ protected:
     virtual void activate() override;
     virtual GoalStateEnum process() override;
 
+    virtual string getCompositeGoalDescribe() override
+    {
+        char tmpStr[50];
+        sprintf(tmpStr, "GoalAttackSpecifiedTarget : targetId = %d", m_targetId);
+        return tmpStr;
+    }
+
 private:
     // 判断攻击目标是否还存活
     bool isTargetAlive();

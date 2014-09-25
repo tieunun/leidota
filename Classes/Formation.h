@@ -8,11 +8,13 @@ using namespace cocos2d;
 /**
 * 小队的移动阵型，在部队集体移动的时候要保持这个阵型，这个阵型如下
 * 对于左边的
-* 4      2     0 
-* 5      3     1
+* 6      3     0 
+* 7      4     1
+* 8      5     2
 * 对于右边的
-* 0      2     4
-* 1      3     5
+* 0      3     6
+* 1      4     7
+* 2      5     8
 */
 class Formation
 {
@@ -26,7 +28,7 @@ public:
         FORMATION_TYPE_LEFT,                // 面向左边的阵型
     };
 
-    Formation(FormationTypeEnum type = FORMATION_TYPE_RIGHT):m_xPosInterval(200), m_yPosInterval(200)
+    Formation(FormationTypeEnum type = FORMATION_TYPE_RIGHT):m_xPosInterval(200), m_yPosInterval(115)
     {
         m_formationType =   type;
     }
@@ -49,20 +51,13 @@ public:
             break;
         }
 
-        for (int i = 0; i < 6; i++)
-        {
-            m_formationPos[i]   =   m_formationAnchor + Vec2(i / 2 * tmpxInterval, - i % 2 * m_yPosInterval);
-        }
-
-        return m_formationPos[posId];
+        return m_formationAnchor + Vec2(posId / 3 * tmpxInterval, - posId % 3 * m_yPosInterval);
     }
 
     CC_SYNTHESIZE(Vec2, m_formationAnchor, FormationAnchor);                // 阵型的锚点，其实就是0号位
     CC_SYNTHESIZE(FormationTypeEnum, m_formationType, FormationType);       // 阵型样式
 
 private:
-    Vec2                    m_formationPos[6];              // 阵型的各个坐标
-
     /**
     * 阵型中的一些常量 
     */

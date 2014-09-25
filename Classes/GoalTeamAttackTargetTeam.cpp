@@ -19,51 +19,104 @@ GoalTeamAttackTargetTeam::GoalTeamAttackTargetTeam( GameTeam* owner, GameTeam* t
     m_targetRule[0].push_back(3);
     m_targetRule[0].push_back(4);
     m_targetRule[0].push_back(5);
+    m_targetRule[0].push_back(6);
+    m_targetRule[0].push_back(7);
+    m_targetRule[0].push_back(8);
 
     // 1号位
     m_targetRule.push_back(vector<int>());
     m_targetRule[1].push_back(1);
     m_targetRule[1].push_back(0);
-    m_targetRule[1].push_back(3);
     m_targetRule[1].push_back(2);
-    m_targetRule[1].push_back(5);
     m_targetRule[1].push_back(4);
+    m_targetRule[1].push_back(3);
+    m_targetRule[1].push_back(5);
+    m_targetRule[1].push_back(7);
+    m_targetRule[1].push_back(6);
+    m_targetRule[1].push_back(8);
 
     // 2号位
     m_targetRule.push_back(vector<int>());
     m_targetRule[2].push_back(2);
     m_targetRule[2].push_back(1);
     m_targetRule[2].push_back(0);
-    m_targetRule[2].push_back(3);
-    m_targetRule[2].push_back(4);
     m_targetRule[2].push_back(5);
+    m_targetRule[2].push_back(4);
+    m_targetRule[2].push_back(3);
+    m_targetRule[2].push_back(8);
+    m_targetRule[2].push_back(7);
+    m_targetRule[2].push_back(6);
 
     // 3号位
     m_targetRule.push_back(vector<int>());
-    m_targetRule[3].push_back(3);
-    m_targetRule[3].push_back(1);
     m_targetRule[3].push_back(0);
+    m_targetRule[3].push_back(1);
     m_targetRule[3].push_back(2);
-    m_targetRule[3].push_back(5);
+    m_targetRule[3].push_back(3);
     m_targetRule[3].push_back(4);
+    m_targetRule[3].push_back(5);
+    m_targetRule[3].push_back(6);
+    m_targetRule[3].push_back(7);
+    m_targetRule[3].push_back(8);
 
     // 4号位
     m_targetRule.push_back(vector<int>());
-    m_targetRule[4].push_back(2);
-    m_targetRule[4].push_back(3);
-    m_targetRule[4].push_back(0);
     m_targetRule[4].push_back(1);
-    m_targetRule[4].push_back(5);
+    m_targetRule[4].push_back(0);
+    m_targetRule[4].push_back(2);
     m_targetRule[4].push_back(4);
+    m_targetRule[4].push_back(3);
+    m_targetRule[4].push_back(5);
+    m_targetRule[4].push_back(7);
+    m_targetRule[4].push_back(6);
+    m_targetRule[4].push_back(8);
 
     // 5号位
     m_targetRule.push_back(vector<int>());
-    m_targetRule[5].push_back(5);
+    m_targetRule[5].push_back(2);
     m_targetRule[5].push_back(1);
     m_targetRule[5].push_back(0);
-    m_targetRule[5].push_back(2);
-    m_targetRule[5].push_back(3);
+    m_targetRule[5].push_back(5);
     m_targetRule[5].push_back(4);
+    m_targetRule[5].push_back(3);
+    m_targetRule[5].push_back(8);
+    m_targetRule[5].push_back(7);
+    m_targetRule[5].push_back(6);
+
+    // 6号位
+    m_targetRule.push_back(vector<int>());
+    m_targetRule[6].push_back(0);
+    m_targetRule[6].push_back(1);
+    m_targetRule[6].push_back(2);
+    m_targetRule[6].push_back(3);
+    m_targetRule[6].push_back(4);
+    m_targetRule[6].push_back(5);
+    m_targetRule[6].push_back(6);
+    m_targetRule[6].push_back(8);
+
+    // 7号位
+    m_targetRule.push_back(vector<int>());
+    m_targetRule[7].push_back(1);
+    m_targetRule[7].push_back(0);
+    m_targetRule[7].push_back(2);
+    m_targetRule[7].push_back(4);
+    m_targetRule[7].push_back(3);
+    m_targetRule[7].push_back(5);
+    m_targetRule[7].push_back(7);
+    m_targetRule[7].push_back(6);
+    m_targetRule[7].push_back(8);
+
+    // 8号位
+    m_targetRule.push_back(vector<int>());
+    m_targetRule[8].push_back(2);
+    m_targetRule[8].push_back(1);
+    m_targetRule[8].push_back(0);
+    m_targetRule[8].push_back(5);
+    m_targetRule[8].push_back(4);
+    m_targetRule[8].push_back(3);
+    m_targetRule[8].push_back(8);
+    m_targetRule[8].push_back(7);
+    m_targetRule[8].push_back(6);
 }
 
 void GoalTeamAttackTargetTeam::activate()

@@ -24,13 +24,13 @@ GameCharacter* GameCharacter::create(int id)
     case 1:                                                 // 对应的是宙斯
         {
             // 不同的角色有不同的外形
-            tmpRet->m_shape         =   GameCharacterShape::create("zhousi.ExportJson", "zhousi");
+            tmpRet->m_shape         =   GameCharacterShape::create("zhousi");
             tmpRet->m_shape->retain();
 
             // 不同的角色有不同的初始属性
-            tmpRet->m_attribute     =   GameCharacterAttribute(80, 10, 30, 70);
+            tmpRet->m_attribute     =   GameCharacterAttribute(80, 10, 30, 80);
 
-            // 给它一些武器
+            // 普通近距离攻击能力
             tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
 
             break;
@@ -38,13 +38,13 @@ GameCharacter* GameCharacter::create(int id)
 
     case 2:                                                 // 精灵
         {
-            tmpRet->m_shape         =   GameCharacterShape::create("xuejingling-qian.ExportJson", "xuejingling-qian");
+            tmpRet->m_shape         =   GameCharacterShape::create("xuejingling-qian");
             tmpRet->m_shape->retain();
 
             tmpRet->m_attribute     =   GameCharacterAttribute(100, 40, 10, 90, 700);
 
-            tmpRet->getWeaponControlSystem()->addWeapon(
-                new NormalLongRangeWeapon(tmpRet, PROJECTILE_TYPE_GALAXO_BALL, 
+            // 普通远程攻击，丢出去的是闪电球
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalLongRangeWeapon(tmpRet, PROJECTILE_TYPE_GALAXO_BALL, 
                 tmpRet->getAttribute().getAttDistance()));
 
             break;
@@ -52,30 +52,65 @@ GameCharacter* GameCharacter::create(int id)
 
     case 3:                                                 // 骑士
         {
-            tmpRet->m_shape         =   GameCharacterShape::create("Aer.ExportJson", "Aer");
+            tmpRet->m_shape         =   GameCharacterShape::create("Aer");
             tmpRet->m_shape->retain();
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(150, 20, 20, 80);
+            tmpRet->m_attribute     =   GameCharacterAttribute(900, 30, 50, 100);
+
+            // 普通近程攻击能力
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
 
             break;
         }
 
     case 4:                                                 // 野猪怪
         {
-            tmpRet->m_shape         =   GameCharacterShape::create("Pig.ExportJson", "Pig");
+            tmpRet->m_shape         =   GameCharacterShape::create("Pig");
             tmpRet->m_shape->retain();
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(400, 1, 10, 60 + CCRANDOM_0_1() * 20);
+            tmpRet->m_attribute     =   GameCharacterAttribute(400, 10, 10, 80);
+
+            // 普通近程攻击能力
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
 
             break;
         }
 
     case 5:                                                 // 牛人
         {
-            tmpRet->m_shape         =   GameCharacterShape::create("Niu.ExportJson", "Niu");
+            tmpRet->m_shape         =   GameCharacterShape::create("Niu");
             tmpRet->m_shape->retain();
 
-            tmpRet->m_attribute     =   GameCharacterAttribute(400, 1, 10, 50 + CCRANDOM_0_1() * 20);
+            tmpRet->m_attribute     =   GameCharacterAttribute(400, 15, 10, 70);
+
+            // 普通近程攻击能力
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
+
+            break;
+        }
+
+    case 6:                                                 // 刺客
+        {
+            tmpRet->m_shape         =   GameCharacterShape::create("Theif");
+            tmpRet->m_shape->retain();
+
+            tmpRet->m_attribute     =   GameCharacterAttribute(300, 30, 5, 100);
+
+            // 普通进程攻击能力
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
+
+            break;
+        }
+
+    case 7:                                                 // 石头人
+        {
+            tmpRet->m_shape         =   GameCharacterShape::create("YSG");
+            tmpRet->m_shape->retain();
+
+            tmpRet->m_attribute     =   GameCharacterAttribute(400, 20, 40, 60);
+
+            // 普通近程攻击能力
+            tmpRet->getWeaponControlSystem()->addWeapon(new NormalCloseRangeWeapon(tmpRet));
 
             break;
         }
@@ -156,6 +191,9 @@ void GameCharacter::update(float dm)
 
     // @_@ 额外的数字标签
     m_shape->setPosNumber(m_movingEntity.getFormationPosId());
+
+    // @_@ 额外的目标标签
+    m_shape->setCurrentGoal(m_brain->getGoalDescribe());
 }
 
 bool GameCharacter::handleMessage(Telegram& msg)
@@ -246,6 +284,9 @@ void GameCharacter::updateMovement(float dm)
     // 改变当前坐标
     m_movingEntity.setPosition(m_movingEntity.getPosition() + m_movingEntity.getVelocity() * dm);
     m_shape->setPosition(m_movingEntity.getPosition());
+
+    // @_@ 显示当前驱动力
+    m_shape->setForce(tmpForce);
 }
 
 bool GameCharacter::hasGoal()

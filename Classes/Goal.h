@@ -1,8 +1,10 @@
 #ifndef __GOAL_H__
 #define __GOAL_H__
 
-#include <assert.h>
+#include "cocos2d.h"
 #include "Telegram.h"
+
+using namespace std;
 
 template <class entity_type>
 class GoalComposite;
@@ -39,6 +41,14 @@ public:
     * 目标也有处理消息的能力 
     */
     virtual bool handleMessage(Telegram& msg) { return false; }
+
+    /**
+    *	返回目标的描述
+    */
+    virtual string getGoalDescribe()
+    {
+        return "";
+    }
 
 protected:
     Goal(entity_type* owner)

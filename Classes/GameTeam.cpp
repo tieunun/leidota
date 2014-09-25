@@ -146,11 +146,11 @@ void GameTeam::collectiveForwardStart()
     // 同时让锚点在每一帧中向前移动，@_@先这样写，通过速度来控制阵型移动
     if (this->getTeamFormation().getFormationType() == Formation::FORMATION_TYPE_RIGHT)
     {
-        m_advanceRate   =   40;
+        m_advanceRate   =   60;
     }
     else if (this->getTeamFormation().getFormationType() == Formation::FORMATION_TYPE_LEFT)
     {
-        m_advanceRate   =   -40;
+        m_advanceRate   =   -60;
     }
 
     setCollectiveForwardState();

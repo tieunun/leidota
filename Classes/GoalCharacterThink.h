@@ -21,6 +21,11 @@ public:
 
 protected:
     virtual void activate() override;
+
+    virtual string getCompositeGoalDescribe() override
+    {
+        return "GoalCharacterThink";
+    }
 };
 
 #endif

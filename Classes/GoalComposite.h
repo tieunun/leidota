@@ -30,6 +30,21 @@ public:
         return forwardMessageToFrontMostSubgoal(msg);
     }
 
+    /**
+    *	返回当前最前面的目标描述
+    */
+    virtual string getGoalDescribe() override
+    {
+        if (m_subgoalList.size() > 0)
+        {
+            return m_subgoalList.front()->getGoalDescribe();
+        }
+        else
+        {
+            return getCompositeGoalDescribe();
+        }
+    }
+
 protected:
     GoalComposite(entity_type* owner):Goal<entity_type>(owner)
     {
@@ -156,6 +171,10 @@ protected:
     }
 
 protected:
+    virtual string getCompositeGoalDescribe()
+    {
+        return "";
+    }
     typedef list<Goal<entity_type>*>    SubgoalList;
 
     SubgoalList     m_subgoalList;                          // 子目标

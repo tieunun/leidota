@@ -21,29 +21,21 @@ public:
 protected:
     virtual void activate() override
     {
-        // 通知大家保持阵型
-        auto tmpMsg = Telegram::create(0, 0, TELEGRAM_ENUM_TEAM_COLLECTIVE_FORWARD);
-        m_pOwner->sendMessageToAllMember(*tmpMsg);
-        m_activeTime    =   TimeTool::getSecondTime();
+        // 直接把队员安排在正确的位置上
+        auto tmpFormation   =   m_pOwner->getTeamFormation();
+        auto tmpMemebers    =   m_pOwner->getMembers();
+        for (auto tmpIterator = tmpMemebers.begin(); tmpIterator != tmpMemebers.end(); tmpIterator++)
+        {
+            GameCharacter* tmpCharacter        =   *tmpIterator;
+            MovingEntity& tmpMovingEntity      =   tmpCharacter->getMovingEntity();
+            tmpMovingEntity.setPosition(tmpFormation.getPositionByPosId(tmpMovingEntity.getFormationPosId()));
+        }
     }
 
     virtual GoalStateEnum process() override
     {
         activateIfInactive();
-
-        // 当所有人的速度变为0的时候就是完成了
-        if (m_pOwner->isEveryMemberInPos() || TimeTool::getSecondTime() - m_activeTime >= m_timeOut)
-        {
-            return completed;
-        }
-
-        return active;
-    }
-
-    virtual void terminate() override
-    {
-        auto tmpMsg = Telegram::create(0, 0, TELEGRAM_ENUM_TEAM_CANCEL_COLLECTIVE_FORWARD);
-        m_pOwner->sendMessageToAllMember(*tmpMsg);
+        return completed;
     }
 
 private:
